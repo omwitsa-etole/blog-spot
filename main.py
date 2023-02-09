@@ -11,7 +11,7 @@ from datetime import timedelta
 #from guppy import hpy
 import psutil
 import os
-import shutil
+#import shutil
 from twilio.rest import Client
 import werkzeug.exceptions
 from werkzeug.exceptions import HTTPException
@@ -794,10 +794,10 @@ def dashboard_templates():
 	your_messages = all_messages[1]
 	notifications = all_messages[2]
 	path = '/home/korg'
-	stat = shutil.disk_usage(path)
+	stat = []#shutil.disk_usage(path)
 	cpu_percent = psutil.cpu_percent(4)
 	mem_percent = psutil.virtual_memory()[2]
-	disk_percent = 100 - (stat[1]/1000000000)/(stat[0]/1000000000)*100 
+	disk_percent = 90
 	return render_template("dashboard-templates.html", **locals())
     
 @app.route("/api/v/<mode>", methods=['POST', 'GET'])
@@ -831,7 +831,7 @@ def dashboard(mode):
 		daytoday = tday.ctime()
 		#perfomance = h.heap()
 		path = '/home/korg'
-		stat = shutil.disk_usage(path)
+		stat =[40,70] #shutil.disk_usage(path)
 		cpu_count = os.cpu_count()
 		perfomance = []
 		perfomance.append("The Server CPU count is : "+str(cpu_count))

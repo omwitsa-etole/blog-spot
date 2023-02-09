@@ -30,7 +30,7 @@ six
 sniffio
 sortedcontainers
 soupsieve
-shutil
+
 twilio
 urllib3
 vonage
