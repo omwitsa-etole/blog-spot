@@ -1,0 +1,26 @@
+{%if eid %}
+	<script>
+	var z = document.getElementById("group-title");
+	var y = document.getElementById("group-description");
+	z.innerText = "{{eid[4]}}";
+	y.innerText = "{{eid[5]}}";
+	</script>
+{%endif%}
+{%if n == 0%}
+	<div style="float: right;text-align: right;"><p>No Messages here <br>Be The First To text</p></div>
+{%endif%}
+{% for message in messages %}
+	{% if message == "error" %}
+		<script>alert("Sorry! This Group does not exist");location.search = "";</script>
+		{{break}}
+	{% else %}
+		{% set fernet = Fernet(message[3])%}
+		{% set msg = fernet.decrypt(message[1]).decode()%}
+		<div class="outgoing_msg">
+		      <div class="sent_msg">
+			<h6>{{message[4]}}</h6>
+		        <p>{{msg}}</p>
+		        <span class="time_date"> {{message[2]}}</span> </div>
+		    </div>
+	{%endif%}
+{%endfor%}

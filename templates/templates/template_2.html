@@ -1,0 +1,806 @@
+<html>
+<style>
+body{
+	width: 80%;
+	margin-left: 10%;
+	height: 100%;
+	overflow-x: hidden;
+}
+#snackbar {
+  visibility: hidden;
+  min-width: 250px; 
+  margin-left: -125px; 
+  background-color: #333; 
+  color: #fff; 
+  text-align: center; 
+  border-radius: 2px; 
+  padding: 16px;
+  position: fixed; 
+  z-index: 110; 
+  left: 50%; 
+  bottom: 30px; 
+}
+
+#snackbar.show {
+  visibility: visible; 
+  -webkit-animation: fadein 0.5s, fadeout 0.5s 2.5s;
+  animation: fadein 0.5s, fadeout 0.5s 2.5s;
+}
+
+@-webkit-keyframes fadein {
+  from {bottom: 0; opacity: 0;}
+  to {bottom: 30px; opacity: 1;}
+}
+
+@keyframes fadein {
+  from {bottom: 0; opacity: 0;}
+  to {bottom: 30px; opacity: 1;}
+}
+
+@-webkit-keyframes fadeout {
+  from {bottom: 30px; opacity: 1;}
+  to {bottom: 0; opacity: 0;}
+}
+
+@keyframes fadeout {
+  from {bottom: 30px; opacity: 1;}
+  to {bottom: 0; opacity: 0;}
+}
+.topnav{
+	position: absolute;
+	top: 4%;
+	width: 100%;
+	height: 50px;
+	font-weight: bold;
+	font-size: 18px;
+}
+.topnav a{
+	margin-left: 20px;
+	text-decoration: none;
+	color: black;
+}
+.content{
+	position: relative;
+	margin-top: 80px;
+	width: 100%;
+	height: 800px;
+}
+h2{
+	font-size: 30px;
+	font-weight: bold;
+}
+.c{
+	position: absolute;
+	left: 0;
+	width: 100%;
+	
+}
+.l{
+	position: absolute;
+	left: 0;
+	top: ;
+	z-index: 1;
+	width: 20%;
+	overflow: hidden;
+}
+.r{
+	position: absolute;
+	top: ;
+	overflow: hidden;
+	right: 0;	
+	z-index: 1;
+	width: 20%;
+	text-align: right;
+}
+.lp{
+	font-size: 39px;
+	margin-top: -15px;
+}
+.profile{
+	margin-top: 5%;
+	width: 30%;
+	height: 460px;
+	box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px, rgba(27, 31, 35, 0.15) 0px 0px 0px 1px;
+	border-radius: 220px;
+}
+.profile img{
+	width: 90%;	
+	margin-left: ;
+	height: 420px;
+	margin-top: 20px;
+	border-radius: 220px;
+	background-repeat: no-repeat;
+}
+
+.orders{
+	margin-top: 50px;
+	width: 100%;
+	text-align: center;
+}
+.box{
+	position: relative;
+	display: inline-block;
+	width: 300px;
+	height: 400px;
+	background: white;
+	border-radius: 10px;
+	margin-left: 5%;
+	margin-top: 3%;
+	font-size: 18px;
+	color: black;
+	text-align: center;
+	justify-content: center;
+	box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px, rgba(27, 31, 35, 0.15) 0px 0px 0px 1px;
+}
+
+
+.box img{
+	width:100%;height: 85%;
+	filter: blur(1px);
+  -webkit-filter: blur(1px);
+background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+.box button{
+	position: absolute;
+	bottom: 0;
+	width: 100%;
+	height: 15%;
+	left: 0;
+	cursor: pointer;
+}
+
+.box i{
+	color: red;
+}
+
+.b{
+	height: 250px;
+}
+.centered{
+	position: absolute;
+	top: 1%;
+	z-index: 2;
+}
+.projects{
+	margin-top: 50px;
+	width: 100%;
+	text-align: center;
+}
+.product-container{
+	width: 90%;
+	height: 350px;
+	
+	background: white;
+	color: black;
+	border-radius: 10px;
+	margin: auto;
+	margin-bottom: 5%;
+	box-shadow: rgba(0.1, 0.1, 0.1, 0.05) 0px 1px 2px 0px;
+}
+.container{
+	
+	position: relative;
+	width: 100%;
+	height: 100%;
+	margin: auto;
+}
+.container img{
+	max-width: 98%;
+	margin-left: 1%;
+	height: 300px;
+}
+.prev, .next {
+  cursor: pointer;
+  position: absolute;
+  margin-top: 7%;
+  z-index: 99;
+  width: auto;
+  padding: 16px;
+ 
+  font-weight: bold;
+  font-size: 18px;
+  transition: 0.6s ease;
+  border-radius: 0 3px 3px 0;
+  user-select: none;
+}
+
+.prev{
+	left: 6%;
+}
+
+.next {
+  right: 6%;
+  border-radius: 3px 0 0 3px;
+}
+
+.prev:hover, .next:hover {
+  background: #111;
+  color: white;
+}
+.reviews{
+	margin-top: 50px;
+	width: 100%;
+	text-align: center;
+}
+.advantage{
+	margin-top: 50px;
+	width: 100%;
+	text-align: center;
+	overflow-x: auto;
+	overflow-y: hidden;
+}
+.advantage span{
+	position: relative;
+	width: 90px;
+	height: 130px;
+	background: #ddd;
+	display: inline-block;
+	margin-left: 45px;
+	border-radius: 50px;
+	justify-content: center;
+	align-items: center;
+	text-align: center;	
+	overlow: hidden;
+	margin: auto;
+}
+.tooltip .tooltiptext {
+  visibility: hidden;
+  min-width: 120px;
+  margin-top: 5%;
+  background-color: black;
+  color: #fff;
+  text-align: center;
+  padding: 5px 0;
+  border-radius: 6px;
+  position: absolute;
+  z-index: 1;
+  right: 35%;
+}
+.tooltip{
+	visibility: visible;
+}
+.tooltip:hover .tooltiptext {
+  visibility: visible;
+}
+.donation{
+	display: none;
+	position: fixed;
+	z-index: 101;
+	top: 10%;
+	left: 30%;
+	width: 40%;
+	min-height: 300px;
+	max-height: 600px;
+	overflow-y: auto;
+	overflow-x: hidden;
+	background: white;
+	border-radius: 15px;
+	box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px, rgb(51, 51, 51) 0px 0px 0px 3px;
+	font-size: 17px;
+}
+
+.donation button{
+	width: 50%;
+	height: 50px;	
+	padding: 10px;
+	border-radius: 4px;
+	margin-left: 25%;
+	margin-top: 2%;
+	
+}
+.donation textarea{
+	width: 90%;
+	height: 200px;
+	margin-left: 5%;
+	resize: none;
+}
+.donation input[type=text]{
+	width: 70%;
+	height: 35px;
+	margin-left: 2%;
+	padding: 7px;
+	 
+}
+.in{
+	margin-top: 1%;
+	width: 40%;
+	height: 30px;	
+	padding: 10px;
+	border-radius: 4px;
+	margin-left: 15%;
+}
+.review{
+	margin-top: 50px;
+
+}
+.posts{
+	margin-top: 70px;
+	height: 200px;
+	width: 100%;
+	text-align: center;
+}
+.cl{
+	margin-top: 30px;
+	text-align: center;
+	width: 100%;
+}
+.call{
+	margin-top: 10px;
+	border-style: dotted;
+	width: 250px;
+	height: 250px;
+	border-radius: 50%;
+	align-items: center;
+	justify-content: center;
+	margin: auto;
+	cursor: pointer;
+}
+.call a{
+	position: absolute;
+	color: black;
+	text-decoration: underline;
+	margin-top: 100px;
+	margin-left: -55px;
+}
+.footer{
+	margin-top: 50px;
+	text-align: center;
+	width: 100%;
+	margin-bottom: 70px;
+}
+.latest{
+	margin-top: 50px;
+	text-align: center;
+	width: 100%;
+}
+.chat{
+	display: none;
+	position: fixed;
+	z-index: 101;
+	top: 10%;
+	left: 30%;
+	width: 40%;
+	height: 350px;
+	max-height: 500px;
+	overflow-y: auto;
+	overflow-x: hidden;
+	background: white;
+	border-radius: 15px;
+	box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px, rgb(51, 51, 51) 0px 0px 0px 3px;
+	font-size: 17px;
+}
+.chat input{
+	width: 80%;
+	margin-left: 10%;
+	height: 40px;
+	padding: 0 9px;
+	margin-bottom: 25px;
+	
+}
+.chat button{
+	position: absolute;
+	bottom: 0;
+	width: 70%;
+	height: 50px;
+	left: 15%;
+	z-index: 1;
+}
+.chat-user{
+	position: fixed;
+	bottom: 1%;
+	right: 1%;
+	cursor: pointer;
+	z-index: 99;
+}
+.chat-user-box{
+	display: none;
+	position:fixed;
+	bottom: 1%;
+	right: 1%;
+	z-index: 101;
+	width: 300px;
+	height: 550px;
+	
+}
+.cont{
+	margin-top: 70%;
+}
+.t-top{
+	margin-top: -45px;
+}
+@media only screen and (max-width: 800px) {
+	body{
+		width: 100%;
+		height: 100%;
+	}
+	.cont{
+		position: absolute;
+		top: 100%;
+	}
+	.t-top{
+		visibility: hidden;
+	}
+	
+	.l{
+		position: relative;margin-top: 10px;
+		margin-left: 30px;
+		width: 100%;
+	}
+	.r{
+		position: relative;
+		width: 100%;
+		margin-top: 10px;
+		margin-left: 30px;
+	}
+	.content{
+		
+		width: 90%;
+		margin-left: 30px;
+	}
+	.chat-user-box{
+		width: 100%;
+		margin-top: 1%;
+		height: 99%;
+		z-index: 101;
+	}
+	.profile{
+		display: block;
+		z-index: 3;
+		position: absolute;	
+		right: 0%;
+		top: 15%;
+		width: 200px;
+		height: 200px;
+	}
+	.profile img{
+		position: relative;
+		width: 100%;
+		height: 100%;
+		border-radius: 50%;
+	}
+}
+
+</style>
+<script src="https://use.fontawesome.com/4f05e2c5d5.js"></script>
+<script src="https://code.jquery.com/jquery-3.5.0.js"></script>
+<script src="https://kit.fontawesome.com/c63faa1f51.js" crossorigin="anonymous"></script>
+<body>
+
+<div id="snackbar"></div>
+<div class="content" style="position: relative;width:100%;">
+
+<div class="topnav">
+<a href="#">Contact</a>
+<a href="javascript:void(0)" onclick="makeDonation()">Donate</a>
+
+<div style="position: absolute;right: 0%;top: 0;">
+<a target="_blank" href="mailto:omwitsabradone@gmail.com"><i class="fa fa-envelope" aria-hidden="true"></i></a>
+<a target="_blank" href="tel:+254717881525"><i class="fa fa-phone" aria-hidden="true"></i></a>
+<a style="color: blue;" target="_blank" href="https://twitter.com/_etolee_"><i class="fa fa-twitter" aria-hidden="true"></i></a>
+<a style="color: green;" target="_blank" href="https://twitter.com/_etolee_"><i class="fa fa-facebook" aria-hidden="true"></i></a>
+<a style="color: blue;" target="_blank" href="https://twitter.com/_etolee_"><i class="fa fa-linkedin" aria-hidden="true"></i></a>
+</div>
+</div>
+	<center><h3 class="t-top" >BRADONE<br>OMWITSA</h3></center><br>
+	<center><h2>Bradone E. Omwitsa<br><b id="title-services">Web UX/UI Design</b></h2></center>
+<div class="c">
+<center><div class="profile"><img src="{{url_for('static', filename='profile.jpg')}}"></img></div></center>
+</div>
+	<div class="l">
+		<h4>Biography</h4>
+		<p>Work for money and design for love!</p>
+		<p>I'm Bradone and I can offer <b id="services-offer">Web UX/UI Design</b></p><br>
+		<h4>Contact</h4>
+		<p>Nairobi, Kenya</p>
+		<p>omwitsabradone@gmail.com</p>
+		<p>254717881525</p><br> 
+		<h4>Services</h4>
+		<p>Fullstack Developer</p>
+		<p>Web UX/UI Design</p>
+		<p>Admin Panel</p>
+	</div>
+	<div class="r">
+		<h4>Years of Experience</h4>
+		<p class="lp">3</p><br>
+		<h4>Client Satisfaction</h4>
+		<p class="lp">100%</p><br>
+		<h4>Clients Count</h4>
+		<p class="lp">80</p><br>
+		<h4>Projects Done</h4>
+		<p class="lp">140</p>
+	</div><br>
+
+
+<div class="cont">
+<div class="latest"><hr/>
+<h3>Latest Blog</h3>
+<p><h5><a href="{{url_for('read',title='internet_programming')}}">INTERNET PROGRAMMING</a></h5></p>
+</div>
+
+<div class="advantage"><hr/>
+	<h3>My Advantage</h3>
+	<span class="tooltip"><p><i class="fa fa-html5 fa-3x" aria-hidden="true"></i></p><p>80%</p><span class="tooltiptext">HTML5<p>Complete mastery of the semantic tags of the most contemporary markup language on the internet.</p></span></span>
+	<span class="tooltip"><p><i class="fa fa-css3 fa-3x" aria-hidden="true"></i></p><p>70%</p><span class="tooltiptext">CSS<p>Moderate Knowledge of the style language and its bootstrap 5 framework</p></span></span>
+	<span class="tooltip"><p><i class="fa fa-wordpress fa-3x" aria-hidden="true"></i></p><p>80%</p><span class="tooltiptext">WordPress<p>Deep knowledge of development with WordPress CMS and its Elementor PRO builder.</p></span></span>
+	<span class="tooltip"><p><i class="fa-brands fa-js fa-3x"></i></p><p>65%</p><span class="tooltiptext">JavaScript<p>Moderate Knowledge of basic and object-oriented language. Basics of the React library.</p></span></span>
+	<span class="tooltip"><p><i class="fa-brands fa-python fa-3x"></i></p><p>90%</p><span class="tooltiptext">Python<p>Complete of the Python language for web development and analytics</p></span></span>
+	<span class="tooltip"><p><i class="fa-brands fa-php fa-3x"></i></p><p>90%</p><span class="tooltiptext">PHP<p>Complete Mastery in the PHP language, necessary for code maintenance within WordPress</p></span></span>
+</div>
+
+<div class="orders"><hr/>
+	<h3>Skills</h3>
+	<div class="box">
+	<img src="{{ url_for('static', filename='ux.jpg') }}" alt="Code" style="width:100%;height: 85%;">
+	<div class="centered">
+	<h2>UX/UI Design</h2>
+	<p>An effective UI/UX is one that conveys a clear and objective message. I make sure the design is fresh and neat with all of that.</p>
+	</div>
+	<button onclick="order(this.parentElement)">Place Order</button>
+	</div>
+	<div class="box" >
+	<img src="{{ url_for('static', filename='computercode.jpeg') }}" alt="Code" style="width:100%;height: 85%;">
+	<div class="centered" style="color: red;">
+	<h2>Web Developement</h2>
+	<p>If you're looking for a developer to take over the research and development of your website, I'm a well-established professional to help you with that.</p>
+	</div>
+	<button onclick="order(this.parentElement)">Place Order</button>
+	</div>
+	<div class="box">
+	<img src="{{ url_for('static', filename='analysis.jpg') }}" alt="Code" style="width:100%;height: 85%;">
+	<div class="centered" style="color: ;">
+	<h2>Data Analytics</h2>
+	<p>If you're looking for someone who can help you make more informed decisions through analytics and predictive modeling, I'm qualified for that.</p>
+	</div>
+	<button onclick="order(this.parentElement)">Place Order</button>
+	</div>
+</div>	
+<div class="projects"><hr/>
+	<h3>My Completed Projects</h3>
+	<a class="prev" onclick="loaddata()">&#10094;</a>
+	<a class="next" onclick="loaddata()">&#10095;</a>
+	<div class="product-container">
+
+	<div class="container fade" id="completed_projects">
+	</div>
+
+	</div>
+</div>
+<div class="reviews"><hr/>
+	<h3>Customer Reviews</h3>
+	<a class="prev" onclick="prevReview()">&#10094;</a>
+	<a class="next" onclick="nextReview()">&#10095;</a>
+	<div id="reviews">
+	<div class="review"><p>I would recommend bradone. He is great and delivers what he says.</p><br><center><i>omwitsabradone@gmail.com</i></center></div>
+	</div><br><br>
+</div>
+
+<div class="posts">
+<b>@omwitsabradone</b>
+</div>
+
+<div class="cl">
+	{% if name != None %}
+		<div class="call" onclick="chatRoom()">
+	{%else%}
+		<div class="call" onclick="popup('This blogger has not set up a room yet')">
+	{%endif%}
+	<a>Chat with Bradone<br><i class="fa fa-paper-plane fa-3x"></i></a>
+	</div>
+</div>
+
+<div class="footer"><hr/><br>
+	<a style="float: left;">BlogSpot@2021</a>
+	<div style="position: absolute;right: 10%;">
+	<a target="_blank" href="mailto:omwitsabradone@gmail.com"><i class="fa fa-envelope" aria-hidden="true"></i></a>
+	<a target="_blank" href="tel:+254717881525"><i class="fa fa-phone" aria-hidden="true"></i></a>
+	<a style="color: blue;" target="_blank" href="https://twitter.com/_etolee_"><i class="fa fa-twitter" aria-hidden="true"></i></a>
+	<a style="color: green;" target="_blank" href="https://twitter.com/_etolee_"><i class="fa fa-facebook" aria-hidden="true"></i></a>
+	<a style="color: blue;" target="_blank" href="https://twitter.com/_etolee_"><i class="fa fa-linkedin" aria-hidden="true"></i></a>
+	</div>
+</div><br>
+</div><br>
+</div>
+</div>
+<div class="donation" id="order">
+<a style="float: right;cursor: pointer;color: red;" onclick="this.parentElement.style.display='none'"><i class="fa fa-window-close" aria-hidden="true"></i></a>
+<center><h2 id="order-title"></h2></center>
+{% if session.get("rooms-user") != None%}
+	<Label>Email: </label><input type="text" id="orderemail" value='{{session["rooms-user"]}}' placeholder="Enter your email for contact"><br>
+{%else%}
+	<Label>Email: </label><input type="text" id="orderemail" placeholder="Enter your email for contact"><br>
+{%endif%}
+<label>Description : </label><br><textarea  id="orderdescription" placeholder="A brief description of what you would like"></textarea>
+<button id="btn-order" onclick="makeOrder()">Order</button>
+</div>
+<div class="chat" id="chat">
+<a style="float: right;cursor: pointer;color: red;" onclick="this.parentElement.style.display='none'"><i class="fa fa-window-close" aria-hidden="true"></i></a>
+<center><h3>To Participate in Chat Room Enter Your Email</h3><p>An email code will be sent to the input email</p></center><br>
+<input type="email" placeholder="email" id="email">
+<button onclick="getCode(this.id)" id="send-code">Send Code</button>
+</div>
+<div class="donation" id="donate">
+<a style="float: right;cursor: pointer;color: red;" onclick="this.parentElement.style.display='none'"><i class="fa fa-window-close" aria-hidden="true"></i></a>
+<center><h2>Make a Donation to Bradone</h2>
+<select onchange="changeMode(this.value)"><option value="phone">phone</option>
+<option value="paypal">paypal</option>
+</select>
+</center><hr/>
+<div id="bypaypal"></div>
+<div id="byphone">
+<label>Amount: </label><input class="in" type="number" id="amt" placeholder="amount"><br>
+<label id="ph">Phone: </label><input class="in" id="num" type="number" placeholder="2547xxxxxxxx" style=""><br>
+<button type="submit" onclick="donate()">Donate</button>
+</div>
+</div>
+<div class="chat-user">
+<a href="javascript:void(0)" onclick="chatRoom()"><i class="fa fa-commenting fa-3x" aria-hidden="true"></i></a>
+
+</div>
+<div class="chat-user-box" id="chat-user-box"></div>
+
+</body>
+<script>
+window.onclick = function(event) {
+	if (!event.target.matches('.fa')) {
+		var x = document.getElementsByClassName('action_menu');
+		for(let i=0;i<x.length;i++){
+			if(x[i].style.display == "block"){
+				x[i].style.display="none";
+			}
+		}
+	}
+}
+function sleep(ms) {
+      return new Promise(resolve => setTimeout(resolve, ms));
+   }
+$(document).ready(function() {
+	loaddata();
+	//setInterval(loadmessages, 5500);
+	setInterval(loaddata, 10000);
+	setInterval(loadd, 5500);
+	{% if session.get("rooms-user") != None%}
+		$("#chat-user-box").load("{{url_for('blogChat')}}");
+	{% else %}
+		$("#chat-user-box").load("{{url_for('blogChat')}}");
+	{%endif%}
+})
+let prog = 0
+let uploads = []
+function loadd(){
+	let x = ["Fullstack Developer", "Web UX/UI Design", "Admin Panel"];
+	var a = document.getElementById("title-services");
+	var b = document.getElementById("services-offer");
+	prog = prog + 1;
+	if(prog >= x.length){
+		prog = 0
+	}
+	a.innerText = x[prog];
+	b.innerText = x[prog]
+}
+function makeDonation(){
+	var x = document.getElementById("donate");
+	x.style.display='block';
+}
+function changeMode(val){
+	var  x= document.getElementById("byphone");
+	var  y= document.getElementById("num");
+	if(val == "paypal"){
+		x.style.display = 'none';
+		document.getElementById("bypaypal").style.display='block';
+		$("#bypaypal").load("{{ url_for('paypal')}}");
+	}else{
+		document.getElementById("bypaypal").style.display='none';
+		x.style.display = 'block';
+	}
+	
+}
+function loaddata(){
+	//$("#reviews").load("/api/v/fn/reviews");
+	$("#completed_projects").load("{{ url_for('projects') }}");
+}
+function loadmessages(){
+	{% if session.get("rooms-user") != None%}
+		$("#chat-in-user-box").load("{{url_for('getChat')}}");
+		
+	{%endif%}
+}
+function order(elm){
+	var x = document.getElementById("order");
+	var y = document.getElementById("order-title");
+	x.style.display = 'block';
+	let v = elm.getElementsByTagName("h2");
+	y.innerHTML = v[0].innerHTML;
+	var z = document.getElementById("orderdescription");
+	var w = document.getElementById("btn-order");
+	z.placeholder = "A brief description of what you would like";
+	w.innerText = "Place Order";
+}
+
+function chatRoom(){
+	{%if session.get("room-user") != None %}
+		document.getElementById('chat').style.display='block';
+	{%else%}
+		window.open("http://room-s.herokuapp.com/room?signup&&connect={{blogger}}", "_blank");
+	{%endif%}
+	
+	
+}
+
+function getCode(id){
+	var email = document.getElementById("email");
+	var btn = document.getElementById(id);
+	if(email.value.length > 0){
+		$.ajaxSetup({async: false});
+		let x = $.post("/api/fx/request/join-room", {email: email.value});
+		if(x.responseText == "success"){
+			popup("check for code in your email box");
+			let i = document.createElement("input");
+			i.setAttribute("type", "text");
+			i.setAttribute("id", "email-code");
+			i.setAttribute("placeholder", "enter code sent to email");
+			email.after(i);
+			btn.removeAttribute("onclick");
+			btn.setAttribute("onclick", "enterRoom()");
+		}else{
+			popup(x.responseText)
+		}
+	}else{
+		popup("enter email to join room");
+	}
+}
+function enterRoom(){
+	var email = document.getElementById("email").value;
+	var code = document.getElementById("email-code").value;
+	if(email.length > 0){
+		if(code.length == 6){
+			$.ajaxSetup({async: false});
+			let x = $.post("/api/fx/request/validate", {email: email, code : code});
+			if(x.responseText == "success"){
+				popup(x.responseText);	
+				sleep(500).then(() => {
+					window.open("/api/nx/rooms?b={{name}}", "_blank");
+				})
+			}else{
+				popup(x.responseText);
+			}
+		}else{
+			popup("invalid Code");
+		}
+	}else{popup("Valid email input is required");}
+}
+function blogChat(){
+	var x = document.getElementById('chat-user-box');
+	if(x.style.display=='none'){
+		x.style.display = 'block';
+	}else{x.style.display='none';}
+}
+function sendChat(){
+	{% if session.get("rooms-user") != None %}
+		if(uploads.length > 0){
+			fileAttach();
+		}
+		let email =  '{{session["rooms-user"]}}';
+		let msg = document.getElementById("your-message").value;
+		$.ajaxSetup({async: false});
+		if(msg.length == 0 || msg == ""){
+			//popup("error during transaction");
+		}else{
+			let x = $.post("/chat/user", {email: email, message: msg, to: 'admin'});
+			popup(x.responseText);
+			loadmessages();
+		}
+		document.getElementById("your-message").value = "";
+		
+	{% endif%}
+}
+function popup(text){
+	var x = document.getElementById("snackbar");
+	x.innerText = text;
+	x.className = "show";
+	setTimeout(function(){ x.className = x.className.replace("show", ""); }, 3000);
+}
+</script>
+
+</html>

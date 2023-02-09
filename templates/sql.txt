@@ -1,0 +1,3 @@
+create table visitors (id INT PRIMARY KEY, ip_addr VARCHAR(500), time TIMESTAMP DEFAULT CURRENT_TIMESTAMP);
+create table orders (id INT PRIMARY KEY, user VARCHAR(500), title TEXT, description TEXT, time TIMESTAMP DEFAULT CURRENT_TIMESTAMP);
+create table messages (id INT PRIMARY KEY, user VARCHAR(500) NOT NULL, to_user VARCHAR(255), message TEXT, time TIMESTAMP DEFAULT CURRENT_TIMESTAMP);

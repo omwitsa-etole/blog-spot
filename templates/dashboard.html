@@ -1,0 +1,360 @@
+{% extends "home.html" %}
+{% block title %}DASHBOARD{% endblock %}
+{% block head %}
+{% endblock %}
+{% block content %}
+<script></script>
+<div class="pd-30">
+        <h4 class="tx-gray-800 mg-b-5">Dashboard</h4>
+        <p class="mg-b-0">Welcome Admin</p>
+      </div><!-- d-flex -->
+      <div class="br-pagebody mg-t-5 pd-x-30">
+        <div class="row row-sm">
+          <div class="col-sm-6 col-xl-3">
+            <div class="bg-teal rounded overflow-hidden">
+              <div class="pd-25 d-flex align-items-center">
+                <i class="fa fa-globe fa-3x" aria-hidden="true"></i>
+                <div class="mg-l-20">
+                  <p class="tx-10 tx-spacing-1 tx-mont tx-medium tx-uppercase tx-white-8 mg-b-10">Today's Visits</p>
+                  <p class="tx-24 tx-white tx-lato tx-bold mg-b-2 lh-1">{{ no_users }}</p>
+                  <span class="tx-11 tx-roboto tx-white-6">{{ user_progress }}% higher than yesterday</span>
+                </div>
+              </div>
+            </div>
+          </div><!-- col-3 -->
+          <div class="col-sm-6 col-xl-3 mg-t-20 mg-sm-t-0">
+            <div class="bg-danger rounded overflow-hidden">
+              <div class="pd-25 d-flex align-items-center">
+                <i class="fa fa-cart-plus fa-3x" aria-hidden="true"></i>
+                <div class="mg-l-20">
+                  <p class="tx-10 tx-spacing-1 tx-mont tx-medium tx-uppercase tx-white-8 mg-b-10">Today Orders</p>
+                  <p class="tx-24 tx-white tx-lato tx-bold mg-b-2 lh-1">{{ no_orders }}</p>
+              	   <span class="tx-11 tx-roboto tx-white-6">{{ order_progress }} before tax</span>
+                </div>
+              </div>
+            </div>
+          </div><!-- col-3 -->
+          <div class="col-sm-6 col-xl-3 mg-t-20 mg-xl-t-0">
+            <div class="bg-primary rounded overflow-hidden">
+              <div class="pd-25 d-flex align-items-center">
+                <i class="fa fa-desktop fa-3x" aria-hidden="true"></i>
+                <div class="mg-l-20">
+                  <p class="tx-10 tx-spacing-1 tx-mont tx-medium tx-uppercase tx-white-8 mg-b-10">% Unique Visits</p>
+                  <p class="tx-24 tx-white tx-lato tx-bold mg-b-2 lh-1">{{ new_visits }}</p>
+                  <span class="tx-11 tx-roboto tx-white-6">{{ user_progress }} average duration</span>
+                </div>
+              </div>
+            </div>
+          </div><!-- col-3 -->
+          <div class="col-sm-6 col-xl-3 mg-t-20 mg-xl-t-0">
+            <div class="bg-br-primary rounded overflow-hidden">
+              <div class="pd-25 d-flex align-items-center">
+                <i class="fa fa-usd fa-3x" aria-hidden="true"></i>
+                <div class="mg-l-20">
+                  <p class="tx-10 tx-spacing-1 tx-mont tx-medium tx-uppercase tx-white-8 mg-b-10">Donations</p>
+                  <p class="tx-24 tx-white tx-lato tx-bold mg-b-2 lh-1">{{ donations_today }}</p>
+                  <span class="tx-11 tx-roboto tx-white-6">{{ donations }} in total</span>
+                </div>
+              </div>
+            </div>
+          </div><!-- col-3 -->
+        </div><!-- row -->
+	<a href="{{url_for('dashboard', mode='new-blog')}}" id="newblog" class="btn btn-outline-info btn-oblong tx-11 tx-uppercase tx-mont tx-medium tx-spacing-1 pd-x-30 bd-2">New Blog</a>
+<style>
+
+.delete:hover{
+	background: red;
+}
+.reply-text{
+	width: 350px;
+	height: 60px;
+	resize: none;
+	border-radius: 8px;
+}
+.used-devices{
+	overflow-x: auto;width: 350px;height: 400px;background: white;position: absolute;left: 100%;margin-left: 4%;z-index: 2;margin-top: 5%;color: black;border-radius: 8px;
+}
+@media only screen and (max-width: 800px) {
+	.used-devices{ margin-top: 15%;}
+	#new-comments{height: 320px;}
+}
+.msg-opts{
+	display: none;
+	position: absolute;
+	margi-left: -90px;
+	width: 75px;
+	z-index: 99;
+	background: white;
+	box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px, rgba(27, 31, 35, 0.15) 0px 0px 0px 1px;
+	text-align: center;
+}
+.msgs-opts a{
+	display: block;
+	width: 90px;
+	min-height: 30px;
+	cursor: pointer;
+}
+.msgs-opts a:hover{
+	background: #ddd;
+}
+</style>
+        <div class="row row-sm mg-t-20">
+          <div class="col-8">
+            
+            <div class="card bd-0 shadow-base pd-30 mg-t-20" style="">
+                
+              <div class="d-flex align-items-center justify-content-between mg-b-30" style="position: absolute;top: 0;width: 100%;left: 0;z-index: 1;heigt: 40px;">
+                  <h6 class="tx-13 tx-uppercase tx-inverse tx-semibold tx-spacing-1">New Messages</h6>
+                  <p class=""><i class="icon ion-calendar mg-r-5"></i> From October {{ daytoday }}</p>
+		<div style="float: right;"><a onclick='dashMsgs()' class="btn btn-outline-info btn-oblong tx-11 tx-uppercase tx-mont tx-medium tx-spacing-1 pd-x-30 bd-2">Reload</a>
+                <a href='{{url_for('dashboard', mode='all-messages')}}#contacts'" class="btn btn-outline-info btn-oblong tx-11 tx-uppercase tx-mont tx-medium tx-spacing-1 pd-x-30 bd-2">See more</a></div>
+              </div><!-- d-flex -->
+	     <div style="height: 450px;overflow: auto;margin-top: 42px;">
+              <table class="table table-valign-middle mg-b-0" style="text-align: justify;justify-content: left;maximum-height: 450px;" id="msgs-table">
+                <tbody id="dash-messages">
+		
+                  
+                </tbody>
+              </table>
+	     </div>
+            </div><!-- card -->
+	    
+            <div class="card pd-0 bd-0 shadow-base" style="margin-top: 50px;">
+              <div class="pd-x-30 pd-t-30 pd-b-15">
+                <div class="d-flex align-items-center justify-content-between">
+                  <div>
+                    <h6 class="tx-13 tx-uppercase tx-inverse tx-semibold tx-spacing-1">Recent Articles</h6>
+                  </div>
+                  <div class="tx-13">
+			<div>
+			      <a style="float: right;" href="javascript:void(0)" onclick='showMails("articles-menu")'><i class="fa fa-ellipsis-h" aria-hidden="true"></i></a>
+			  <div id="articles-menu" class="msg-opts" style="right: 0;">
+				<a href="javascript:void(0)">Articles</a><br>
+				<a href="javascript:void(0)">Print</a><br>
+				<a href="javascript:void(0)">Hide</a><br>
+				<a href="javascript:void(0)" onclick="this.parentElement.style.display='none'">close</a>
+			  </div>
+			  </div>		
+                  </div>
+                </div><!-- d-flex -->
+              </div>
+              <div style="height: 450px;overflow: auto;">
+		<table style="width: 100%;"><tbody><tr>
+			<th><p>No</p></th>
+			<th><p>Article Title</p></th>
+			<th><p>Post Date</p></th>
+			<th><p>Category</p></th>
+			<th><p>Likes</p></th>
+			<th><p>Shared</p></th>
+			<th><p>Comments</p></th>
+			<th><p>Viewers</p></th>
+		</tr></tbody></table>
+	      </div>
+            </div><!-- card -->
+
+          
+            <div class="card shadow-base card-body pd-25 bd-0 mg-t-20">
+		 <div style="float: right;">
+		      <a style="float: right;" href="javascript:void(0)" onclick='showMails("statistics-menu")'><i class="fa fa-ellipsis-h" aria-hidden="true"></i></a>
+		  <div id="statistics-menu" class="msg-opts" style="right: 0;">
+			<a href="javascript:void(0)">Statistics</a><br>
+			<a href="javascript:void(0)">Print</a><br>
+			<a href="javascript:void(0)">Hide</a><br>
+			<a href="javascript:void(0)" onclick="this.parentElement.style.display='none'">close</a>
+		  </div>
+		  </div>
+              <div class="row" style="overflow-x: auto;width: 100%;">
+                <div class="col-sm-6">
+			
+                  <h6 class="card-title tx-uppercase tx-12">Statistics Summary</h6>
+                  
+                </div><!-- col-6 -->
+		
+                
+		<div class="chart1">
+		  <div id="dashboardpie1" ></div>
+		  <div id="dashboardpie" ></div>
+		  <div id="dashboardpie2" ></div>
+		</div>
+		  <script>
+			dashMsgs();
+			setInterval(dashMsgs,100000);
+			function dashMsgs(){ $("#dash-messages").load("/api/v/fn/dash-msgs");}
+			google.charts.load('current', {'packages':['corechart']});
+			google.charts.setOnLoadCallback(drawChart);
+
+			function drawChart() {
+			  var data = google.visualization.arrayToDataTable({{data|safe}});
+			  var data_one = google.visualization.arrayToDataTable({{data_one|safe}});
+			  var data_two = google.visualization.arrayToDataTable({{data_two|safe}});
+			  var data_three = google.visualization.arrayToDataTable({{data_three|safe}});
+			  // Optional; add a title and set the width and height of the chart
+			  var options = {'title':'Visitors statistics', 'width':400, 'height':250};
+			  var options_one = {'title':'Order Perfomance', 'width':400, 'height':250};
+		         var options_two = {'title':'Disk Perfomance', 'width':400, 'height':250};
+			  var options_three = {'title':'Device used', 'width':400, 'height':350};
+			  var chart = new google.visualization.PieChart(document.getElementById('dashboardpie'));
+			  var chart1 = new google.visualization.PieChart(document.getElementById('dashboardpie1'));
+		          var chart2 = new google.visualization.PieChart(document.getElementById('dashboardpie2'));
+			  var chart3 = new google.visualization.PieChart(document.getElementById('devices-chart'));
+			  chart.draw(data, options);
+			  chart1.draw(data_one, options_one);
+			  chart2.draw(data_two, options_two);
+			  chart3.draw(data_three, options_three);
+			}
+		  </script>
+           
+              </div><!-- row -->
+	    <div class="used-devices" style="">
+	      <div class="card-tab" style="height: 100%;">
+		  <div style="float: right;">
+		      <a style="float: right;" href="javascript:void(0)" onclick='showMails("devices-menu")'><i class="fa fa-ellipsis-h" aria-hidden="true"></i></a>
+		  <div id="devices-menu" class="msg-opts" style="right: 0;">
+			<a href="javascript:void(0)">Print</a><br>
+			<a href="javascript:void(0)">Hide</a><br>
+			<a href="javascript:void(0)" onclick="this.parentElement.style.display='none'">close</a>
+		  </div>
+		  </div>
+                  <h6 class="">Used Devices</h6>
+		<div id="devices-chart" style="overflow-x: hidden"></div>
+		<div style="position: absolute;bottom: 6%;width: 100%;z-index: 1;">
+                <a style="margin-left: 10%;">Desktop</a>
+                <a style="float: right;margin-right: 10%;">Mobile</a>
+                </div>
+		</div>
+             
+	    </div>
+            </div><!-- card -->
+
+
+          </div><!-- col-9 -->
+          <div class="col-4">
+
+
+            
+	    <div class="card bd-0 shadow-base pd-30">
+              <h6 class="tx-13 tx-uppercase tx-inverse tx-semibold tx-spacing-1">Server Status</h6>
+              <p class="">Summary of the status of your server.</p>
+
+              <label class="tx-12 tx-gray-600 mg-b-10">CPU Usage ({{cpu_percent }} 4 cpus)</label>
+              <div class="progress ht-5 mg-b-10">
+                <div class="progress-bar wd-25p" role="progressbar" aria-valuenow="{{cpu_percent}}" aria-valuemin="0" aria-valuemax="100"></div>
+              </div>
+
+              <label class="tx-12 tx-gray-600 mg-b-10">Memory Usage ({{mem_percent}}%)</label>
+              <div class="progress ht-5 mg-b-10">
+                <div class="progress-bar bg-teal wd-60p" role="progressbar" aria-valuenow="{{mem_percent}}" aria-valuemin="0" aria-valuemax="100"></div>
+              </div>
+
+              <label class="tx-12 tx-gray-600 mg-b-10">Disk Usage ({{disk_percent}})</label>
+              <div class="progress ht-5 mg-b-10">
+                <div class="progress-bar bg-danger wd-70p" role="progressbar" aria-valuenow="{{disk_percent}}" aria-valuemin="0" aria-valuemax="100"></div>
+              </div>
+
+              <div class="mg-t-20 tx-13">
+                <a onclick="genReport()" class="tx-gray-600 hover-info bd-l mg-l-10 pd-l-10" style="cursor: pointer;">Generate Report</a>
+                <a href="javascript:void(0)" onclick="printDiv()" class="tx-gray-600 hover-info bd-l mg-l-10 pd-l-10">Print Report</a>
+              </div>
+            </div><!-- card -->
+
+            <div class="card bg-transparent shadow-base bd-0 mg-t-20" style="overflow-x: auto;">
+              <div class="bg-primary rounded-top">
+                <div class="pd-x-30 pd-t-30">
+                  <h6 class="tx-13 tx-uppercase tx-white tx-semibold tx-spacing-1">Sale Status</h6>
+                  <p class="mg-b-20 tx-white-6">As of {{ daytoday }}</p>
+                  <h3 class="tx-lato tx-white mg-b-0">$12, 201 <i class="icon ion-android-arrow-up tx-white-5"></i></h3>
+                </div>
+      
+              </div>
+              <div class="bg-white pd-20 rounded-bottom d-flex align-items-center justify-content-between">
+                <div class="d-flex align-items-start">
+                 
+                  <div class="mg-l-15">
+                    progress: <progress id="target" value="12201" max="20000"></progress>
+                  </div>
+                </div><!-- d-flex -->
+                
+                  <div class="mg-l-15">
+		    
+                    <label class="tx-uppercase tx-10 tx-medium tx-spacing-1 mg-b-0">Target</label>
+                    <h6 class="tx-inverse mg-b-0 tx-lato tx-bold">$20000</h6>
+                  </div>
+                </div><!-- d-flex -->
+              </div><!-- d-flex -->
+	    <div class="" id="new-comments" style="overflow-x: auto;margin-top: 20px;width: 350px;height: 450px;background: white;position: absolute;right: ;top: ;z-index: 2;color: black;">
+	      <div class="card-tab" style="height: 100%;">
+                <div class="">
+		  <div>
+		      <a style="float: right;" href="javascript:void(0)" onclick='showMails("comments")'><i class="fa fa-ellipsis-h" aria-hidden="true"></i></a>
+		  <div id="comments" class="msg-opts" style="right: 0;">
+			<a href="javascript:void(0)">Comments</a><br>
+			<a href="javascript:void(0)">Print</a><br>
+			<a href="javascript:void(0)">Hide</a><br>
+			<a href="javascript:void(0)" onclick="this.parentElement.style.display='none'">close</a>
+		  </div>
+		  </div>	
+                  <h6 class="">Recent Comments</h6>
+                </div>
+		</div>
+                
+	    </div>
+            </div><!-- card -->
+	    
+	    
+            <div class="card bd-0 mg-t-20">
+              <div id="carousel2" class="carousel slide" data-ride="carousel">
+                <ol class="carousel-indicators">
+                  <li data-target="#carousel2" data-slide-to="0" class=""></li>
+                  <li data-target="#carousel2" data-slide-to="1" class="active"></li>
+                  <li data-target="#carousel2" data-slide-to="2"></li>
+                </ol>
+                <div class="carousel-inner" role="listbox">
+		{% for article in articles %}
+			{% if article[0] == "latest"%}
+                  		<div class="carousel-item active">
+			{% else %}	
+				<div class="carousel-item">
+			{% endif %}
+                    <div class="bg-br-primary pd-30 ht-300 pos-relative d-flex align-items-center rounded">
+                      <div class="pos-absolute t-15 r-25">
+                        <a href="" class="tx-white-5 hover-info"><i class="icon ion-edit tx-16"></i></a>
+                        <a href="" class="tx-white-5 hover-info mg-l-7"><i class="icon ion-stats-bars tx-20"></i></a>
+                        <a href="" class="tx-white-5 hover-info mg-l-7"><i class="icon ion-gear-a tx-20"></i></a>
+                        <a href="" class="tx-white-5 hover-info mg-l-7"><i class="icon ion-more tx-20"></i></a>
+                      </div>
+                      <div class="tx-white">
+			{% if article[0] == latest%}
+                  		<p class="tx-uppercase tx-11 tx-medium tx-mont tx-spacing-2 tx-white-5">Recent Article</p>
+			{% else %}	
+				<p class="tx-uppercase tx-11 tx-medium tx-mont tx-spacing-2 tx-white-5">Article</p>
+			{% endif %}
+                        
+                        <h5 class="lh-5 mg-b-20">{{ article[1] }}</h5>
+                        
+                      </div>
+                    </div><!-- d-flex -->
+                  </div>
+		  
+                {% endfor %} 
+                </div><!-- carousel-inner -->
+              </div><!-- carousel -->
+            </div><!-- card -->
+
+          </div><!-- col-3 -->
+        </div><!-- row -->
+      <div class="reply-msg" id='reply-msg'>
+      </div>
+      </div><!-- br-pagebody -->
+      
+    <div class="resize-sensor" style="position: absolute; inset: 0px; overflow: hidden; z-index: -1; visibility: hidden;"><div class="resize-sensor-expand" style="position: absolute; left: 0; top: 0; right: 0; bottom: 0; overflow: hidden; z-index: -1; visibility: hidden;"><div style="position: absolute; left: 0px; top: 0px; transition: all 0s ease 0s; width: 100000px; height: 100000px;"></div></div><div class="resize-sensor-shrink" style="position: absolute; left: 0; top: 0; right: 0; bottom: 0; overflow: hidden; z-index: -1; visibility: hidden;"><div style="position: absolute; left: 0; top: 0; transition: 0s; width: 200%; height: 200%"></div></div></div>
+
+<script>
+//$('#msgs-table').DataTable();
+function showOpts(id){
+	console.log(id);
+	var x = document.getElementById(id);
+	x.style.display = 'block'; 
+
+}
+</script>
+{% endblock %}

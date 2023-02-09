@@ -1,0 +1,37 @@
+{% extends 'homelanding.html'%}
+{% block head %}
+<style>
+body{
+	opacity: 0.5;
+}
+.full-page{
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	z-index: 101;
+	
+}
+.new_post{
+	opacity: 2;
+	position: absolute;
+	top: 10%;
+	left: 15%;
+	width: 70%;
+	border-radius: 10px;
+	height: 65%;
+	background: white;
+	z-index: 102;
+	box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
+<style>
+{%endblock%}
+{%block content%}
+<div class="full-page">
+<div class="new_post">
+<a style="float: right;cursor: pointer;" href="{{url_for('blogHome')}}"><i class="fa fa-window-close"></i></a>
+<center><h3>Share A Post</h3><center>
+</div>
+</div>
+{%endblock%}

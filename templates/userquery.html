@@ -1,0 +1,19 @@
+
+<div style="width: 100%;height: 30px;position: absolute;top: -6%;backgrond: white;left: 0;"> {{n }} results found  <a onclick="searchUsers(' ')" style="cursor: alias;color: red;"><i>Close</i><a/>
+<a class="fa" style="float: right;color: blue;" onclick="searchGroups()">Search groups</a>
+</div>
+{% if n > 0 %}	{% for user in users%}
+		<div class="query-box"  onclick="document.cookie='active={{user[2]}}';loadRoom()"> <a>{{ user[2]}} </a>
+		{%if user[3] >= last_online %}
+			<a style="float: right;color: green;height: 100%;"><i class="fa fa-circle fa-2x" aria-hidden="true"></i></a>	
+			<br><i>online </i>
+		{%else%}
+			<a style="float: right;color: orange;height: 100%;"><i class="fa fa-circle fa-2x" aria-hidden="true"></i></a>
+			<br><i>last seen: {{user[3] - last_online}} </i>
+		{%endif%}	
+		
+		</div>
+	{% endfor %}
+{% else %}
+	<div >No User(s) Found</div>
+{%endif%}

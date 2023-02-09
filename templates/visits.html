@@ -1,0 +1,124 @@
+{% extends "home.html" %}
+{% block title %}New Message{% endblock %}
+{% block head %}
+<style type="text/css">
+
+.visitors{
+	visibility: visible;
+	max-width: 400px;
+	width: 400px;
+	height: 460px;
+	position: absolute; 
+  z-index: 110; 
+  left: 50%; 
+  top: 10%; 
+  -webkit-animation: fadeinto 1s;
+  	animation: fadeinto 1s;
+}
+@-webkit-keyframes fadeinto {
+  from {top: 0; opacity: 0;}
+  to {top: 30px; opacity: 1;}
+}
+
+@keyframes fadeinto {
+  from {top: 0; opacity: 0;}
+  to {top: 30px; opacity: 1;}
+}
+
+</style>
+{% endblock %}
+{% block content %}
+<style>
+#delete:hover{
+	background: red;
+}
+#undelete:hover{
+	background: green;
+}
+@media only screen and (max-width: 800px) {
+	.visitors-statistics{
+		display: none;	
+	}
+	.created{display:none}
+}
+#my-pie-chart {
+  background: conic-gradient(yellow {{first}}%, orange {{second}}%, {{third}}%);
+}
+</style>
+<div class="visitors" id="visitors" style="margin-bottom: 15px;width: 640px;">
+            <div class="card bd-0 shadow-base pd-30">
+              <h6 class="tx-13 tx-uppercase tx-inverse tx-semibold tx-spacing-1">Site Visits<a onclick="printDiv('visits-table')"style="float: right;margin-right: 15px;cursor: pointer;">Print</a></h6>
+	
+     	<div style="width: 100%;height: 500px;" id="visits-table">
+	 <table class="table table-valign-middle mg-b-0" style="text-align: justify;justify-content: left;">
+                <tbody>
+		  <tr>
+			<th>Agent</th>
+			<th><span class="tx-12">Ipv4 address</span></th>
+			<th>Date</th>
+			<th>Action</th>
+		  </tr>
+		{% for visitor in all_visits %}
+		  {% if visitor[4] != 1%}
+		          <tr>
+		            <td>
+		              {{ visitor[5] }}
+		            </td>
+		            <td>
+		              <span class="tx-12">{{ visitor[1] }}</span>
+		            </td>
+		            <td>{{ visitor[2] }}</td>
+			    <td><a onclick="blockip('{{ visitor[0] }}')" class="btn btn-outline-info btn-oblong tx-15 tx-uppercase tx-mont tx-medium tx-spacing-1 pd-x-30" id="delete">Block</a></td>
+			  </tr>
+		  {% endif%}
+		{%endfor%}
+		</tbody>
+	</table>
+	</div>
+    </div>
+</div>
+<script>
+google.charts.load('current', {'packages':['corechart']});
+google.charts.setOnLoadCallback(drawChart);
+
+function drawChart() {
+  var data = google.visualization.arrayToDataTable({{data|safe}});
+
+  // Optional; add a title and set the width and height of the chart
+  var options = {'title':'Visitors statistics', 'width':400, 'height':250};
+
+  var chart = new google.visualization.PieChart(document.getElementById('piechart'));
+  chart.draw(data, options);
+}
+$(document).ready(function() {
+	let stat = document.getElementById("visitors-statistics");
+	stat.style.display = 'inline-block';
+	let blocked = document.createElement("div");
+	blocked.classList.add("created");
+	blocked.setAttribute("id", "loaded");
+	blocked.setAttribute("style", "position: absolute;bottom: 5%;z-index: 121;height: 300px;overflow: auto;right: 5%;display: inline-block;background: white;");
+	stat.after(blocked);
+	blocked.innerHTML = '<h6>Blocked Users</h6><table class="table table-valign-middle mg-b-0" style="text-align: justify;justify-content: left;" style="100%"><tr><th>IpV4</th><th>Action</th></tr>{% for visitor in all_visits %}{% if visitor[4] == 1%}<tr><td style="min-width: 150px;">{{ visitor[1] }}</td><td><a onclick="unblockip({{visitor[0]}})" class="btn btn-outline-info btn-oblong tx-15 tx-uppercase tx-mont tx-medium tx-spacing-1 pd-x-30" id="undelete">UnBlock</a></td></tr>{%endif%}{% endfor%}</table>';
+	setInterval(checkwidth, 1000);
+});
+function blockip(id){
+	$.ajaxSetup({async: false});
+	var x = $.post("/api/v/fn/delete", {email: "email", id: id});
+	popup(x.responseText);
+}
+function unblockip(id){
+	$.ajaxSetup({async: false});
+	var x = $.post("/api/v/fn/unblock", {email: "email", id: id});
+	popup(x.responseText);
+}
+function checkwidth(){
+	if(window.innerWidth < 800){
+		document.getElementById("visitors-statistics").style.display='none';
+		document.getElementById("loaded").style.display='none';
+	}else{
+		document.getElementById("visitors-statistics").style.display='inline-block';
+		document.getElementById("loaded").style.display='inline-block';
+	}
+}
+</script>
+{% endblock %}

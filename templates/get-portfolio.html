@@ -1,0 +1,167 @@
+<html lang="en">
+<head>
+<link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet">
+  <link rel="stylesheet" href="{{url_for('static', filename='style.css')}}">
+<script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+<style>
+body{
+	width: 100%;
+	overflow-x: hidden;
+}
+#snackbar {
+  visibility: hidden;
+  min-width: 250px; 
+  margin-left: -125px; 
+  background-color: #333; 
+  color: #fff; 
+  text-align: center; 
+  border-radius: 2px; 
+  padding: 16px;
+  position: fixed; 
+  z-index: 200; 
+  left: 50%; 
+  bottom: 30px; 
+}
+
+#snackbar.show {
+  visibility: visible; 
+  -webkit-animation: fadein 0.5s, fadeout 0.5s 2.5s;
+  animation: fadein 0.5s, fadeout 0.5s 2.5s;
+}
+
+@-webkit-keyframes fadein {
+  from {bottom: 0; opacity: 0;}
+  to {bottom: 30px; opacity: 1;}
+}
+
+@keyframes fadein {
+  from {bottom: 0; opacity: 0;}
+  to {bottom: 30px; opacity: 1;}
+}
+
+@-webkit-keyframes fadeout {
+  from {bottom: 30px; opacity: 1;}
+  to {bottom: 0; opacity: 0;}
+}
+
+@keyframes fadeout {
+  from {bottom: 30px; opacity: 1;}
+  to {bottom: 0; opacity: 0;}
+}
+.panel-footer{
+	position: fixed;
+	bottom: 0;
+	left: 0;
+}
+</style>
+<script src="https://kit.fontawesome.com/c63faa1f51.js" crossorigin="anonymous"></script>
+<script src="https://use.fontawesome.com/4f05e2c5d5.js"></script>
+</head>
+<body >
+<div id="snackbar"></div>
+<div class="top-nav">
+<h2 style="margin-left: 5%;position: absolute;left: 0;">BlogSpot</h2>
+<div class="dropdown">
+<img src="{{url_for('static', filename='avatar.jpg')}}">
+<div class="dropdown-content">
+<a>Profile</a>
+<a href="{{url_for('signout')}}">Sign out</a>
+</div>
+</div>
+<div style="position: absolute;right: 100px;margin-top: 20px;" class="cart">
+<a style="position: relative;" href="{{url_for('templates', mode='checkout')}}"><i class="fa fa-shopping-cart fa-2x" aria-hidden="true"></i></a><span id="cart-count">{{cart[0]}}</span>
+<div class="cart-content" id="cart-content">
+{%for template in carts%}
+<a>{{template[2]}}<i id="cart_{{template[2]}}" style="position: absolute;right: 1%;cursor: pointer;color: red;" onclick="removeCart(this.id)">X</i></a>
+{%endfor%}
+
+</div>
+</div>
+</div>
+<div class="main">
+<center><h1>Choose Your Template(s)</h1></center>
+{%for temp in templates%}
+	<div class="box">
+	<img src="{{url_for('static', filename='templates/'+temp[1])}}.png" onclick="window.open(location.href+'?preview={{temp_1}}', '_blank')"></img>
+	 <div class="middle" style="">
+	    <div class="text">${{temp[2]}}</div>
+	  </div>
+	<div class="box-a">
+	<a id="{{temp[1]}}" onclick="toCart(this.id, this.children[0])"><i class="fa fa-plus-square-o fa-2x" aria-hidden="true"></i></a>
+	</div>
+	<div class="box-b">
+	<button onclick="window.open(location.href+'?preview={{temp[1]}}', '_blank')">Preview</button>
+	</div>
+	</div>
+{%endfor%}
+
+<div class="box">
+</div>
+<div class="box">
+</div>
+</div>
+<div class="panel-footer">
+      <button class="btn back-btn" onclick="location.href='{{url_for("get_templates")}}'">Back</button>
+      <button class="btn next-btn" onclick="validatePay()">Next</button>
+</div>
+<script>
+$(document).ready(function() {
+	let x = location.search;
+	if(x.search("my-templates") == -1 && x.search("new-templates") == -1){
+		location.search = "new-templates";	
+	}
+})
+function toCart(name, el){
+	$.ajaxSetup({async: false});
+	if(el.classList.contains("fa-plus-square-o")){
+		let x = $.post("/api/fx/templates/add", {template: name});
+		if(x.responseText == "success"){
+			el.classList.remove("fa-plus-square-o");
+			el.classList.add("fa-check");
+			var count = document.getElementById("cart-count");
+			c = parseInt(count.innerText);
+			count.innerText = 1 + c;
+			var cart = document.getElementById("cart-content");
+			let x = document.createElement("a");
+			x.innerText = name;
+			let a = document.createElement("i");
+			a.innerText = "X";
+			a.setAttribute("id", "cart_"+name);
+			a.setAttribute("onclick", "removeCart(this.id)");
+			a.setAttribute("style", "position: absolute;right: 1%;cursor: pointer;color: red;")
+			x.append(a);
+			cart.append(x);
+			popup("Template added to cart");
+		}else if(x.responseText == "available"){ popup("Template already in cart")}
+
+	}
+}
+function removeCart(id){
+	$.ajaxSetup({async: false});
+	document.getElementById(id).parentElement.remove();
+	var count = document.getElementById("cart-count");
+	c = parseInt(count.innerText);
+	count.innerText = c-1;
+	id = id.replace("cart_", "");
+	el = document.getElementById(id).children[0]
+	if(el.classList.contains("fa-check")){
+		el.classList.remove("fa-check");
+		el.classList.add("fa-plus-square-o");
+	}
+	let x = $.post("/api/fx/templates/remove", {template: id});
+	if(x.responseText == "success"){
+		popup("Template removed from cart");
+	}else{ popup(x.responseText)}
+	
+}
+function popup(text){
+	if(text != "read"){
+		var x = document.getElementById("snackbar");
+		x.innerText = text;
+		x.className = "show";
+		setTimeout(function(){ x.className = x.className.replace("show", ""); }, 3000);
+	}
+	
+}
+</script>
+</body></html>

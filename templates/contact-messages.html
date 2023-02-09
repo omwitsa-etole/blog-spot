@@ -1,0 +1,36 @@
+{% for contact in contacts%}
+		 {% if contact[5] != 1%}
+		    <a id="{{contact[0]}}l" onclick="showMessage('{{ contact[3] }}', {{contact[0]}}, this.id, '{{contact[1]}}')" class="contact-list-link new">
+		      <div class="d-flex">
+		        <div class="pos-relative">
+		          <img src="{{url_for('static', filename='avatar.jpg')}}" class="wd-40 rounded-circle" alt="">
+		          <div class="contact-status-indicator bg-success"></div>
+		        </div>
+		        <div class="contact-person">
+		          <p class="mg-b-0">{{ contact[1] }} | {{contact[4]}}</p>
+		          <span class="tx-12 op-5 d-inline-block" id="{{contact[0]}}">{{ contact[3] }}</span>
+		        </div>
+		        <span class="tx-info tx-12"><span class="square-8 bg-info rounded-circle"></span> 1 new</span>
+		      </div><!-- d-flex -->
+		    </a><!-- contact-list-link -->
+		   {%else%}
+			<a id="{{contact[0]}}l" onclick="showMessage('{{ contact[3] }}', {{contact[0]}}, this.id, '{{contact[1]}}')" class="contact-list-link">
+		      <div class="d-flex">
+		        <div class="pos-relative">
+		          <img src="{{url_for('static', filename='avatar.jpg')}}" class="wd-40 rounded-circle" alt="">
+		          <div class="contact-status-indicator bg-success"></div>
+		        </div>
+		        <div class="contact-person">
+		          <p class="mg-b-0">{{ contact[1] }} | {{contact[4]}}</p>
+		          <span class="tx-12 op-5 d-inline-block" id="{{contact[0]}}">{{ contact[3] }}</span>
+		        </div>
+		       </div><!-- d-flex -->
+		      </a><!-- contact-list-link -->
+		   {%endif%}
+<script>
+$(document).ready(function() {
+var div = document.getElementById("chat-in-user-box");
+document.getElementById('chat-user-box').scrollTop = div.scrollHeight;
+}
+</script>
+            	{% endfor %}

@@ -1,0 +1,155 @@
+<head>
+<style>
+body{
+	background-color:  #000000;
+	overflow-x: hidden;
+	width: 100%;
+	height: 100%;
+}
+.login{
+	position: relative;
+	margin-top: 15%;
+	margin-left: 35%;
+	width: 400px;
+	height: 300px;
+	background: white;
+	border-radius: 15px;
+	box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px, rgb(51, 51, 51) 0px 0px 0px 3px;
+	font-size: 17px;
+	text-align: center;
+}
+#send-code{
+	margin-top: 5%;
+	width: 70%;
+	margin-left: 15%;
+	height: 50px;
+	border-radius: 5px;
+	cursor: pointer;
+	background: #ddd;
+	text-align: center;
+}
+#send-code p{
+	margin-top: 20px;
+}
+#verify-code{
+	display: none;
+	width: 100%;
+	margin-top: 10%;
+}
+#verify-code input{
+	width: 70%;
+	height: 35px;
+	width: 70%;
+	padding: 9px;
+}
+#signin{
+	position: absolute;
+	left: 0;
+	bottom: 2%;
+	width: 70%;
+	width: 70%;
+	margin-left: 15%;
+	height: 50px;
+	border-radius: 5px;
+	cursor: pointer;
+	background: #ddd;
+	text-align: center;
+}
+#snackbar {
+  visibility: hidden;
+  min-width: 250px; 
+  margin-left: -125px; 
+  background-color: #333; 
+  color: #fff; 
+  text-align: center; 
+  border-radius: 2px; 
+  padding: 16px;
+  position: fixed; 
+  z-index: 110; 
+  left: 50%; 
+  bottom: 30px; 
+}
+
+#snackbar.show {
+  visibility: visible; 
+  -webkit-animation: fadein 0.5s, fadeout 0.5s 2.5s;
+  animation: fadein 0.5s, fadeout 0.5s 2.5s;
+}
+
+@-webkit-keyframes fadein {
+  from {bottom: 0; opacity: 0;}
+  to {bottom: 30px; opacity: 1;}
+}
+
+@keyframes fadein {
+  from {bottom: 0; opacity: 0;}
+  to {bottom: 30px; opacity: 1;}
+}
+
+@-webkit-keyframes fadeout {
+  from {bottom: 30px; opacity: 1;}
+  to {bottom: 0; opacity: 0;}
+}
+
+@keyframes fadeout {
+  from {bottom: 30px; opacity: 1;}
+  to {bottom: 0; opacity: 0;}
+}
+</style>
+<script src="https://code.jquery.com/jquery-3.5.0.js"></script>
+</head>
+<body>
+<div id="snackbar"></div>
+<div class="login">
+<center><h1>Login</h1></center>
+<div id="send-code" onclick="getCode()"><p>Send code</p></div>
+<div id="verify-code">
+<p>Code sent to 254717881525</p><br>
+<p><button onclick="getCode()">resend</button><br>
+<input id="verifi-code" type="text" placeholder="enter code"></p><br>
+</div>
+<p id="error" style="color: red;"></p>
+<div id="signin" onclick="signIn()">Sign In</div>
+</div>
+</body>
+<script>
+function popup(text){
+	var x = document.getElementById("snackbar");
+	x.innerText = text;
+	x.className = "show";
+	setTimeout(function(){ x.className = x.className.replace("show", ""); }, 3000);
+}
+function getCode(){
+	$.ajaxSetup({async: false});
+	var y = document.getElementById("verify-code");
+	var w = document.getElementById("send-code");
+	let x = $.get("/api/v/fn/get_code");
+	popup(x.responseText);
+	if(x.responseText == "success"){
+		w.style.display = 'none';
+		y.style.display = 'block';
+		document.getElementById("signin").disabled = false;
+	}else{
+		y.style.display = 'none';
+		w.style.display = 'block';
+		document.getElementById("signin").disabled = true;
+		document.getElementById("error").innerText = x.responseText;
+	}
+}
+function signIn(){
+	var code = document.getElementById("verifi-code").value;
+	console.log(code);
+	if(code.length > 0){
+		let x = $.post("/api/v/admin", {code: code});
+		popup(x.responseText);
+		if(x.responseText == "success"){
+			location.href = "/api/v/dashboard";
+	}
+	}else{
+		document.getElementById("error").innerText = "Kindly get code and submit";
+		popup("Kindly get code and submit");
+	}
+	
+}
+</script>
+</html>

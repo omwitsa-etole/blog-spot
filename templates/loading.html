@@ -1,0 +1,49 @@
+{%extends 'cart.html'%}
+{%block content%}
+<style>
+.loader-b{
+	position: absolute;
+	top: 20%;
+	left: 35%;
+	width: 350px;
+	height: 350px;
+	border-radius: 15px;
+	background: white;
+	z-index: 99;
+	opacity: 1;
+}
+.loader {
+  border-top: 10px solid blue;
+  border-right: 10px solid green;
+  border-bottom: 10px solid red;
+}
+.loader {
+  border-radius: 50%;
+  width: 150px;
+  height: 150px;
+  animation: spin 2s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+#cancel-pay{
+	width: 75%;
+	height: 35px;
+	border:none;
+	background: red;
+	cursor: pointer;
+	color: white;
+	margin-top: 25px;
+}
+</style>
+<div style="position: fixed;top: 0;left: 0;width: 100%;height: 100%;background: #000;opacity: 0.5;z-index: 10;">
+<div class="loader-b">
+<center><h3>Processing</h3>
+<div class="loader" id="loader"></div>
+<button id="cancel-pay" onclick="location.search=''">Cancel</button>
+</center>
+</div>
+</div>
+{%endblock%}

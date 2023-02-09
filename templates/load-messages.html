@@ -1,0 +1,37 @@
+{% set shown = []%}
+{% for message in messages%}
+	{% if message[1] == session["room-name"] %}
+			{%if message[2] not in shown%}
+				<div class="chat_list" id="{{message[2]}}" onclick="document.cookie='active={{message[2]}}';loadRoom();showRoom();">
+				{% set fernet = Fernet(message[5])%}
+				{% set msg = fernet.decrypt(message[3]).decode()%}
+				<a style="display: none;">{{ shown.append(message[2]) }}</a>
+				<div class="chat_people" >
+				<div class="chat_img"> <img src="https://ptetutorials.com/images/user-profile.png" alt="sunil"> </div>
+				<div class="chat_ib">
+				  <h5>to {{message[2]}} <span class="chat_date">{{message[4]}}</span></h5>
+				  <p>{{msg}}</p>
+				
+				</div>
+				</div>
+				</div>
+			{%endif%}
+	{% else%}
+			{%if message[1] not in shown%}
+				<div class="chat_list" id="{{message[1]}}" onclick="document.cookie='active={{message[1]}}';loadRoom();showRoom();">
+				{% set fernet = Fernet(message[5])%}
+				{% set msg = fernet.decrypt(message[3]).decode()%}
+				<a style="display: none;">{{ shown.append(message[1]) }}</a>
+				<div class="chat_people" >
+				<div class="chat_img"> <img src="https://ptetutorials.com/images/user-profile.png" alt="sunil"> </div>
+				<div class="chat_ib">
+				  <h5>from {{message[1]}} <span class="chat_date">{{message[4]}}</span></h5>
+				  <p>{{msg}}</p>
+				</div>
+				</div>
+				</div>
+			{%endif%}
+	{%endif%}
+{%endfor%}
+<div id="no_result" style="display: none;"></div>
+ 

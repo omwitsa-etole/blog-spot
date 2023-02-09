@@ -1,0 +1,256 @@
+{% extends "home.html" %}
+{% block title %}New Message{% endblock %}
+{% block head %}
+<style type="text/css">
+body{
+	color: black;
+	background: #00008B;
+}
+.d-flex{
+	color: black;
+}
+
+.messages{
+	width: 700px;
+	margin-left: 50px;
+	color: black;
+}
+.nav{
+	
+}
+
+.box{
+	
+	postion: absolute;
+	top: -100px;
+}
+
+@media only screen and (max-width: 800px) {
+	
+}
+</style>
+
+{% endblock %}
+{% block content %}
+
+<div class="messages" style="display: inline-block;width: 500px;color: black;position: absolute;top: 0;z-index: 5;">
+      <ul class="nav sidebar-tabs" id="nav" role="tablist" style="width: 500px;">
+        <li class="nav-item">
+          <a class="nav-link active" data-toggle="tab" role="tab" href="#contacts"><i class="fa fa-address-book fa-2x" aria-hidden="true"></i>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" data-toggle="tab" role="tab" href="#calendar"><i class="fa fa-calendar-check-o fa-2x" aria-hidden="true"></i>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" data-toggle="tab" role="tab" href="#settings"><i class="fa fa-cog fa-2x" aria-hidden="true"></i>
+        </li>
+	<li class="nav-item">
+          <a class="nav-link" data-toggle="tab" role="tab" href="#deleted"><i class="fa fa-trash-o fa-2x" aria-hidden="true"></i> </a>
+        </li>
+      </ul><!-- sidebar-tabs -->
+
+      <!-- Tab panes -->
+      <div class="tab-content" id="tab-content" style="height: 450px;overflow: auto;">
+       <div class="tab-pane pos-absolute a-0 mg-t-60 overflow-y-auto ps ps--theme_default" id="contacts" role="tabpanel" data-ps-id="cae31352-cb5c-3787-8101-91686d96f79f">
+          <label class="sidebar-label pd-x-25 mg-t-25" style="color: black;">Contacts</label>
+          <div class="contact-list pd-x-10 box" style="margin-top: -20px;width: 450px;overflow: auto;" id="contact-messages">
+            
+          </div><!-- contact-list -->
+
+        <div class="ps__scrollbar-x-rail" style="left: 0px; bottom: 0px;"><div class="ps__scrollbar-x" tabindex="0" style="left: 0px; width: 0px;"></div></div><div class="ps__scrollbar-y-rail" style="top: 0px; height: 576px; right: 0px;"><div class="ps__scrollbar-y" tabindex="0" style="top: 0px; height: 353px;"></div></div></div><!-- #contacts -->
+
+	<div class="tab-pane pos-absolute a-0 mg-t-60 overflow-y-auto ps ps--theme_default" id="deleted" role="tabpanel" data-ps-id="cae31352-cb5c-3787-8101-91686d96f79f">
+          <label class="sidebar-label pd-x-25 mg-t-25" style="color: black;">Deleted</label><br>
+          <div class="contact-list pd-x-10 box" style="margin-top: -20px;width: 450px;overflow: auto;">
+            {% for contact in deleted_messages%}
+		<a id="{{contact[0]}}l" onclick="showMessage('{{ contact[3] }}', {{contact[0]}}, this.id, '{{contact[1]}}')" class="contact-list-link">
+		      <div class="d-flex">
+		        <div class="pos-relative">
+		          <img src="{{url_for('static', filename='avatar.jpg')}}" class="wd-40 rounded-circle" alt="">
+		          <div class="contact-status-indicator bg-success"></div>
+		        </div>
+		        <div class="contact-person">
+		          <p class="mg-b-0">{{ contact[1] }} | {{contact[4]}}</p>
+		          <span class="tx-12 op-5 d-inline-block" id="{{contact[0]}}">{{ contact[3] }}</span>
+			  
+		        </div>
+		       </div><!-- d-flex -->
+		  </a>
+            	{% endfor %}
+          </div><!-- contact-list -->
+
+        <div class="ps__scrollbar-x-rail" style="left: 0px; bottom: 0px;"><div class="ps__scrollbar-x" tabindex="0" style="left: 0px; width: 0px;"></div></div><div class="ps__scrollbar-y-rail" style="top: 0px; height: 576px; right: 0px;"><div class="ps__scrollbar-y" tabindex="0" style="top: 0px; height: 353px;"></div></div></div><!-- #contacts -->
+
+
+        <div class="tab-pane pos-absolute a-0 mg-t-60 overflow-y-auto ps ps--theme_default" id="calendar" role="tabpanel" data-ps-id="cae31352-cb5c-3787-8101-91686d96f79f">
+          <label class="sidebar-label pd-x-25 mg-t-25" style="color: black;">Time &amp; Date</label>
+          <div class="pd-x-25">
+            <h2 id="brTime" class="tx-white tx-lato mg-b-5" style="color: black;">{{ date_time }}</h2>
+            <h6 id="brDate" class="tx-white tx-light op-3" style="color: black;">{{ daytoday }}</h6>
+          </div>
+
+          <label class="sidebar-label pd-x-25 mg-t-25" style="color: black;">Events Calendar</label>
+          
+
+          <label class="sidebar-label pd-x-25 mg-t-25" style="color: black;">Event Today</label>
+          <div class="pd-x-25">
+            <div class="list-group sidebar-event-list mg-b-20">
+		<div id="loadevents"></div>
+		</div>
+                     <a onclick="document.getElementById('event').style.visibility='visible'" class="btn btn-block btn-outline-secondary tx-uppercase tx-11 tx-spacing-2" style="width: 450px;">+ Add Event</a>
+            <br>
+          </div>
+
+        <div class="ps__scrollbar-x-rail" style="left: 0px; bottom: 0px;"><div class="ps__scrollbar-x" tabindex="0" style="left: 0px; width: 0px;"></div></div><div class="ps__scrollbar-y-rail" style="top: 0px; right: 0px;"><div class="ps__scrollbar-y" tabindex="0" style="top: 0px; height: 0px;"></div></div></div>
+        <div class="tab-pane pos-absolute a-0 mg-t-60 overflow-y-auto ps ps--theme_default" id="settings" role="tabpanel" data-ps-id="f91b4b09-1616-1d38-685e-1d78dd933a2d">
+          <label class="sidebar-label pd-x-25 mg-t-25" style="color: black;">Quick Settings</label>
+
+          <div class="pd-y-20 pd-x-25 tx-white">
+            <h6 class="tx-13 tx-normal" style="color: black;">Sound Notification</h6>
+            <p class="op-5 tx-13" style="color: black;">Play an alert sound everytime there is a new notification.</p>
+            <div class="pos-relative">
+              <input type="checkbox" name="checkbox" class="switch-button" checked="" style="display: none;"><span class="switch-button-label off">OFF</span><div class="switch-button-background checked" style="width: 25px; height: 11px;"><div onclick="check(this)" class="switch-button-button" style="width: 12px; height: 11px; left: 27px;"></div></div><span class="switch-button-label on">ON</span><div style="clear: left;"></div>
+            </div>
+          </div>
+
+          <div class="pd-y-20 pd-x-25 tx-white">
+            <h6 class="tx-13 tx-normal" style="color: black;">2 Steps Verification</h6>
+            <p class="op-5 tx-13" style="color: black;">Sign in using a two step verification by sending a verification code to your phone.</p>
+            <div class="pos-relative">
+              <input type="checkbox" name="checkbox2" class="switch-button" style="display: none;"><span class="switch-button-label on">OFF</span><div class="switch-button-background" style="width: 25px; height: 11px;"><div onclick="check(this)" class="switch-button-button" style="width: 12px; height: 11px; left: -1px;"></div></div><span class="switch-button-label off">ON</span><div style="clear: left;"></div>
+            </div>
+          </div>
+
+          <div class="pd-y-20 pd-x-25 tx-white">
+            <h6 class="tx-13 tx-normal" style="color: black;">Location Services</h6>
+            <p class="op-5 tx-13" style="color: black;">Allowing us to access your location</p>
+            <div class="pos-relative">
+              <input type="checkbox" name="checkbox3" class="switch-button" style="display: none;"><span class="switch-button-label on">OFF</span><div class="switch-button-background" style="width: 25px; height: 11px;"><div onclick="check(this)" class="switch-button-button" style="width: 12px; height: 11px; left: -1px;"></div></div><span class="switch-button-label off">ON</span><div style="clear: left;"></div>
+            </div>
+          </div>
+
+         
+          <div class="pd-y-20 pd-x-25 tx-white">
+            <h6 class="tx-13 tx-normal" style="color: black;">Your Phone</h6>
+            <div class="pos-relative">
+              <input type="number" name="email" class="set-email" value="254717881525" style="width: 450px;padding: 10px;border: none;text-align: center;">
+		<a href="" class="btn btn-block btn-outline-secondary tx-uppercase tx-11 tx-spacing-2" style="width: 450px;background:;margin-top: 10px;">Update</a>
+            </div>
+          </div>
+
+          <div class="pd-y-20 pd-x-25">
+            <h6 class="tx-13 tx-normal tx-white mg-b-20" style="color: black;">More Settings</h6>
+            <a href="" class="btn btn-block btn-outline-secondary tx-uppercase tx-11 tx-spacing-2" style="width: 450px;">More Settings</a><br>
+          
+          </div><br>
+
+        <div class="ps__scrollbar-x-rail" style="left: 0px; bottom: 0px;"><div class="ps__scrollbar-x" tabindex="0" style="left: 0px; width: 0px;"></div></div><div class="ps__scrollbar-y-rail" style="top: 0px; right: 0px;"><div class="ps__scrollbar-y" tabindex="0" style="top: 0px; height: 0px;"></div></div></div>
+	<div class="tab-pane pos-absolute a-0 mg-t-60 overflow-y-auto ps ps--theme_default" id="attachements" role="tabpanel" data-ps-id="f91b4b09-1616-1d38-685e-1d78dd933a2d">
+          <label class="sidebar-label pd-x-25 mg-t-25" style="color: black;">Attachements</label>
+
+         <div class="media-file-list">
+            <div class="media">
+              <div class="pd-10 bg-primary wd-50 ht-60 tx-center d-flex align-items-center justify-content-center">
+                <i class="fa fa-file-image-o tx-28 tx-white"></i>
+              </div>
+              <div class="media-body">
+                <p class="mg-b-0 tx-13">IMG_43445</p>
+                <p class="mg-b-0 tx-12 op-5" style="color: black;">JPG Image</p>
+                <p class="mg-b-0 tx-12 op-5" style="color: black;">1.2mb</p>
+              </div><!-- media-body -->
+              <a href="" class="more" style="color: black;cursor: pointer;"><i class="fa fa-ellipsis-v" aria-hidden="true"></i></a>
+            </div><!-- media -->
+            <div class="media mg-t-20">
+              <div class="pd-10 bg-purple wd-50 ht-60 tx-center d-flex align-items-center justify-content-center">
+                <i class="fa fa-file-video-o tx-28 tx-white"></i>
+              </div>
+              <div class="media-body">
+                <p class="mg-b-0 tx-13">VID_6543</p>
+                <p class="mg-b-0 tx-12 op-5" style="color: black;">MP4 Video</p>
+                <p class="mg-b-0 tx-12 op-5" style="color: black;">24.8mb</p>
+              </div><!-- media-body -->
+              <a href="" class="more" style="color: black;cursor: pointer;"><i class="fa fa-ellipsis-v" aria-hidden="true"></i></a>
+            </div>
+
+        <div class="ps__scrollbar-x-rail" style="left: 0px; bottom: 0px;"><div class="ps__scrollbar-x" tabindex="0" style="left: 0px; width: 0px;"></div></div><div class="ps__scrollbar-y-rail" style="top: 0px; right: 0px;"><div class="ps__scrollbar-y" tabindex="0" style="top: 0px; height: 0px;"></div></div></div>
+      </div><!-- tab-content -->
+	
+
+<script>
+$(document).ready(function() {
+	changePage();
+	setInterval(checkwidth, 1000);
+	setInterval(checkmessage, 2000);
+	$("#loadevents").load("/api/v/fn/events");
+});
+function checkmessage(){
+	$("#contact-messages").load("/api/v/fn/new-msgs");
+}
+function checkwidth(){
+	if(window.innerWidth < 800){
+		document.getElementById("nav").style.width='750px';
+
+	}else{
+		document.getElementById("nav").style.width='500px';
+	
+	}
+}
+window.onhashchange = changePage;
+function changePage(){
+	if(location.hash != ""){
+		let hash = location.hash;
+		let id = hash.replace("#", "");
+		var x = document.getElementsByClassName("tab-pane");
+		var y = document.getElementsByClassName("nav-link");
+		for(let i=0;i<y.length;i++){
+			if(y[i].getAttribute("href") != null){
+				if(y[i].classList.contains("active")){
+					y[i].classList.remove("active");
+				}
+				if(y[i].getAttribute("href") == hash){
+					y[i].classList.add("active");
+				}
+			}
+		}
+		for(let i=0;i<x.length;i++){
+			if(x[i].classList.contains("active")){
+				x[i].classList.remove("active");
+			}	
+		}
+		document.getElementById(id).classList.add("active");
+	}
+}
+function sleep(ms) {
+      return new Promise(resolve => setTimeout(resolve, ms));
+   }
+function showMessage(message, id, elm, user){
+	console.log("here")
+	var x = document.getElementById(id);
+	var y = document.getElementById(elm);
+	if(y.classList.contains("new")){
+		y.classList.remove("new");
+	}
+	x.innerHTML = message;
+	document.getElementById("popup").style.visibility='visible';
+	$.ajaxSetup({async: false});
+	$("#msgs-load").load("/api/v/chat/"+user);
+	document.getElementById("msg-id").value = id;
+	sleep(200).then(() => {
+		document.getElementById("user-email").innerText = user;
+	})
+	$.post("/api/v/fn/read", {email:"email", id:id});
+	setInterval(fetchMsg(user), 2500);
+}
+function fetchMsg(id){
+	$("#msgs-load").load("/api/v/chat/"+id);
+}
+function check(elm){
+	var x = elm.parentElement;
+	if(x.classList.contains("checked")){
+		x.classList.remove("checked");
+	}else{
+		x.classList.add("checked");
+	}
+}
+</script>
+{% endblock %}

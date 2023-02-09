@@ -1,0 +1,21 @@
+
+{% set shown = []%}
+{% for i in data%}
+	{% if data[i][0] not in shown %}
+		<div class="chat_list" id="{{data[i][0]}}" onclick="location.search='b={{data[i][0]}}'">
+		<a style="display: none;">{{ shown.append(data[i][0]) }}</a>
+		<div class="chat_people" >
+		<div class="chat_img">  </div>
+		<div class="chat_ib">
+		  <h3>{{data[i][1]}} </h3>
+		  <p>{{data[i][2]}}<a id="msg-count" style="float: right;margin-right: -30px;font-size: 15px;">Count: {{data[i][4]}}</a></p>
+		</div>
+		
+		</div>
+		</div>
+	{%endif%}
+	
+{%endfor%}
+
+<div id="no_result" style="display: none;"></div>
+ 

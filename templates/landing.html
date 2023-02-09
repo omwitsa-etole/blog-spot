@@ -1,0 +1,70 @@
+<html lang="en"><head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <meta name="description" content="">
+    <meta name="author" content="BlogSpot">
+
+    <title>BlogSpot</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<style id="" media="">/* devanagari */
+#sidebar{position: absolute;top: 0;left: -10%;z-index: 1;min-width:250px;max-width:250px;background:#866ec7;color:#fff;-webkit-transition:all .3s;-o-transition:all .3s;transition:all .3s;}#sidebar .h6{color:#fff}
+</style>
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="{{url_for('static', filename='css/style.css')}}">
+<meta name="robots" content="noindex, follow">
+<link rel="stylesheet" href="{{url_for('static', filename='style.min.css')}}">
+<script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+<style>
+body{
+	height: 100.001vh;
+}
+li a{
+	font-size: 19px;
+}
+#send-news{
+	position: absolute;
+	z-index: 1;
+	right: 4%;
+	margin-top: 2.5%;
+}
+.popup{
+	position: absolute;
+	bottom: 5%;
+	right: 5%;
+	width: 35%;
+	height: 350px;
+	border-radius: 10px;
+	background: white;
+	z-index: 3;
+	box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}
+.popup:hover{
+	box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
+</style>
+</head>
+<body >
+
+
+<div id="content" class="p-4 p-md-5 pt-5" >
+<div style="">
+      <h1 class="tp-logo" onclick="location.href = '{{url_for("signin")}}'">Blog<span>Spot</span></h1>
+      <div style="position: absolute;left: 10%;margin-top: 5%;"><h6 class="tp-text" >A Blog Spot for Web and Software developers</h6>
+      <p class="tp-info">Owned and Founded By: Bradone E. Omwitsa</p></div>
+    </div>
+</div>
+</div>
+<div class="popup">
+<div style="width: 100%;height: 100%;text-align:center;" onclick="location.href='{{url_for('home',blogger='korg')}}'">
+<h3>View Portfolio</h3>
+</div>
+</div>
+
+</body>
+<script>
+document.scrollingElement.scroll(0, 1);
+</script>
+</html>

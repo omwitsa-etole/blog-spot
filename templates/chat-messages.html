@@ -1,0 +1,28 @@
+{% if messages[0] != None%}
+	<div class="">	
+		
+		{%for message in messages %}	
+			{% set fernet = Fernet(message[6])%}
+			{% set msg = fernet.decrypt(message[3]).decode()%}
+			{% if message[2] == "admin"%}
+				<div class="msg_container" id="{{message[0]}}" style="">
+					<p>{{msg}}</p>
+					<span class="msg_time">{{message[4]}}</span>
+				</div>
+			{%else%}
+				<div class="msg_container_send" style="">
+					<p>{{msg}}</p>
+					<span class="msg_time">{{message[4]}}</span>
+				</div>
+			{%endif%}
+		{%endfor%}
+	</div>
+{%else%}
+	<div>
+	<div class="new-connect"><h2>Link Email to Chat</h2><br>
+		<input type="email" placeholder="Enter your email"><br>
+		<p>Connect inside our Rooms here <a href="">BlogSpot@Rooms</a></p>
+		<button>Chat</button>	
+	</div>
+	</div>
+{%endif%}

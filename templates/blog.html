@@ -1,0 +1,690 @@
+<!Doctype html>
+<html>
+<head>
+<meta content="utf-8">
+<meta name = "keywords" content = "HTML, Meta Tags, Metadata" />
+<meta name = "description" content = "Learning about internet programming., web developer portfolio, blog spot" />
+<meta name="author" content="Bradone Etole Omwitsa">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<script src="https://use.fontawesome.com/4f05e2c5d5.js"></script>
+<script src="https://code.jquery.com/jquery-3.5.0.js"></script>
+<script src="https://kit.fontawesome.com/c63faa1f51.js" crossorigin="anonymous"></script>
+<style>
+body{
+	background-color:  #000000;
+	overflow-x: hidden;
+}
+.profile{
+	width: 25%;	
+	height: 35%;
+	border-radius: 50%;
+	position: absolute;
+	right: 2%;	
+	
+	top: 2%;
+	background: white;
+}
+.name-nav{
+	color: white;
+	font-size: 30px;
+	font-family: "Lucida Console", "Courier New", monospace;
+	overflow: hidden;
+	
+}
+.name-nav a{
+	text-decoration: none;
+	color: red;font-size: 40px;
+}
+.greetings{
+	color: red;font-size: 28px;
+}
+.curve{
+	position: absolute;
+	right: 0;
+	width: 40%;
+	height: 400px;
+	background: red;
+	border-radius: 50%;
+	margin-top: -15%;
+	margin-right: -20%;
+}
+#date{
+	margin-left: 20%; 
+}
+.blog{
+	font-family: system-ui;
+	font-size: 18px;
+	width: 90%;
+	text-align: left;
+}
+.l:first-letter{
+	color: Red;
+	font-size: 40px;
+}
+P{
+	margin-left: 5%;
+}
+.t{
+	margin-left: 10%;
+}
+.tt{
+	margin-left: 15%;
+}
+.ttt{
+	margin-left: 20%;
+}
+.tttt{
+	margin-left: 25%;
+}
+.prev, .next {
+  cursor: pointer;
+  position: fixed;
+  top: 47%;
+  z-index: 90;
+  width: 50px;
+  padding: 16px;
+  color: red;
+  font-weight: bold;
+  font-size: 18px;
+  transition: 0.6s ease;
+  border-radius: 0 3px 3px 0;
+  user-select: none;
+}
+.prev{
+	left: 2%;
+}
+.next {
+  right: 1%;
+  border-radius: 3px 0 0 3px;
+}
+
+.prev:hover, .next:hover {
+  background: #111;
+  color: white;
+}
+@media only screen and (max-width: 800px) {
+	.curve{
+		margin-top: -25%;
+	}
+	.next{
+		right: 0;
+	}
+	.profile{
+		position: relative;
+		margin-left: 20%;
+	}
+}
+h1{
+	font-size: 40px;
+	margin-left: 10%;
+	
+}
+h1:first-letter{
+	color: Red;
+	font-size: 50px;
+}
+p i{
+	color: red;
+}
+.back-top{
+	display: none;
+	position: fixed;	
+	bottom: 2.5%;
+	right: 2%;
+	color: red;
+	z-index: 99;
+	cursor: pointer;
+}
+.console {
+	position: fixed;
+	bottom: 2%;
+	left: 1%;
+	color: red;
+	z-index: 99;
+	cursor: pointer;
+}
+.code-box{
+	position: fixed;
+	z-index: 98;
+	top: 5%;
+	left: 2%;
+	width: 45%;
+	height: 600px;
+	overflow-y: auto;
+	overflow-x: hidden;
+	background: white;
+	border-radius: 15px;
+	box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px, rgb(51, 51, 51) 0px 0px 0px 3px;
+	font-size: 17px;
+}
+.code-body{
+	position: absolute;
+	margin-top: 6%;
+	margin-left: 1%;
+	width: 99%;
+	height: 90%;
+	overflow: auto;
+}
+.code-body textarea{ 
+	width: 100%;
+	resize: none;
+	height: 100%;
+	background: #ddd;
+}
+.code-head{
+	position: absolute;
+	z-index: 2;
+	top: 1%;
+	width: 100%;
+	overlow-x: hidden;
+	margin-left: 2%;
+}
+.code-bottom{
+	position: absolute;
+	z-index: 2;
+	bottom: 0;
+	width: 100%;
+	overlow-x: hidden;
+	height: 30px;
+	background: white;
+}
+.code-head a{
+	float: right;
+	cursor: pointer;color: red;
+	margin-right: 1.5%;
+}
+.code-head input{
+	width: 10%;
+	
+}
+.code-head select{
+	width: 10%;
+}
+@media only screen and (max-width: 800px) {
+	.code-body{
+		margin-top: 10%;
+	}
+	#date{display:none;}
+}
+.exec-box{
+	position: fixed;
+	z-index: 98;
+	top: 5%;
+	right: 2%;
+	width: 45%;
+	height: 600px;
+	overflow-y: auto;
+	overflow-x: hidden;
+	background: white;
+	border-radius: 15px;
+	box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px, rgb(51, 51, 51) 0px 0px 0px 3px;
+	font-size: 17px;
+		
+}
+#snackbar {
+  visibility: hidden;
+  min-width: 250px; 
+  margin-left: -125px; 
+  background-color: #333; 
+  color: #fff; 
+  text-align: center; 
+  border-radius: 2px; 
+  padding: 16px;
+  position: fixed; 
+  z-index: 110; 
+  left: 50%; 
+  bottom: 30px; 
+}
+
+#snackbar.show {
+  visibility: visible; 
+  -webkit-animation: fadein 0.5s, fadeout 0.5s 2.5s;
+  animation: fadein 0.5s, fadeout 0.5s 2.5s;
+}
+
+@-webkit-keyframes fadein {
+  from {bottom: 0; opacity: 0;}
+  to {bottom: 30px; opacity: 1;}
+}
+
+@keyframes fadein {
+  from {bottom: 0; opacity: 0;}
+  to {bottom: 30px; opacity: 1;}
+}
+
+@-webkit-keyframes fadeout {
+  from {bottom: 30px; opacity: 1;}
+  to {bottom: 0; opacity: 0;}
+}
+
+@keyframes fadeout {
+  from {bottom: 30px; opacity: 1;}
+  to {bottom: 0; opacity: 0;}
+}
+#date{
+	position: absolute;
+	right: 25%;
+	top: 2%;
+}
+@media only screen and (max-width: 600px) {
+	.curve{
+		display: none;
+	}
+	.prev, .next{
+		display: none;	
+	}
+	.code-box{
+		width: 95%;
+	}
+	.exec-box{
+		display: none;
+	}
+	#date{display:none;}
+}
+.footer{
+	width: 100%;
+	postion: absolute;
+	left: 0;
+	bottom: 2.5%;
+	margin-top: 5%;
+	z-index: 2;
+	color: red;
+	text-align: center;
+}
+.blog-options{
+	display: none;
+	position: fixed;
+	left: 0;
+	top: 1%;
+	z-index: 200;
+	width: 100px;
+	height: 50%;
+	box-shadow: rgba(0, 0, 0, 0.15) 2.4px 2.4px 3.2px;
+	border-radius: 0 0 5px 5px;
+	background: #ddd;
+	text-align: center;
+	-webkit-animation: fadeinto 2s;
+  	animation: fadeinto 2s;
+}
+.blog-options a{
+	display: block;
+	margin-top: 15%;
+	color: black;
+}
+@-webkit-keyframes fadeinto {
+  from {top: 0; opacity: 0;}
+  to {top: 10px; opacity: 1;}
+}
+
+@keyframes fadeinto {
+  from {top: 0; opacity: 0;}
+  to {top: 10px; opacity: 1;}
+}
+.dropup-content {
+  display: none;
+  position: absolute;
+  left: 100%;
+  top: 50%;
+  background-color: #f1f1f1;
+  min-width: 130px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 201;
+}
+.dropup-content a {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+}
+
+.dropup-content a:hover {background-color: #ddd}
+.search-bar{
+	display: none;
+	position: fixed;
+	left: 25%;
+	top: 1%;
+	z-index: 201;
+	width: 52%;
+	min-height: 10%;
+	box-shadow: rgba(0, 0, 0, 0.15) 2.4px 2.4px 3.2px;
+	border-radius: 0 0 5px 5px;
+	background: #ddd;
+	text-align: justify;
+	-webkit-animation: fadeinto 2s;
+  	animation: fadeinto 2s;
+}
+.search-bar input{
+	margin-right: 10px;
+	width: 75%;
+	margin-left: 2%;
+	height: 30px;
+	margin-top: 15px;
+}
+.search-bar button{
+	margin-left: 1.5%;
+}
+.container{
+	background: white;
+}
+.comment-wrapper .panel-body {
+    max-height:650px;
+    overflow:auto;
+}
+
+.comment-wrapper .media-list .media img {
+    width:64px;
+    height:64px;
+    border:2px solid #e5e7e8;
+}
+
+.comment-wrapper .media-list .media {
+    border-bottom:1px dashed #efefef;
+    margin-bottom:25px;
+}
+.btn{
+	float: right;
+	background: #87CEEB;
+	color: white;
+	width: 60px;
+	height: 35px;
+}
+.form-control{
+	resize: none;
+	width: 90%;
+	margin-left: 5%;
+	height: 150px; 
+}
+#email-comment{
+	margin-left: 5%;
+	width: 75%;
+	height: 33px;
+	padding: 0 9px;
+	margin-bottom: 10px;
+}
+</style>
+<script src="https://kit.fontawesome.com/c63faa1f51.js" crossorigin="anonymous"></script>
+<script src="https://use.fontawesome.com/4f05e2c5d5.js"></script>
+<title>Internet Programming</title>
+</head>
+<body>
+<div style="position: fixed;top: 1%;left:1%;"><a style="color: red;" onclick="document.getElementById('blog-options').style.display='block'"><i class="fa fa-bars fa-3x" aria-hidden="true"></i></a></div>
+<div class="blog-options" id="blog-options">
+<a href='javascript:void(0)' onclick="window.scrollTo(0, document.body.scrollHeight);"><i class="fa fa-comment fa-3x" aria-hidden="true"></i></a>
+<a href='javascript:void(0)'><i class="fa fa-share-alt fa-3x" aria-hidden="true"></i></a>
+<a href='javascript:void(0)'><i class="fa fa-download fa-3x" aria-hidden="true"></i></a>
+<a href='javascript:void(0)' onclick="document.getElementById('search-bar').style.display='block'"><i class="fa fa-search fa-3x" aria-hidden="true"></i></a>
+<div style="position: relative;display: inline-block;">
+<a href='javascript:void(0)' onclick="this.parentElement.children[1].style.display='block'"><i class="fa fa-ellipsis-h fa-3x" aria-hidden="true"></i></a>
+<div class="dropup-content">
+<a href="javascript:void(0)" onclick='printBlog()'>Print</a>
+<a href="#">Snapshot</a>
+<a href="#">Homepage</a>
+</div>
+</div>
+</div>
+<noscript>Allow javascript to view this page</noscript>
+<div class="search-bar" id="search-bar">
+<input type="text" id="blog-search"><button onclick="searchBlog()">Search</button><button onclick="this.parentElement.style.display='none'">close</button>
+<div id="search-results" style="width: 100%;overflow: auto;margin-bottom: 10px;"></div>
+</div>
+<div id="snackbar"></div>
+
+<div class="curve">
+</div>
+<div class="back-top" id="backtop" onclick="document.documentElement.scrollTop=0;document.body.scrollTop = 0;"><i class="fa fa-angle-double-up fa-3x" aria-hidden="true"></i></div>
+<div class="console" onclick="code()"><i class="fa fa-terminal fa-3x" aria-hidden="true"></i></div>
+<div style="width: 100%;height: 100;display: none;" id="code-box">
+<div class="exec-box"><div style="position: absolute;top: 0;width: 100%;z-index: 99;height: 20px;background: #ddd;">
+<center><a id="exec-title"></a></center>
+</div>
+<div id="exec-box" style="margin-top: 5%;width: 98%;margin-left: 1%;height: 95%;overflow: auto;"></div></div>
+<div class="code-box">
+<div class="code-head">
+<a onclick="document.getElementById('code-box').style.display='none'" style="margin-right: 2%;"><i class="fa fa-window-close" aria-hidden="true"></i></a>
+Autocomplete: <select>
+<option>ON</option>
+<option>OFF</option>
+</select>
+<input type="button" value="Upload" onclick="document.getElementById('upload').click()" style="margin-left: 2%;">
+<input type="button" onclick="Exec()" value="Execute" style="margin-left: 2%;">
+<input type="button" onclick="document.getElementById('code').value=''" value="Reset" style="margin-left: 2%;">
+<form id="file-upload" method='POST' action="/api/v/upload" enctype = "multipart/form-data"><input type="file" onchange='onChooseFile(event, onFileLoad.bind(this, "code"))' name="code-file" id="upload" style="display: none;"></form>
+<hr/>
+</div>
+<div class="code-body">
+<textarea name="code" id="code" onkeyup="checkCode(this.value)"></textarea>
+</div>
+<div class="code-bottom">
+Words: <i id="count"></i>
+<button style="float: right;margin-right: 5%;" onclick="copyCode()">copy</button>
+<button style="float: right;margin-right: 5%;" onclick='pasteCode()'>paste</button>
+</div>
+</div>
+</div>
+<noscript>Allow javascript to view this page</noscript>
+<div style="margin-left: 5%;">
+<div class="name-nav">
+<p onclick="location.href='{{url_for("home", blogger='bradone')}}'"><b><a>B</a>RADONE <a>O</a>MWITSA</b></p>
+<img class="profile" id="profile" src="{{ url_for('static', filename='profile.jpg') }}">
+</img>
+<p class="gretings">Welcome, {{ hostname }} <i id="date">20 November, 2022 </i><br> - - - -
+<div style="width: 70%;">
+<h1 id="blog-title">1.0 INTERNET PROGRAMMING </h1>
+</div>
+<div class="blog" id="blog">
+<p class="l">Programming is as hard as dumb people say it is, if you like to quit or are too lazy, well I gotta tell you just this early, This isn't the right place for you.</p>
+<p>Regular o'l programming(to be the best), one requires self discipline and consistency. If you manage to hold up the two of these, then I can guarantee you and I within the next three months, are gonna be on a whole new level. For you who have decided are ready, say this with me, "I'm in, and I'm in for good.". Lets dive into it.</p><br>
+<h1>1.1 Basic Tools</h1>
+<p>We are going to start with the most basic langauge html. The HyperText Markup Language or HTML is the standard markup language for documents designed to be displayed in a web browser or web page. HTML elements are the building blocks of HTML pages.HTML provides a means to create structured documents by denoting structural semantics for text such as headings, paragraphs, lists, links, quotes, and other items. HTML elements are delineated by tags, written using angle brackets <p class="t">Headings:- They are only of 6 types. Basic syntax is:
+	<p class="tt">&#60;h1&#62;,&#60;h2&#62;, &#60;h3&#62;, &#60;h4&#62;, &#60;h5&#62;, &#60;h6&#62;</p></p> </p><br>
+	<p class="tt"><i class="fa fa-eye" aria-hidden="true"></i> HTML is not a Programming Language <i> it is only a markup language</i> <i class="fa fa-eye" aria-hidden="true"></i></p>
+	<p class="tt"><i class="fa fa-eye" aria-hidden="true"></i> Always remember to close all tags i.e &#60;h1&#62;&#60;/h1&#62; <i class="fa fa-eye" aria-hidden="true"></i></p>
+	<p class="t">Paragraphs:- Basic syntax is: <p class="tt">
+		&#60;p&#62;The text goes here &#60;/p&#62;
+	</p></p>
+	<p class="t">Lists:- Divided into two:- Ordered and Ordered<p class="tt">
+		Ordered:-
+	<p class="ttt">
+		&#60;ol&#62;</p>
+			<p class="tttt">&#60;li&#62;first item&#60;/li&#62;</p>
+			<p class="tttt">&#60;li&#62;second item&#60;/li&#62;</p>
+		<p class="ttt">&#60;/ol&#62;
+	</p>
+	</p>
+	<p class="tt">
+		Unordered:-
+	<p class="ttt">
+		&#60;ul&#62;</p>
+			<p class="tttt">&#60;li&#62;first item&#60;/li&#62;</p>
+			<p class="tttt">&#60;li&#62;second item&#60;/li&#62;</p>
+		<p class="ttt">&#60;/ul&#62;
+	</p>
+	</p>
+	</p>
+	<p class="t">Links:-
+		<p class="tt">&#60;a&#62;&#60;/a&#62;</p>
+		<p class="ttt"><i>Links have href tags that direct to specific urls i.e</i> &#60;a href="target_url"&#62;&#60;/a&#62;</p>
+	</p>
+	<p class="t">Inputs:-
+		<p class="tt">&#60;input&#62;</p>		
+		<p class="ttt">:- Are of several types:- </p>
+		<p class="tttt">&#60;input type="text"&#62;  Will render an input type for any <i>text</i></p>
+		<p class="tttt">&#60;input type="number"&#62;  Will render an input type for only <i>numbers</i></p>
+		<p class="tttt">&#60;input type="email"&#62;   Will render an input type for only <i>emails</i></p>
+		<p class="tttt">&#60;input type="button"&#62;   Will render an input type for a <i>button</i></p>
+		<p class="tttt">&#60;input type="password"&#62;  Will render an input type for a <i>password field</i></p>
+		<p class="tttt">&#60;input type="hidden"&#62;  Will render an input type that is <i>hidden from user</i></p>
+	</p>
+	<p class="t">Dropdown Options:-
+		<p class="tt">&#60;select&#62;</p>
+			<p class="ttt">&#60;option value="male"&#62;Male&#60;/option&#62;</p>
+			<p class="ttt">&#60;option value="female"&#62;Female&#60;/option&#62;</p>
+			<p class="ttt">&#60;option value="other"&#62;Other&#60;/option&#62;</p>
+		<p class="tt">&#60;/select&#62;</p>	
+	</p>
+</p>
+</div>
+</div>
+</div>
+<div class="container">
+<div class="row bootstrap snippets bootdeys">
+    <div class="col-md-8 col-sm-12">
+        <div class="comment-wrapper">
+            <div class="panel panel-info">
+                <div class="panel-heading">
+                    Comment panel
+                </div>
+                <div class="panel-body">
+		    <input type="text" id="email-comment" placeholder="your email">
+                    <textarea class="form-control" placeholder="write a comment..." id="comment" rows="3"></textarea>
+                    
+                    <button type="button" class="btn">Post</button><br>
+                    <div class="clearfix"></div>
+                    <hr/>
+                    <ul class="media-list">
+                        <li class="media">
+                            <a href="#" class="pull-left">
+                                <img src="https://bootdey.com/img/Content/user_1.jpg" alt="" class="img-circle">
+                            </a>
+                            <div class="media-body">
+                                <span class="text-muted pull-right">
+                                    <small class="text-muted">30 min ago</small>
+                                </span>
+                                <strong class="text-success">@MartinoMont</strong>
+                                <p>
+                                    Thank you very much <a href="#">#goat</a>.
+                                </p>
+                            </div>
+                        </li>
+                        
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+</div>
+<div class="footer"><p>Developed by omwitsabradone@gmail.com</p></div>
+</body>
+<script>
+let mybutton = document.getElementById("backtop");
+window.onbeforeprint = function() {
+    document.getElementById("profile").style.display = 'none';
+};
+window.onafterprint = function() {
+    document.getElementById("profile").style.display = 'block';
+};
+window.onscroll = function() {scrollFunction()};
+
+function scrollFunction() {
+  if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+    mybutton.style.display = "block";
+  } else {
+    mybutton.style.display = "none";
+  }
+}
+function code(){
+	var x = document.getElementById("code-box");
+	if(x.style.display=='block'){
+		x.style.display='none';
+	}else{
+		x.style.display = 'block';
+	}
+}
+function onFileLoad(elementId, event) {
+    document.getElementById(elementId).innerText = event.target.result;
+}
+
+function onChooseFile(event, onLoadFileHandler) {
+    if (typeof window.FileReader !== 'function')
+        throw ("The file API isn't supported on this browser.");
+	popup("The file API isn't supported on this browser.");
+    let input = event.target;
+    if (!input)
+        throw ("The browser does not properly implement the event object");
+	popup("The browser does not properly implement the event object");
+    if (!input.files)
+        throw ("This browser does not support the `files` property of the file input.");
+	popup("This browser does not support the `files` property of the file input.");
+    if (!input.files[0])
+        return undefined;
+    let file = input.files[0];
+    let fr = new FileReader();
+    fr.onload = onLoadFileHandler;
+    fr.readAsText(file);
+}
+function Exec(){
+	//var file = document.getElementById("upload").value;
+	var code = document.getElementById("code").value;
+	let x = $.post("/exec", {code: code});
+	var exec = document.getElementById("exec-box");
+	exec.innerHTML = code;
+	var title = document.getElementById("exec-title");
+	var t = exec.getElementsByTagName("title");
+	var a = exec.getElementsByTagName("a");
+	if(t.length > 0){
+		title.innerText = t[0].innerText;
+	}
+	if(a.length > 0){
+		for(let i =0;i<a.length;i++){
+			a[i].setAttribute('target', '_blank');		
+		}
+	}
+
+	//window.open("/exec", '_blank');
+}
+function copyCode(){
+
+	var copyText = document.getElementById("code");
+
+	copyText.select();
+	copyText.setSelectionRange(0, 99999); 
+
+	navigator.clipboard.writeText(copyText.value);
+}
+function checkCode(val){
+	var count = document.getElementById("count");
+	count.innerText = val.length;
+}
+function pasteCode(){
+	try {
+ 	     navigator.clipboard.readText().then((clipText) =>
+  	     document.getElementById("code").innerText = clipText);
+	   } catch (error) {
+	     popup("unable to get clipboard contents");
+	   }
+}
+function popup(text){
+	var x = document.getElementById("snackbar");
+	x.innerText = text;
+	x.className = "show";
+	setTimeout(function(){ x.className = x.className.replace("show", ""); }, 3000);
+}
+window.onclick = function(event) {
+	if (!event.target.matches('.fa')) {
+		var x = document.getElementsByClassName('dropup-content');
+		for(let i=0;i<x.length;i++){
+			if(x[i].style.display == "block"){
+				x[i].style.display="none";
+			}
+		}
+		document.getElementById('blog-options').style.display='none';
+	}
+}
+function printBlog(){
+	var blogContents = document.getElementById('blog').innerHTML;
+	var title = document.getElementById('blog-title').innerText;
+	var a = window.open('', '', 'height=700, width=900');
+	a.document.write('<html>');
+	a.document.write('<center><h1>'+title+'</h1></center>');
+	a.document.write(blogContents);
+	a.document.write('</body></html>');
+	a.print();
+	a.close();
+}
+function searchBlog(){
+	document.getElementById('search-results').style.height="550px";
+}
+</script>
+</html>

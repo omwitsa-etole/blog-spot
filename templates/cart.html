@@ -1,0 +1,328 @@
+<html lang="en">
+<head>
+<link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet">
+  <link rel="stylesheet" href="{{url_for('static', filename='style.css')}}">
+<script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+<style>
+.cart-products{
+	margin-left: 5%;
+	margin-top: 5px;
+	margin-bottom: 10px;
+	width: 90%;
+}
+a{text-decoration: none;}
+#snackbar {
+  visibility: hidden;
+  min-width: 250px; 
+  margin-left: -125px; 
+  background-color: #333; 
+  color: #fff; 
+  text-align: center; 
+  border-radius: 2px; 
+  padding: 16px;
+  position: fixed; 
+  z-index: 200; 
+  left: 50%; 
+  bottom: 30px; 
+}
+
+#snackbar.show {
+  visibility: visible; 
+  -webkit-animation: fadein 0.5s, fadeout 0.5s 2.5s;
+  animation: fadein 0.5s, fadeout 0.5s 2.5s;
+}
+
+@-webkit-keyframes fadein {
+  from {bottom: 0; opacity: 0;}
+  to {bottom: 30px; opacity: 1;}
+}
+
+@keyframes fadein {
+  from {bottom: 0; opacity: 0;}
+  to {bottom: 30px; opacity: 1;}
+}
+
+@-webkit-keyframes fadeout {
+  from {bottom: 30px; opacity: 1;}
+  to {bottom: 0; opacity: 0;}
+}
+
+@keyframes fadeout {
+  from {bottom: 30px; opacity: 1;}
+  to {bottom: 0; opacity: 0;}
+}
+</style>
+</head>
+<div id="snackbar"></div>
+<div class="top-nav">
+<h2 style="margin-left: 5%;position: absolute;left: 0;">BlogSpot</h2>
+<div class="dropdown">
+<img src="{{url_for('static', filename='avatar.jpg')}}">
+<div class="dropdown-content">
+<a>Profile</a>
+<a href="{{url_for('dashboard', mode='dashboard')}}">Dashboard</a>
+<a href="{{url_for('signout')}}">Sign out</a>
+</div>
+</div>
+</div>
+<div style="position: fixed;top: 0;left: 15%;width: 100%;height: 100%;overflow: auto;">
+
+  <div class="checkout-panel">
+    <div class="panel-body">
+      <h2 class="title">Checkout</h2>
+
+      <div class="cart-products">
+	{%if orders%}
+		{%for order in orders%}
+			<div class="product">{{order[2]}} <a style="margin-left: 50px;" class="price">${{order[3]}}</a><a style="float: right;color: red;" onclick="removeCart(this.id)" id="{{order[2]}}">remove</a></div>
+	      	{%endfor%}
+	{%else%}
+		<div class="product">No Items in Cart</div>
+	{%endif%}
+      </div>
+
+      <div class="payment-method">
+        <label for="card" class="method card">
+          <div class="card-logos">
+            <img src="{{url_for('static', filename='img/visa_logo.png')}}"/>
+            <img src="{{url_for('static', filename='img/mastercard_logo.png')}}"/>
+          </div>
+
+          <div class="radio-input">
+            <input id="card" type="radio" name="payment" onchange="changeMethod(this.id)">
+            Pay $<a id="card-price">340.00</a> with credit card
+          </div>
+        </label>
+
+        <label for="paypal" class="method paypal">
+          <img src="{{url_for('static', filename='img/paypal_logo.png')}}"/>
+          <div class="radio-input">
+            <input id="paypal" type="radio" name="payment" onchange="changeMethod(this.id)"s>
+            Pay $<a id="paypal-price">340.00</a> with PayPal
+          </div>
+        </label>
+      </div>
+
+      <div class="input-fields" >
+        <div class="column-1" id="paybycard" stye="position: absolute;left: 0;width: 100%;">
+	  <input type="hidden" user="{{session['user']}}" name="user" id="user">
+	  <input type="hidden" name="totalprice" id="totalprice" style="display: none;">
+          <label for="cardholder">Cardholder's Name</label>
+          <input type="text" id="cardholder" />
+	  <label for="cardnumber">Card Number</label>
+          <input type="text" id="cardnumber" name="cardnumber"/>
+          <div class="small-inputs">
+            <div>
+              <label for="date">Valid thru</label>
+              <input type="text" id="date" placeholder="MM / YY" name="date"/>
+            </div>
+
+            <div>
+              <label for="verification">CVV / CVC *</label>
+              <input type="password" id="verification" name="cvv"/>
+            </div>
+	  
+          </div>
+          <label for="payaddress">Country</label>
+	  <input list="country" id="address" name="address">
+	  <datalist id="country">
+          {%for country in countries %}
+		{{ country| safe }}
+	  {%endfor%}
+          </datalist>
+	   <div class="small-inputs">
+            <div>
+              <label for="city">City</label>
+              <input type="text" id="city" placeholder="LONDON" name="city" />
+            </div>
+
+            <div>
+              <label for="post-code">Postal Code</label>
+              <input type="text" id="post-code" name="code"/>
+            </div>
+          </div>
+          <span class="info">* CVV or CVC is the card security code, unique three digits number on the back of your card separate from its number.</span>
+        </div>
+        <div class="column-2" id="paybypal" style="width: 100%;display: none;">
+          <label for="payemail">Paypal Email</label>
+          <input type="text" id="payemail" /><br>
+	  <label for="payaddress">Address</label>
+	  <input type="text" placeholder="address">
+	  <label for="payphone">Phone</label>
+	  <input type="text" placeholder="phone number with country code">
+	  <p>A total of $<a id="paypalprice"></a> will be charged on your account</>
+        </div>
+      </div>
+    </div>
+
+    <div class="panel-footer">
+      <button class="btn back-btn" onclick="location.href='{{url_for("get_templates")}}'">Back</button>
+      <button class="btn next-btn" onclick="validatePay()">Next Step</button>
+    </div>
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+</div>
+<div id="loading" style="width: 100%;height: 100%;">
+{%block content%}
+{%endblock%}
+</div>
+<script>
+function sleep(ms) {
+      return new Promise(resolve => setTimeout(resolve, ms));
+   }
+validatePrice();
+$(document).ready(function() {
+	document.getElementById("card").checked = true;
+	
+	validatePrice()
+});
+function validatePrice(){
+	var xs = document.getElementsByClassName("price");
+	let sum = 0
+	for( x of xs){
+		x = x.innerText;
+		x = x.replace("$", "");
+		x = parseFloat(x)
+		sum = sum + x;
+	}
+	document.getElementById("card-price").innerText = sum;
+	document.getElementById("totalprice").innerText = sum;
+	document.getElementById("paypal-price").innerText = sum;
+	document.getElementById("paypalprice").innerText = sum;
+}
+function changeMethod(id){
+	document.getElementById(id).checked = true;
+	if(id == "paypal"){
+		document.getElementById('paybycard').style.display='none';
+		document.getElementById('paybypal').style.display='block';
+	}else{
+		document.getElementById('paybypal').style.display='none';
+		document.getElementById('paybycard').style.display='block';
+	}
+}
+$(document).ready(function() {
+
+  // Radio box border
+  $('.method').on('click', function() {
+    $('.method').removeClass('blue-border');
+    $(this).addClass('blue-border');
+  });
+
+ 
+});
+
+function validatePay(){
+	  var p = document.getElementById("paypal");
+	  var c = document.getElementById("card");
+	  console.log(c.checked);
+	  console.log(p.checked)
+	   if(c.checked == true){
+		  var $cardInput = $('.column-1 input');
+
+		  
+		    $cardInput.removeClass('warning');
+
+		    $cardInput.each(function() {
+		       var $this = $(this);
+
+		       if (!$this.val()) {
+			 $this.addClass('warning');
+		       }else{
+				let x = payCard();
+				if(x != false){
+					location.search = "";
+					location.search = x;
+				}
+			  $this.stopImmediatePropagation();
+			}
+		    });
+
+	   }else if(p.checked == true){
+		var email = document.getElementById("payemail").value;
+		var amount = document.getElementById("paypalprice").innerText;
+		var $cardInput = $('.column-2 input');
+
+		  
+		    $cardInput.removeClass('warning');
+
+		    $cardInput.each(function() {
+		       var $this = $(this);
+
+		       if (!$this.val()) {
+			 $this.addClass('warning');
+		       }
+		    });
+		if(email.length > 0){
+			$.ajaxSetup({async: false});
+			let x = $.post("/api/fx/templates/checkout", {email: email, amount: amount, url:location.href});
+			if(x.responseText == "success"){
+				popup("Payement Completed, wait as we redirect you ....");
+				sleep(1000).then(() => {
+					location.search = "";
+					location.search = 'success';
+				})
+			}else{
+				location.search = "";
+				location.search = 'fail';
+			}
+		}else{popup("email field is required");}
+	   }
+	 //
+}
+function payCard(){
+	var visa_cardno = /^(?:4[0-9]{12}(?:[0-9]{3})?)$/;
+	var master_cardno = /^(?:5[1-5][0-9]{14})$/;
+	var name = document.getElementById("cardholder").value;
+	var number = document.getElementById("cardnumber").value;
+	var date = document.getElementById("date").value;
+	var cvv = document.getElementById("verification").value;
+	var country = document.getElementById("address").value;
+	var city = document.getElementById("city").value;
+	var code = document.getElementById("post-code").value;
+	var xs = document.getElementsByClassName("price");
+	let sum = 0
+	for( x of xs){
+		x = x.innerText;
+		x = x.replace("$", "");
+		x = parseFloat(x)
+		sum = sum + x;
+	}
+	var total = sum;
+	location.search ="loading";
+	if(number.length < 16 || number.length > 14){
+		if(date.includes("-")){popup("invalid date format"); return false;}
+		d = date.split("/");console.log(d[0]);console.log(d[1])
+		m = parseInt(d[0])
+		y = parseInt(d[1])
+		if(m > 12 || m < 1){popup("invalid date input"); return false;}
+		user = "{{session['user']}}";
+		$.ajaxSetup({async: false});
+		let x = $.post("{{url_for('templates', mode='checkout-cart')}}", {user: user, cardnumber: number,cardholder: name,date: date,totalprice: total,cvv: cvv,address: country,city: city,code: code});
+		return x.responseText;
+	}else{
+		popup("Invalid credit card number");
+		return false;
+	}
+}
+
+function removeCart(id){
+	$.ajaxSetup({async: false});
+	document.getElementById(id).parentElement.remove();
+	let x = $.post("/api/fx/templates/remove", {template: id});
+	if(x.responseText == "success"){
+		popup("Template removed from cart");
+	}else{ popup(x.responseText)}
+	validatePrice();
+}
+
+function popup(text){
+	if(text != "read"){
+		var x = document.getElementById("snackbar");
+		x.innerText = text;
+		x.className = "show";
+		setTimeout(function(){ x.className = x.className.replace("show", ""); }, 3000);
+	}
+	
+}
+</script>

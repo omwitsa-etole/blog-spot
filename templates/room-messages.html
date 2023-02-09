@@ -1,0 +1,23 @@
+{%if n == 0%}
+	<center><div>No Messages here </div><br>Be The First To text</center>
+{%endif%}
+{% for message in messages %}
+	{% set fernet = Fernet(message[5])%}
+	{% set msg = fernet.decrypt(message[3]).decode()%}
+	{% if message[2] == session["room-name"]%}
+	<div class="incoming_msg">
+              <div class="incoming_msg_img"> <img src="https://ptetutorials.com/images/user-profile.png" alt="sunil"> </div>
+              <div class="received_msg">
+                <div class="received_withd_msg">
+                  <p>{{msg}}</p>
+                <span class="time_date"> {{message[4]}}</span> </div>
+              </div>
+            </div>
+	{%else%}
+            <div class="outgoing_msg">
+              <div class="sent_msg">
+                <p>{{msg}}</p>
+                <span class="time_date"> {{message[4]}}</span> </div>
+            </div>
+	{%endif%}
+{%endfor%}

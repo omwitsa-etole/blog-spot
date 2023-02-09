@@ -1,0 +1,775 @@
+<html lang="en"><head>
+    <meta charset="utf-8">
+    <meta name="robots" content="noindex, nofollow">
+
+    <title>Rooms@BlogSpot</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <link rel="stylesheet" src="style.rooms.css">
+    <style type="text/css">
+    .container{max-width:1170px; margin:auto;}
+img{ max-width:100%;}
+.inbox_people {
+  background: #f8f8f8 none repeat scroll 0 0;
+  float: left;
+  overflow: hidden;
+  width: 40%; border-right:1px solid #c4c4c4;
+}
+.inbox_msg {
+  border: 1px solid #c4c4c4;
+  clear: both;
+  overflow: hidden;
+}
+.top_spac{ margin: 20px 0 0;}
+
+
+.recent_heading {float: left; width:40%;}
+.srch_bar {
+  display: inline-block;
+  text-align: right;
+  width: 60%;
+}
+.headind_srch{ padding:10px 29px 10px 20px; overflow:hidden; border-bottom:1px solid #c4c4c4;}
+
+.recent_heading a {
+  color: #05728f;
+  margin-left: 6px;
+  font-size: 19px;
+  cursor: pointer;
+}
+.srch_bar input{ border:1px solid #cdcdcd; border-width:0 0 1px 0; width:80%; padding:2px 0 4px 6px; background:none;}
+.srch_bar .input-group-addon button {
+  background: rgba(0, 0, 0, 0) none repeat scroll 0 0;
+  border: medium none;
+  padding: 0;
+  color: #707070;
+  font-size: 18px;
+}
+.srch_bar .input-group-addon { margin: 0 0 0 -27px;}
+
+.chat_ib h5{ font-size:15px; color:#464646; margin:0 0 8px 0;}
+.chat_ib h5 span{ font-size:13px; float:right;}
+.chat_ib p{ font-size:14px; color:#989898; margin:auto}
+.chat_img {
+  float: left;
+  width: 11%;
+}
+.chat_ib {
+  float: left;
+  padding: 0 0 0 15px;
+  width: 88%;
+}
+
+.chat_people{ overflow:hidden; clear:both;}
+.chat_list {
+  border-bottom: 1px solid #c4c4c4;
+  margin: 0;
+  padding: 18px 16px 10px;
+}
+.inbox_chat { height: 570px; overflow-y: scroll;width: 100%;}
+
+.active_chat{ background:#ebebeb;}
+
+.incoming_msg_img {
+  display: inline-block;
+  width: 6%;
+}
+.received_msg {
+  display: inline-block;
+  padding: 0 0 0 10px;
+  vertical-align: top;
+  width: 92%;
+ }
+ .received_withd_msg p {
+  background: #ebebeb none repeat scroll 0 0;
+  border-radius: 3px;
+  color: #646464;
+  font-size: 14px;
+  margin: 0;
+  padding: 5px 10px 5px 12px;
+  width: 100%;
+}
+.time_date {
+  color: #747474;
+  display: block;
+  font-size: 12px;
+  margin: 8px 0 0;
+}
+.received_withd_msg { width: 57%;}
+.mesgs {
+  float: left;
+  padding: 30px 15px 0 25px;
+  width: 60%;
+}
+
+ .sent_msg p {
+  background: #05728f none repeat scroll 0 0;
+  border-radius: 3px;
+  font-size: 14px;
+  margin: 0; color:#fff;
+  padding: 5px 10px 5px 12px;
+  width:100%;
+}
+.outgoing_msg{ overflow:hidden; margin:26px 0 26px;}
+.sent_msg {
+  float: right;
+  width: 46%;
+}
+.input_msg_write textarea {
+  background: rgba(0, 0, 0, 0) none repeat scroll 0 0;
+  
+  color: #4c4c4c;
+  font-size: 15px;
+  min-height: 48px;
+  resize: none;
+  width: 100%;
+}
+
+.type_msg {border-top: 1px solid #c4c4c4;position: relative;}
+.msg_send_btn {
+  background: #05728f none repeat scroll 0 0;
+  border: medium none;
+  border-radius: 50%;
+  color: #fff;
+  cursor: pointer;
+  font-size: 17px;
+  height: 33px;
+  position: absolute;
+  right: 0;
+  top: 11px;
+  width: 33px;
+}
+.messaging { padding: 0 0 50px 0;}
+.msg_history {
+  height: 516px;
+  overflow-y: auto;
+}  
+.set-name{
+	display: block;
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	z-index: 240;
+}  
+.set{
+	position: absolute;
+	left: 27.5%;
+	width: 500px;
+	height: 350px;
+	border-radius: 10px;
+	box-shadow: ;
+	background: white;
+	margin-top: 100px;
+
+}
+.set input{
+	width: 400px;
+	height: 40px;
+	padding: 0 8px;
+	border-radius: 5px;
+}
+.set button{
+	position: absolute;
+	bottom: 2%;
+	width: 65px;
+	height: 40px;
+	cursor: pointer;
+	
+}
+.l{
+	background: #FFCCCB;
+	left: 5%;
+}
+.l:hover{background: red;}
+.r{
+	right: 5%;
+}
+.chat{
+	display: none;
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	z-index: 250;
+}
+.ch{
+	position: absolute;
+	z-index: 201;
+	top: 10%;
+	left: 30%;
+	width: 45%;
+	height: 400px;
+	max-height: 500px;
+	overflow-y: auto;
+	overflow-x: hidden;
+	background: white;
+	border-radius: 15px;
+	box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px, rgb(51, 51, 51) 0px 0px 0px 3px;
+	font-size: 17px;
+}
+.chat input{
+	width: 80%;
+	margin-left: 10%;
+	height: 40px;
+	padding: 0 9px;
+	margin-bottom: 25px;
+	
+}
+.chat button{
+	position: absolute;
+	bottom: 0;
+	width: 70%;
+	height: 50px;
+	left: 15%;
+	z-index: 1;
+}
+.top-nav input{
+	width: 50%;
+	margin-left: 10px;
+	height: 40px;
+	padding: 0 9px;
+	margin-bottom: 25px;
+	position: relative;
+}
+.search-dropdown{
+	display: none;
+	position: absolute;
+	z-index: 221;	
+	top: 100%;
+	width: 300px;
+	height: 400px;
+	
+	background: white;
+	box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
+}
+.query-box{
+	dipslay: block;
+	width: 100%;
+	min-height: 50px;
+	cursor: pointer;
+}
+.query-box:hover{
+	background: #ddd;
+}
+#email-code{
+	width: 80%;
+	margin-left: 10%;
+	height: 40px;
+	padding: 0 9px;
+	margin-bottom: 25px;
+}
+.chat-list{
+	position: relative;
+	
+}
+.attachement{
+	position: absolute;
+	left: 0;
+	width: 45%;
+	height: 80%;
+	border-radius: 10px;
+	box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px, rgba(27, 31, 35, 0.15) 0px 0px 0px 1px;
+	background: white;
+	align-items: center;
+	justify-content: center;
+	margin-top: 2%;
+	margin-left: 2%;
+}
+.attachement iframe{
+	width: 100%;
+	height: 100%;
+}
+@media only screen and (max-width: 800px) {
+	.search input{
+		left: 45%;
+	}
+	.dropdown img{margin-right: 1%;}
+	.mesgs{
+		display: none;
+	}
+	.inbox_people{
+		width: 100%;	
+	}
+	
+
+}
+.reply{
+	display: block;
+	width: 100%;
+}
+</style>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+    <script type="text/javascript">
+       
+        
+    </script>
+<link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet">
+  <link rel="stylesheet" href="{{url_for('static', filename='style.css')}}">
+<script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+</head>
+<body>
+<div id="snackbar"></div>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css" type="text/css" rel="stylesheet" <="" head="">
+<div class="top-nav" style="background: white;z-index: 220;">
+<h2 style="margin-left: 5%;position: absolute;left: 0;">BlogSpot<br><a href="{{url_for('rooms')}}"><i style="font-size: 16px;">(@{{session["room-name"]}})</i></a>
+</h2>
+<div class="search" style="margin-left: 30%;position: absolute;left: 0;">
+<input type="text" placeholder="search users to connect with " id="rooms-query" onkeyup="searchUsers(this.value)">
+<div class="search-dropdown" id="search-dropdown">
+</div>
+</div>
+<div class="dropdown">
+<img src="{{url_for('static', filename='avatar.jpg')}}">
+<div class="dropdown-content">
+<a href="{{url_for('blogHome')}}" target="">Home</a>
+<a href="{{url_for('profile', mode='my-profile')}}" target="_blank">Profile</a>
+<a href="{{url_for('dashboard', mode='dashboard')}}">Dashboard</a>
+<a href="{{url_for('signout')}}?callback_url={{url_for('rooms')}}">Sign out</a>
+</div>
+</div>
+</div>
+<div class="container" style="margin-top: 80px;" id="user-room">
+<div class="messaging">
+      <div class="inbox_msg">
+        <div class="inbox_people">
+          <div class="headind_srch">
+            <div class="recent_heading">
+              <a onclick="document.cookie='group=';document.cookie='activegroup=';checkdata('contacts');showRoom()">Recent</a> | <a onclick="document.cookie='group=true';location.reload()">Groups</a></p>
+            </div>
+            <div class="srch_bar">
+              <div class="stylish-input-group">
+                <input type="text" class="search-bar" placeholder="Search" id="input" onkeyup="filterChat()">
+                <span class="input-group-addon">
+                <button type="button"> <i class="fa fa-search" aria-hidden="true"></i> </button>
+                </span> </div>
+            </div>
+          </div>
+          <div class="inbox_chat" id="inbox_chat">
+            
+            
+           
+          </div>
+        </div>
+        <div class="mesgs" id="mesgs" style="position: relative;">
+	  <div style="position: absolute;top: 0;left: 0;width: 100%;height: 35px;background: #B0C4DE;z-index: 2;"><i id="chat-title"></i>
+	<a style="float: right;position: relative;color: black;cursor: pointer;" onclick="document.getElementById('room-opt').style.display='block'"><i class="fa fa-ellipsis-h" aria-hidden="true"></i></a>
+	<div class="dropdown-content" id="room-opt">
+	<a>Archive</a>
+	<a>Dark mode</a>
+	<a>Settings</a>
+	<a>Delete chats</a>
+	</div>
+	</div>
+          <div class="msg_history" style="margin-top: 10px;overflow: auto;" id="loadroom">
+            <center><div>Select a Room from the left panel</div></center>
+            
+          </div>
+          <div class="type_msg">
+            <div class="input_msg_write">
+              <textarea class="write_msg" id="message" placeholder="Type a message"></textarea>
+              <button class="msg_send_btn" type="button" onclick="sendMessage()"><i class="fa fa-paper-plane-o" aria-hidden="true"></i></button>
+            </div>
+          </div>
+        </div>
+      </div>
+    
+    </div></div>
+<div class="container" id="blog-room" style="margin-top: 80px;display: none;">
+<div class="mesgs" style="position: relative;width: 100%;background: #23395D;">
+	  <div style="position: absolute;top: 0;left: 0;width: 100%;height: 40px;background: white;z-index: 1;"><h3 id="group-title"></h3>
+	<a id="group-description" style="position: absolute;top: 0;right: 5%;"></a>
+	<a style="float: right;margin-top: -45px;position: relative;color: black;cursor: pointer;" onclick="document.getElementById('group-opt').style.display='block'"><i class="fa fa-ellipsis-h" aria-hidden="true"></i></a>
+	<div class="dropdown-content" id="group-opt">
+	<a>Archive</a>
+	<a>Dark mode</a>
+	<a>Settings</a>
+	<a href="{{url_for('rooms')}}">Exit chat</a>
+	</div>
+	</div>
+	  <div class="attachement" id="attachement">
+		<iframe width="678" height="381" id="group-video" src="https://www.youtube.com/embed/qz0aGYrrlhU" title="HTML Tutorial for Beginners: HTML Crash Course" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+	  </div>
+          <div class="msg_history" style="overflow: auto;color: white;margin-top: 25px;" id="loadgroup">
+            <div style="float: right;margin-right: 15%;">The Group Messages For this chat</div>
+            
+          </div>
+          <div class="type_msg" >
+            <div class="input_msg_write" >
+              <textarea class="write_msg" id="group-message" placeholder="Type a message" style="color: white;"></textarea>
+              <button class="msg_send_btn" type="button" onclick="sendGroupMessage()"><i class="fa fa-paper-plane-o" aria-hidden="true"></i></button>
+            </div>
+          </div>
+</div>
+</div>
+<div class="set-name" id="set-name">
+<div class="set">
+<center><h3>Set Your Name</h3></center>
+<p>You do not have a name set to use in rooms, set a name to proceed</p><br>
+<input type="text" placeholder="rooms name" id="room-name">
+<center><p id="err" style="color: red;"></p></center>
+<button class="l" onclick="window.close()">Exit</button><button class="r" onclick="setName()">SET</button>
+</div>
+</div>
+<div class="chat" id="chat">
+<div class="ch">
+<a style="float: right;cursor: pointer;color: red;" onclick="window.close()"><i class="fa fa-window-close" aria-hidden="true"></i></a>
+<center><h2>Session Expired</h2><h3>To Participate in Chat Room Enter Your Email</h3><p>An email code will be sent to the input email</p></center><br>
+<input type="email" placeholder="email" id="email">
+<button onclick="getCode(this.id)" id="send-code">Send Code</button>
+</div>
+</div>
+</body> 
+<script type="text/javascript">
+function sleep(ms) {
+      return new Promise(resolve => setTimeout(resolve, ms));
+   }
+
+window.onclick = function(event) {
+	if (!event.target.matches('.fa')) {
+		var x = document.getElementsByClassName('dropdown-content');
+		var y = document.getElementById("search-dropdown");
+		for(let i=0;i<x.length;i++){
+			if(x[i].style.display == "block"){
+				x[i].style.display="none";
+			}
+		}
+		if(y.style.display == 'block'){
+			y.style.display = 'none';
+		}
+		
+	}
+}
+{% if session.get("room-name")== None or session.get("room-name") == "NULL"%}
+	document.getElementById("set-name").style.display = 'block';
+{%else%}
+	document.getElementById("set-name").style.display = 'none';
+{%endif %}
+$(document).ready(function() {
+	checkdata('contacts');
+	
+	setInterval(checkdata('contacts'), 2000);
+	{% if session.get("room-name") == None or session.get("room-name") == "NULL" or session.get("room-name") == "None"%}
+		document.getElementById("set-name").style.display = 'block';
+		
+	{%else%}
+		document.getElementById("set-name").style.display = 'none';
+		
+	{%endif %}
+	var x = location.search;
+	if(x == "?set-name"){
+		{% if session.get("room-name") == None or session.get("room-name") == "NULL" or session.get("room-name") == "None"%}
+			document.getElementById("set-name").style.display = 'block';
+		{%else%}
+			location.search = '';
+		{%endif%}
+	}else if(x.search("b=") != -1){
+		let v = x.search("b=");
+		if(v != -1){
+			x = x.replace("?b=", "");
+			if(x.length > 0){
+				let blog = x;
+				document.cookie = "active=''";
+				document.cookie = "activegroup = "+blog;
+				loadGroup();
+				setInterval(loadGroup, 3000);
+			}
+		}
+		
+	}else{
+		document.cookie = "activegroup = ''";
+		var ck = getCookie("active");
+		console.log(ck);
+		if(ck != ""){
+			loadRoom();
+			setInterval(loadRoom, 3000);
+		}
+	}
+	
+})
+function getCookie(cname) {
+  let name = cname + "=";
+  let decodedCookie = decodeURIComponent(document.cookie);
+  let ca = decodedCookie.split(';');
+  for(let i = 0; i <ca.length; i++) {
+    let c = ca[i];
+    while (c.charAt(0) == ' ') {
+      c = c.substring(1);
+    }
+    if (c.indexOf(name) == 0) {
+      return c.substring(name.length, c.length);
+    }
+  }
+  return "";
+}
+function checkdata(mode){
+	{% if session.get("room-name") == None or session.get("room-name") == "NULL" %}
+		document.getElementById("set-name").style.display = 'block';
+	{%else%}
+		document.getElementById("set-name").style.display = 'none';
+	{%endif%}
+	{% if session.get("rooms-user") == None%}
+		document.getElementById('chat').style.display='block';
+	{%else%}
+		$.post("/api/fx/request/setonline", {email: "{{session['rooms-user']}}"})
+		{% if session.get("room-name") == None or session.get("room-name") == "NULL" %}
+			document.getElementById("set-name").style.display = 'block';
+		{%else%}
+			var ck = getCookie("group");
+			if(ck != ""){
+				$("#inbox_chat").load("/api/fx/request/loadgroups");
+			}else{
+				if(mode == 'contacts'){
+					
+					$("#inbox_chat").load("/api/fx/request/loadmessages");
+					var div = document.getElementById("inbox_chat");
+					div.scrollTop = div.scrollHeight;
+				}
+			}
+		{%endif%}
+	{%endif%}
+	
+	
+}
+function setName(){
+	var name = document.getElementById("room-name").value;
+	console.log(name);
+	if(name.length > 0){
+		$.ajaxSetup({async: false});
+		let x = $.post("/api/fx/request/setname", {name: name});
+		if(x.responseText == "success"){popup("You can now chat in rooms");
+			sleep(1000).then(() => {
+				location.reload()
+			})
+		}else{popup(x.responseText);}
+	}else{
+		popup("Input Required");
+	}
+}
+function filterChat() {
+  var input, filter, table, tr, td, i, txtValue;
+  input = document.getElementById("input");
+  filter = input.value.toUpperCase();
+  table = document.getElementById("inbox_chat");
+  tr = table.getElementsByClassName("chat_people");
+  let x = tr.length;
+  for (i = 0; i < tr.length; i++) {
+    td = tr[i].getElementsByClassName("chat_ib")[0];
+    if (td) {
+      txtValue = td.textContent || td.innerText;
+      if (txtValue.toUpperCase().indexOf(filter) > -1) {
+        tr[i].style.display = "";
+      } else {
+        tr[i].style.display = "none";
+	x = x -1;	
+      }
+    }
+  }
+ 	if(x== 0){
+		if ($('#no_result').length > 0) {
+		  document.getElementById("no_result").remove();
+		}
+		
+		let d = document.createElement("div");
+		
+		d.setAttribute("id", "no_result");
+		d.innerText = "No messages Found";
+		table.append(d);
+	}else{
+		if ($('#no_result').length > 0) {
+		  document.getElementById("no_result").remove();
+		}
+	}
+}
+function newCode(){
+	var email = document.getElementById("email");
+	$.ajaxSetup({async: false});
+	if(email.value.length > 0){
+		let x = $.post("/api/fx/request/join-room", {email: email.value});
+		if(x.responseText == "success"){
+			popup("check for code in your email box");
+		}else{popup(x.responseText)}
+	}else{
+		popup("enter email to join room");
+	}
+}
+function getCode(id){
+	var email = document.getElementById("email");
+	var btn = document.getElementById(id);
+	if(email.value.length > 0){
+		$.ajaxSetup({async: false});
+		let x = $.post("/api/fx/request/join-room", {email: email.value});
+		if(x.responseText == "success"){
+			popup("check for code in your email box");
+			let i = document.createElement("input");
+			let a = document.createElement("a");
+			a.innerText = "Request new Code";
+			a.setAttribute("onclick", "newCode()");
+			a.setAttribute("style", "margin-top: 10px;margin-bottom: 5px;cursor: pointer;margin-left: 40%;")
+			i.setAttribute("type", "text");
+			i.setAttribute("id", "email-code");
+			i.setAttribute("placeholder", "enter code sent to email");
+			email.after(i);
+			i.after(a);
+			btn.removeAttribute("onclick");
+			btn.setAttribute("onclick", "enterRoom()");
+		}else{
+			document.getElementById("err").innerText = x.responseText;
+			popup(x.responseText)
+		}
+	}else{
+		popup("enter email to join room");
+	}
+}
+function enterRoom(){
+	var email = document.getElementById("email").value;
+	var code = document.getElementById("email-code").value;
+	if(email.length > 0){
+		console.log(code);	
+		console.log(code.length);
+		if(code.length == 6){
+			$.ajaxSetup({async: false});
+			let x = $.post("/api/fx/request/validate", {email: email, code : code});
+			if(x.responseText == "success"){
+				popup(x.responseText);	
+				location.reload();
+			}else{
+				popup(x.responseText);
+			}
+		}else{
+			popup("invalid Code");
+		}
+	}else{popup("Valid email input is required");}
+}
+function searchUsers(val){
+	if(val == 'set-in'){
+		val = document.getElementById("rooms-query").value;
+	}
+	var x = document.getElementById("search-dropdown");
+	val = val.replace(" ", "+");
+	if(val.length > 0){
+		x.style.display = 'block';
+		$("#search-dropdown").load("/api/fx/request/search?user="+val);
+	}else{
+		x.style.display = 'none';
+	}
+}
+function searchGroups(){
+	val = document.getElementById("rooms-query").value;
+	var x = document.getElementById("search-dropdown");
+	val = val.replace(" ", "+");
+	if(val.length > 0){
+		x.style.display = 'block';
+		$("#search-dropdown").load("/api/fx/request/search?group="+val);
+	}else{
+		x.style.display = 'none';
+	}
+}
+function showRoom(){
+	var a = document.getElementById("mesgs");
+	var i = document.getElementById("inbox_chat");
+	if(window.innerWidth < 800){
+		if(a.classList.contains("reply")){
+			i.style.display = 'block';
+			a.classList.remove("reply");		
+		}else{
+			i.style.display = "none";
+			a.classList.add("reply")
+		}
+	}	
+}
+function loadRoom(){
+	let name = getCookie("active");
+	if(name != ""){
+		document.cookie = "activegroup=''";
+		var x = document.getElementById("chat-title");
+		var y = document.getElementById("user-room");
+		var z =  document.getElementById("blog-room");
+		y.style.display = 'block';
+		z.style.display = 'none';
+		x.innerText = name;
+		$.ajaxSetup({async: false});
+		$("#loadroom").load("/api/fx/request/loadroom?active="+name);	
+		//document.getElementById('message').value = "";
+	}
+	if(window.innerWidth > 800){
+		var a = document.getElementById("mesgs")
+		if(a.classList.contains("reply")){
+			document.getElementById("inbox_chat").style.display = 'block';
+			a.classList.remove("reply");		
+		}
+	}
+	
+	
+}
+function loadGroup(){
+	var x = document.getElementById("user-room");
+	var y =  document.getElementById("blog-room");
+	let z = location.search;
+	if(z.search("b=") != -1){
+		name = getCookie("activegroup");
+		document.cookie = "active=''";
+		if(name != ""){
+			x.style.display = 'none';
+			y.style.display = 'block';
+			$.ajaxSetup({async: false});
+			$("#loadgroup").load("/api/fx/request/loadgroup?active="+name);	
+		}
+	}
+	var div = document.getElementById("loadgroup");
+	div.scrollTop = div.scrollHeight;
+}
+function sendGroupMessage(){
+	var msg = document.getElementById('group-message').value;
+	var ck = getCookie("activegroup");
+	if(ck != ""){
+		let group = ck;
+		if(msg.length > 0){
+			$.ajaxSetup({async: false});
+			let x = $.post("/api/fx/request/sendgroupmessage", {to: ck,msg: msg});
+			if(x.responseText == "success"){
+				document.getElementById('group-message').value = "";	
+				//popup("message sent");
+				loadGroup();
+				//checkdata('contacts');
+			}else{
+				popup(x.responseText);
+			}
+		}
+	}
+	
+}
+function sendMessage(){
+	var msg = document.getElementById('message').value;
+	var ck = getCookie("active");
+	if(ck != ""){
+		let user = ck;
+		if(msg.length > 0){
+			$.ajaxSetup({async: false});
+			let x = $.post("/api/fx/request/sendmessage", {to: ck,msg: msg});
+			if(x.responseText == "success"){
+				document.getElementById('message').value = "";	
+				//popup("message sent");
+				loadRoom();
+				checkdata('contacts');
+			}else{
+				popup(x.responseText);
+			}
+		}
+	}
+	
+}
+function popup(text){
+	if(text != "read"){
+		var x = document.getElementById("snackbar");
+		x.innerText = text;
+		x.className = "show";
+		setTimeout(function(){ x.className = x.className.replace("show", ""); }, 3000);
+	}
+	
+}
+</script>
+</html>

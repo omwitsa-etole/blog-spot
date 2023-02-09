@@ -1,0 +1,771 @@
+<html lang="en"><head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <meta name="twitter:site" content="@Blogspot">
+    <meta name="twitter:creator" content="@Blogspot">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Blogspot">
+    <meta name="twitter:description" content="Web developers Blog spot.">
+    <meta property="og:url" content="">
+    <meta property="og:title" content="Bracket">
+    <meta property="og:description" content="Web developer Blog content.">
+
+    <meta property="og:image:type" content="image/png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="600">
+
+    <!-- Meta -->
+    <meta name="description" content="Web developer Blog content.">
+    <meta name="author" content="Blogspot">
+
+    <title>Dashboard</title>
+   <script src="https://kit.fontawesome.com/c63faa1f51.js" crossorigin="anonymous"></script>
+   <script src="https://use.fontawesome.com/4f05e2c5d5.js"></script>
+    <!-- vendor css -->
+    <link href="{{ url_for('static', filename='font-awesome.css')}}" rel="stylesheet">
+    <link href="{{ url_for('static', filename='ionicons.css')}}" rel="stylesheet">
+    <link href="{{ url_for('static', filename='perfect-scrollbar.css')}}" rel="stylesheet">
+    <link href="{{ url_for('static', filename='jquery.switchButton.css')}}" rel="stylesheet">
+    <link href="{{ url_for('static', filename='rickshaw.min.css')}}" rel="stylesheet">
+    <link href="{{ url_for('static', filename='chartist.css')}}" rel="stylesheet">
+   
+	<script src="https://code.jquery.com/jquery-3.5.0.js"></script>
+    <!-- Bracket CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='bracket.css')}}">
+  <style type="text/css">.jqstooltip { position: absolute;left: 0px;top: 0px;visibility: hidden;background: rgb(0, 0, 0) transparent;background-color: rgba(0,0,0,0.6);filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=#99000000, endColorstr=#99000000);-ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr=#99000000, endColorstr=#99000000)";color: white;font: 10px arial, san serif;text-align: left;white-space: nowrap;padding: 5px;border: 1px solid white;z-index: 10000;}.jqsfield { color: white;font: 10px arial, san serif;text-align: left;}</style>
+<style>
+body{
+	color: black;
+}
+
+#menu{
+	overflow: none;
+	text-align: left;
+	justify-content: left;
+}
+#menu:hover{
+	
+	width: 22%;
+}
+#menu:hover span{
+	visibility: visible;
+	margin-left: 10px;
+}
+#menu span{
+	visibility: visible;
+	margin-left: 15px;
+}
+
+.show{
+	width: 25%;
+	display: block;
+	position: fixed;
+	left: 0;	
+}
+#searchbox:focus{
+	width: 250px;
+}
+.dropdown:hover .dropdown-menu{
+	display: block;
+}
+#snackbar {
+  visibility: hidden;
+  min-width: 250px; 
+  margin-left: -125px; 
+  background-color: #333; 
+  color: #fff; 
+  text-align: center; 
+  border-radius: 2px; 
+  padding: 16px;
+  position: fixed; 
+  z-index: 200; 
+  left: 50%; 
+  bottom: 30px; 
+}
+
+#snackbar.show {
+  visibility: visible; 
+  -webkit-animation: fadein 0.5s, fadeout 0.5s 2.5s;
+  animation: fadein 0.5s, fadeout 0.5s 2.5s;
+}
+
+@-webkit-keyframes fadein {
+  from {bottom: 0; opacity: 0;}
+  to {bottom: 30px; opacity: 1;}
+}
+
+@keyframes fadein {
+  from {bottom: 0; opacity: 0;}
+  to {bottom: 30px; opacity: 1;}
+}
+
+@-webkit-keyframes fadeout {
+  from {bottom: 30px; opacity: 1;}
+  to {bottom: 0; opacity: 0;}
+}
+
+@keyframes fadeout {
+  from {bottom: 30px; opacity: 1;}
+  to {bottom: 0; opacity: 0;}
+}
+.menu:hover .info-list{
+	display: block;
+}
+.event{
+	visibility: hidden;
+	max-width: 400px;
+	width: 400px;
+	position: absolute; 
+	  z-index: 120; 
+	  left: 50%; 
+	  top: 10%;
+	-webkit-animation: fadeinto 1s;
+  	animation: fadeinto 1s;
+}
+.popup{
+	visibility: hidden;
+	max-width: 400px;
+	width: 400px;
+	height: 460px;
+	position: absolute; 
+  z-index: 120; 
+  left: 50%; 
+  top: 10%; 
+  -webkit-animation: fadeinto 1s;
+  	animation: fadeinto 1s;
+}
+@-webkit-keyframes fadeinto {
+  from {top: 0; opacity: 0;}
+  to {top: 30px; opacity: 1;}
+}
+
+@keyframes fadeinto {
+  from {top: 0; opacity: 0;}
+  to {top: 30px; opacity: 1;}
+}
+@-webkit-keyframes fadeoutof {
+  from {bottom: 30px; opacity: 1;}
+  to {bottom: 0; opacity: 0;}
+}
+
+@keyframes fadeoutof {
+  from {bottom: 30px; opacity: 1;}
+  to {bottom: 0; opacity: 0;}
+}
+@media only screen and (max-width: 800px) {
+	.popup{
+		right: 0;
+		max-width: 350px;
+	}	
+	.event{
+		right: 0;
+	}
+}
+.msgb {
+	min-height: 80px;
+	height: auto;
+	border: 2px solid #dedede;
+	  background-color: #f1f1f1;
+	  border-radius: 5px;
+	  padding: 15px;
+	  margin: 10px 0;
+}
+.darker {
+  border-color: #ccc;
+  background-color: #ddd;
+}
+.msgb::after {
+  content: "";
+  clear: both;
+  display: table;
+}
+.msgb img{
+	float: left;
+  max-width: 60px;
+  width: 100%;
+  margin-right: 20px;
+  border-radius: 50%;
+}
+.container .right img{
+  float: right;
+  margin-left: 20px;
+  margin-right:0;
+}
+.time-right {
+  float: right;
+  color: #aaa;
+}
+.time-left {
+  float: left;
+  color: #999;
+}
+.visitors-statistics{
+	display:none;
+	max-width: 400px;
+	width: 400px;
+	max-height: 350px;
+	overflow: hidden;
+	position: absolute; 
+  z-index: 120; 
+  right: 5%; 
+  top: 10%; 
+  -webkit-animation: fadeinto 1s;
+  	animation: fadeinto 1s;
+}
+
+.created{
+	max-width: 400px;
+	width: 400px;
+	 -webkit-animation: fadeinto 1s;
+  	animation: fadeinto 1s;
+}
+.gen-report{
+	width: 640px;
+	height: 560px;
+	position: fixed; 
+	background: white;
+	border-radius: 10px;
+  z-index: 121; 
+  left: 20%; 
+  top: 10%; 
+  -webkit-animation: fadeinto 1s;
+  	animation: fadeinto 1s;
+}
+@media only screen and (max-width: 800px) {
+	.visitors-statistics{
+		display: none;	
+	}
+	.created{display:none}
+}
+.chart1{
+	height: 400px;
+	overflow: auto;
+}
+.chart1 div{
+	display: inline-block;
+	margin-right: 10px;
+}
+.msg{
+    display: inline-block;
+    width: 300px;
+    white-space: nowrap;
+    overflow: hidden !important;
+    text-overflow: ellipsis;
+}
+#event-describe{
+	width: 95%;
+	margin-left: 2%;
+	height: 65%;
+	resize: none;
+}
+#event-title{
+	width: 95%;
+	margin-top: 1.5%;
+	margin-left: 2%;
+	height: 10%;
+	border-radius: 5px;
+}
+
+</style>
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.13.1/css/jquery.dataTables.css">
+  
+<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.js"></script>
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+  <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
+</head>
+
+  <body class="collapsed-menu" id="mbody">
+<div class="chat-profile" id="chat-profile" ><a style="float: right;cursor: pointer;color: red;" onclick="this.parentElement.style.display='none';document.getElementById('profile').style.width='100%';"><i class="fa fa-window-close" aria-hidden="true"></i></a></div>
+<div class="visitors-statistics" id="visitors-statistics" >
+     	<div id="piechart" style="width: 400px;height: 400px;"></div>
+</div>
+<div class="event" id="event">
+<a style="float: right;cursor: pointer;color: red;" onclick="this.parentElement.style.visibility='hidden'"><i class="fa fa-window-close" aria-hidden="true"></i></a>
+            <div class="card bd-0 shadow-base pd-30">
+              <h6 class="tx-13 tx-uppercase tx-inverse tx-semibold tx-spacing-1">Add Event</h6>
+	
+     	<div style="height: 400px;">
+	Date: <input type="date" id="date"> Time: <input type="time" id="time" style="margin-left: 5%;"><br>
+	<input id="event-title" placeholder='Enter event Title'>
+	<label>Description: </label>
+	<textarea id="event-describe"></textarea>
+</div>
+	    <div class="mg-t-20 " style="position: absolute;right: 2%;bottom: 2%;cursor: pointer;">
+		<a onclick="saveEvent('clear')" class="tx-gray-600 hover-info">Clear</a>
+		<a onclick="saveEvent('save')" class="tx-gray-600 hover-info bd-l mg-l-10 pd-l-10">Add</a>
+		</div>
+            </div><!-- card -->
+</div>
+<div class="popup" id="popup">
+<a style="float: right;cursor: pointer;color: red;" onclick="this.parentElement.style.visibility='hidden'"><i class="fa fa-window-close" aria-hidden="true"></i></a>
+            <div class="card bd-0 shadow-base pd-30"><input type="hidden" id="msg-id" style="display: none;">
+              <b id="user-email"></b>
+		<div id="msgs-load" style="width: 100%;height: 400px;overflow: auto;">
+	</div>
+             <textarea id="reply-text"></textarea>
+	    <div class="mg-t-20 " style="position: absolute;right: 2%;bottom: 2%;cursor: pointer;">
+		<a onclick="document.getElementById('reply-text').value=''" class="tx-gray-600 hover-info">Clear</a>
+		<a onclick="SendReply('user-email')" class="tx-gray-600 hover-info bd-l mg-l-10 pd-l-10">Send</a>
+		</div>
+            </div><!-- card -->
+</div>
+<div id="snackbar"></div>
+    <div class="br-logo"><a href="javascript:void(0)"><span><</span>BlogSpot<span>></span></a></div>
+    <div class="br-sideleft menu" data-ps-id="75d47b85-60be-4caa-7864-4bd215e6df1a" id="menu">
+      <label class="sidebar-label pd-x-15 mg-t-20">Navigation</label>
+      <div class="br-sideleft-menu" style="overflow: hidden;">
+        <a href="{{ url_for('dashboard', mode='dashboard')}}" id="dashboard" class="br-menu-link active">
+          <div class="br-menu-item">
+            <i class="fa fa-home" aria-hidden="true"></i>
+            <span class="class="menu-item-label op-lg-0-force ">Dashboard</span>
+          </div><!-- menu-item -->
+        </a><!-- br-menu-link -->
+        <a href="{{ url_for('dashboard', mode='all-messages')}}#contacts" id="all-messages" class="br-menu-link">
+          <div class="br-menu-item">
+		<i class="fa fa-envelope-o" aria-hidden="true"></i>
+            <span class="class="menu-item-label op-lg-0-force d-lg-none">Messages</span>
+          </div><!-- menu-item -->
+        </a><!-- br-menu-link -->
+       <a href="{{ url_for('dashboard', mode='blogs')}}" id="blogs" class="br-menu-link">
+          <div class="br-menu-item">
+		<i class="fa fa-sticky-note-o" aria-hidden="true"></i>
+            <span class="class="menu-item-label op-lg-0-force d-lg-none">Blogs</span>
+          </div><!-- menu-item -->
+        </a><!-- br-menu-link -->
+	 <a href="{{ url_for('get_templates')}}" id="templates" class="br-menu-link">
+          <div class="br-menu-item">
+		<i class="fa fa-globe" aria-hidden="true"></i>
+            <span class="class="menu-item-label op-lg-0-force d-lg-none">Templates</span>
+          </div><!-- menu-item -->
+        </a><!-- br-menu-link -->
+     <a href="{{ url_for('dashboard', mode='orders')}}" id="orders" class="br-menu-link">
+          <div class="br-menu-item">
+		<i class="fa fa-cart-arrow-down" aria-hidden="true"></i>
+            <span class="class="menu-item-label op-lg-0-force d-lg-none">Orders</span>
+          </div><!-- menu-item -->
+        </a><!-- br-menu-link -->
+	<a href="{{ url_for('dashboard', mode='perfomance')}}" id="perfomance" class="br-menu-link">
+          <div class="br-menu-item">
+		<i class="fa fa-percent" aria-hidden="true"></i>
+            <span class="class="menu-item-label op-lg-0-force d-lg-none">Perfomance</span>
+          </div><!-- menu-item -->
+        </a><!-- br-menu-link -->
+	<a href="{{ url_for('dashboard', mode='notifications')}}" id="notifications" class="br-menu-link">
+          <div class="br-menu-item">
+		<i class="fa fa-bell-o" aria-hidden="true"></i>
+            <span class="class="menu-item-label op-lg-0-force d-lg-none">Notifications</span>
+          </div><!-- menu-item -->
+        </a><!-- br-menu-link -->
+	<a href="{{ url_for('dashboard', mode='visits')}}" id="visits" class="br-menu-link">
+          <div class="br-menu-item">
+		<i class="fa fa-globe" aria-hidden="true"></i>
+            <span class="class="menu-item-label op-lg-0-force d-lg-none">Visitors</span>
+          </div><!-- menu-item -->
+        </a><!-- br-menu-link -->
+        <label class="sidebar-label pd-x-15 mg-t-25 mg-b-20 tx-info op-9"><span>Information Summary</span></label>
+	<div class="info-list" id="info-list">
+        <div class="d-flex align-items-center justify-content-between pd-x-15">
+          <div>
+            <p class="tx-10 tx-roboto tx-uppercase tx-spacing-1 tx-white op-3 mg-b-2 space-nowrap">Memory Usage</p>
+            <h5 class="tx-lato tx-white tx-normal mg-b-0">{{ mem_percent }}%</h5>
+          </div>
+          <span class="peity-bar" data-peity="{ &quot;fill&quot;: [&quot;#336490&quot;], &quot;height&quot;: 35, &quot;width&quot;: 60 }" style="display: none;">8,6,5,9,8,4,9,3,5,9</span><svg class="peity" height="35" width="60"><rect fill="#336490" x="0.6" y="3.8888888888888893" width="4.800000000000001" height="31.11111111111111"></rect><rect fill="#336490" x="6.6" y="11.666666666666668" width="4.800000000000001" height="23.333333333333332"></rect><rect fill="#336490" x="12.6" y="15.555555555555554" width="4.799999999999999" height="19.444444444444446"></rect><rect fill="#336490" x="18.6" y="0" width="4.799999999999997" height="35"></rect><rect fill="#336490" x="24.599999999999998" y="3.8888888888888893" width="4.800000000000001" height="31.11111111111111"></rect><rect fill="#336490" x="30.6" y="19.444444444444443" width="4.799999999999997" height="15.555555555555557"></rect><rect fill="#336490" x="36.6" y="0" width="4.799999999999997" height="35"></rect><rect fill="#336490" x="42.6" y="23.333333333333336" width="4.799999999999997" height="11.666666666666664"></rect><rect fill="#336490" x="48.6" y="15.555555555555554" width="4.799999999999997" height="19.444444444444446"></rect><rect fill="#336490" x="54.6" y="0" width="4.799999999999997" height="35"></rect></svg>
+        </div><!-- d-flex -->
+
+        <div class="d-flex align-items-center justify-content-between pd-x-15 mg-t-20">
+          <div>
+            <p class="tx-10 tx-roboto tx-uppercase tx-spacing-1 tx-white op-3 mg-b-2 space-nowrap">CPU Usage</p>
+            <h5 class="tx-lato tx-white tx-normal mg-b-0">{{ cpu_percent }}</h5>
+          </div>
+          <span class="peity-bar" data-peity="{ &quot;fill&quot;: [&quot;#1C7973&quot;], &quot;height&quot;: 35, &quot;width&quot;: 60 }" style="display: none;">4,3,5,7,12,10,4,5,11,7</span><svg class="peity" height="35" width="60"><rect fill="#1C7973" x="0.6" y="23.333333333333336" width="4.800000000000001" height="11.666666666666664"></rect><rect fill="#1C7973" x="6.6" y="26.25" width="4.800000000000001" height="8.75"></rect><rect fill="#1C7973" x="12.6" y="20.416666666666664" width="4.799999999999999" height="14.583333333333336"></rect><rect fill="#1C7973" x="18.6" y="14.583333333333332" width="4.799999999999997" height="20.416666666666668"></rect><rect fill="#1C7973" x="24.599999999999998" y="0" width="4.800000000000001" height="35"></rect><rect fill="#1C7973" x="30.6" y="5.833333333333332" width="4.799999999999997" height="29.166666666666668"></rect><rect fill="#1C7973" x="36.6" y="23.333333333333336" width="4.799999999999997" height="11.666666666666664"></rect><rect fill="#1C7973" x="42.6" y="20.416666666666664" width="4.799999999999997" height="14.583333333333336"></rect><rect fill="#1C7973" x="48.6" y="2.9166666666666714" width="4.799999999999997" height="32.08333333333333"></rect><rect fill="#1C7973" x="54.6" y="14.583333333333332" width="4.799999999999997" height="20.416666666666668"></rect></svg>
+        </div><!-- d-flex -->
+
+        <div class="d-flex align-items-center justify-content-between pd-x-15 mg-t-20">
+          <div>
+            <p class="tx-10 tx-roboto tx-uppercase tx-spacing-1 tx-white op-3 mg-b-2 space-nowrap">Disk Usage</p>
+            <h5 class="tx-lato tx-white tx-normal mg-b-0">{{ disk_percent}}%</h5>
+          </div>
+          <span class="peity-bar" data-peity="{ &quot;fill&quot;: [&quot;#8E4246&quot;], &quot;height&quot;: 35, &quot;width&quot;: 60 }" style="display: none;">1,2,1,3,2,10,4,12,7</span><svg class="peity" height="35" width="60"><rect fill="#8E4246" x="0.6666666666666666" y="32.083333333333336" width="5.333333333333333" height="2.9166666666666643"></rect><rect fill="#8E4246" x="7.333333333333333" y="29.166666666666668" width="5.333333333333333" height="5.833333333333332"></rect><rect fill="#8E4246" x="14" y="32.083333333333336" width="5.333333333333332" height="2.9166666666666643"></rect><rect fill="#8E4246" x="20.666666666666668" y="26.25" width="5.333333333333332" height="8.75"></rect><rect fill="#8E4246" x="27.33333333333333" y="29.166666666666668" width="5.333333333333336" height="5.833333333333332"></rect><rect fill="#8E4246" x="34" y="5.833333333333332" width="5.333333333333336" height="29.166666666666668"></rect><rect fill="#8E4246" x="40.666666666666664" y="23.333333333333336" width="5.333333333333336" height="11.666666666666664"></rect><rect fill="#8E4246" x="47.333333333333336" y="0" width="5.333333333333329" height="35"></rect><rect fill="#8E4246" x="54" y="14.583333333333332" width="5.333333333333336" height="20.416666666666668"></rect></svg>
+        </div><!-- d-flex -->
+
+        <div class="d-flex align-items-center justify-content-between pd-x-15 mg-t-20">
+          <div>
+            <p class="tx-10 tx-roboto tx-uppercase tx-spacing-1 tx-white op-3 mg-b-2 space-nowrap">Daily Traffic</p>
+            <h5 class="tx-lato tx-white tx-normal mg-b-0">{{ no_users}}</h5>
+          </div>
+          <span class="peity-bar" data-peity="{ &quot;fill&quot;: [&quot;#9C7846&quot;], &quot;height&quot;: 35, &quot;width&quot;: 60 }" style="display: none;">3,12,7,9,2,3,4,5,2</span><svg class="peity" height="35" width="60"><rect fill="#9C7846" x="0.6666666666666666" y="26.25" width="5.333333333333333" height="8.75"></rect><rect fill="#9C7846" x="7.333333333333333" y="0" width="5.333333333333333" height="35"></rect><rect fill="#9C7846" x="14" y="14.583333333333332" width="5.333333333333332" height="20.416666666666668"></rect><rect fill="#9C7846" x="20.666666666666668" y="8.75" width="5.333333333333332" height="26.25"></rect><rect fill="#9C7846" x="27.33333333333333" y="29.166666666666668" width="5.333333333333336" height="5.833333333333332"></rect><rect fill="#9C7846" x="34" y="26.25" width="5.333333333333336" height="8.75"></rect><rect fill="#9C7846" x="40.666666666666664" y="23.333333333333336" width="5.333333333333336" height="11.666666666666664"></rect><rect fill="#9C7846" x="47.333333333333336" y="20.416666666666664" width="5.333333333333329" height="14.583333333333336"></rect><rect fill="#9C7846" x="54" y="29.166666666666668" width="5.333333333333336" height="5.833333333333332"></rect></svg>
+        </div><!-- d-flex -->
+      </div>
+      </div><!-- br-sideleft-menu -->
+
+      <br>
+    <div class="ps__scrollbar-x-rail" style="left: 0px; bottom: 0px;"><div class="ps__scrollbar-x" tabindex="0" style="left: 0px; width: 0px;"></div></div><div class="ps__scrollbar-y-rail" style="top: 0px; height: 630px; right: 0px;"><div class="ps__scrollbar-y" tabindex="0" style="top: 0px; height: 461px;"></div></div></div><!-- br-sideleft -->
+   
+<script>
+function showMenu(){
+	var x = document.getElementById("mbody");
+	if(x.classList.contains("collapsed-menu")){
+		x.classList.remove("collapsed-menu");
+	}else{
+		x.classList.add("collapsed-menu");
+	}
+}
+function showOp(){
+	var x = document.getElementById("admin-options");
+	if(x.classList.contains("sh")){
+		x.classList.remove("sh");
+	}else{
+		x.classList.add("sh");
+	}
+}
+function showMails(id){
+	var x = document.getElementById(id);
+	x.style.display = 'block';
+}
+window.onclick = function(event) {
+	if (!event.target.matches('.fa')) {
+		var x = document.getElementsByClassName('dropdown-menu');
+		var y = document.getElementsByClassName('msg-opts');
+		for(let i=0;i<x.length;i++){
+			if(x[i].style.display == "block"){
+				x[i].style.display="none";
+			}
+		}
+		for(let i=0;i<y.length;i++){
+			if(y[i].style.display == "block"){
+				y[i].style.display="none";
+			}
+		}
+	}
+}
+function saveEvent(mode){
+	var d = document.getElementById('date');
+	var t = document.getElementById('time');
+	var title = document.getElementById('event-title');
+	var description = document.getElementById('event-describe');
+	if(mode == "clear"){
+		d.value = "";
+		t.value = "";
+		title.value = "";
+		description.value = "";
+	}else{
+		d = d.value;
+		t = t.value;
+		title = title.value;
+		description = description.value;
+		if(d == "" || t == ""|| title == ""){
+			popup("fill Required fields, date, time and title");
+		}else{
+			$.ajaxSetup({async: false});
+			let x = $.post("/api/v/fn/add-event", {email: "email", title: title, date: d, time : t, description : description});
+			popup(x.responseText);
+		}
+	}
+	$("#loadevents").load("/api/v/fn/events");
+}
+</script>
+<style>
+
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+.dropdown-menu {
+  display: none;
+  position: absolute;
+  background-color: #f1f1f1;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+   left: -150px;
+}
+.m{
+	margin-top: -15px;
+}
+.m:hover #admin-options{
+	display: block;
+}
+.dropdown:hover .dropdown-content {display: block;}
+#newblog{
+	width: 730px;
+	margin-left: 10px;
+	margin-top: 15px;
+	cursor: pointer;
+	height: 50px;
+}
+@media only screen and (max-width: 800px) {
+	#newblog{
+		width: 550px;
+	}
+}
+@media only screen and (max-width: 500px) {
+	#newblog{
+		width: 300px;
+		margin-left: 0;
+	}
+	#server-status{
+		position: relative;
+		margin-left: 0;
+	}
+}
+</style>
+ 
+
+   <div class="br-header">
+      <div class="br-header-left">
+        <div class="navicon-left hidden-md-down"><a id="btnLeftMenu" onclick="showMenu()" style="cursor: pointer;"><i class="fa fa-angle-left fa-2x" aria-hidden="true"></i></a></div>
+        <div class="navicon-left hidden-lg-up "><a id="btnLeftMenuMobile" onclick="showMenu()" style="cursor: pointer;"><i class="fa fa-angle-right fa-2x" aria-hidden="true"></i></div>
+        <div class="input-group hidden-xs-down wd-170 transition">
+          <input id="searchbox" type="text" class="form-control"  placeholder="Search">
+          <span class="input-group-btn">
+            <button class="btn btn-secondary" type="button"><i class="fa fa-search"></i></button>
+          </span>
+        </div><!-- input-group -->
+      </div><!-- br-header-left -->
+      <div class="br-header-right">
+	<a style="margin-right: 7px;cursor: pointer;" onclick="toggleMode(this.children[0])"><i class="fas fa-lightbulb tx-24"></i></a>
+        <nav class="nav">
+	  
+          <div class="dropdown">
+            <a name="mail-messages" onclick="showMails(this.name)" class="nav-link pd-x-7 pos-relative" data-toggle="dropdown">
+              <i class="fa fa-envelope-o tx-24" aria-hidden="true"></i>
+           	<span class="square-8 bg-danger pos-absolute t-15 r-5 rounded-circle"></span>
+            </a>
+            <div id="mail-messages" class="dropdown-menu wd-300 pd-0-force" style="overflow: hidden;">
+              <div class="d-flex align-items-center justify-content-between pd-y-10 pd-x-20 bd-b bd-gray-200">
+                <label class="tx-12 tx-info tx-uppercase tx-semibold tx-spacing-2 mg-b-0">Messages</label>
+                <a href="{{ url_for('dashboard', mode='new-message')}}" class="tx-11">+ Add New Message</a>
+              </div><!-- d-flex -->
+
+              <div class="media-list" style="max-height: 350px;">
+                {% for message in your_messages %}
+		        <a href="" class="media-list-link">
+		          <div class="media pd-x-20 pd-y-15">
+		            <img src="{{ url_for('static', filename='profile.jpg')}}" class="wd-40 rounded-circle" alt="">
+		            <div class="media-body">
+		              <div class="d-flex align-items-center justify-content-between mg-b-5">
+		           
+		                <span class="tx-11 tx-gray-500">{{message[4]}}</span>
+		              </div><!-- d-flex -->
+		              <p class="tx-12 mg-b-0">{{ message[3]}}</p>
+		            </div>
+		          </div><!-- media -->
+		        </a>
+                {% endfor %}
+                <br><br>
+                <div class="pd-y tx-center" style="position: absolute;bottom: 0;z-index: 1;left: 0;text-align: center;background: #ddd;color: black;height: 30px;width: 100%;">
+                  <a href="{{url_for('dashboard', mode='all-messages')}}#contacts" class="tx-12"><i class="fa fa-angle-down mg-r-5"></i> Show All Messages</a>
+                </div>
+              </div><!-- media-list -->
+            </div><!-- dropdown-menu -->
+          </div><!-- dropdown -->
+          <div class="dropdown">
+            <a name="notifications" onclick="showMails(this.name)" class="nav-link pd-x-7 pos-relative" data-toggle="dropdown">
+		<i class="fa fa-bell-o tx-24" aria-hidden="true "></i>
+		<span class="square-8 bg-danger pos-absolute t-15 r-5 rounded-circle"></span>
+              {% if new_notification%}
+              	<span class="square-8 bg-danger pos-absolute t-15 r-5 rounded-circle"></span>
+              {%endif%}
+            </a>
+            <div id="notifications" class="dropdown-menu wd-300 pd-0-force">
+              <div class="d-flex align-items-center justify-content-between pd-y-10 pd-x-20 bd-b bd-gray-200">
+                <label class="tx-12 tx-info tx-uppercase tx-semibold tx-spacing-2 mg-b-0">Notifications</label>
+                <a href="javascript:void(0)" onclick="readAll()" class="tx-11">Mark All as Read</a>
+              </div><!-- d-flex -->
+
+              <div class="media-list">
+                {% for notification in notifications %}
+                <a href="" class="media-list-link read">
+                  <div class="media pd-x-20 pd-y-15">
+                    <img src="{{ url_for('static', filename='profile.jpg')}}" class="wd-40" alt="">
+                    <div class="media-body">
+                      <p class="tx-13 mg-b-0 tx-gray-700"><strong class="tx-medium tx-gray-800"></strong> {{ notification[1]}}</p>
+                      <span class="tx-12">{{ notification[2]}}</span>
+                    </div>
+                  </div><!-- media -->
+                </a>
+                {% endfor %}
+               
+                <div class="pd-y-10 tx-center bd-t">
+                  <a href="{{url_for('dashboard', mode='notifications')}}" class="tx-12"><i class="fa fa-angle-down mg-r-5"></i> Show All Notifications</a>
+                </div>
+              </div><!-- media-list -->
+            </div><!-- dropdown-menu -->
+          </div><!-- dropdown -->
+          <div class="dropdown m" ">
+            <a  onclick="showOp()" class="nav-link nav-link-profile" data-toggle="dropdown">
+              <a onclick="showOp()" class="logged-name hidden-md-down">Admin</a>
+              <img onclick="showOp()" src="{{ url_for('static', filename='profile.jpg')}}" class="wd-32 rounded-circle" alt="">
+              <span class="square-8 bg-success pos-absolute t-15 r-5 rounded-circle"></span>
+            </a>
+            <div id="admin-options" class="dropdown-menu wd-300 pd-0-force">
+              <ul class="list-unstyled user-profile-nav">
+                <li><a href="{{url_for('profile', mode='home')}}"><i class="fa fa-user" aria-hidden="true"></i> Edit Profile</a></li>
+                <li><a href="{{url_for('dashboard', mode='all-messages')}}#settings"><i class="fa fa-cog" aria-hidden="true"></i> Settings</a></li>
+                <li><a href="{{url_for('dashboard', mode='all-messages')}}#attachements"><i class="fa fa-download" aria-hidden="true"></i> Files</a></li>
+                <li><a href=""><i class="fa fa-link" aria-hidden="true"></i> Api</a></li>
+                <li><a href=""><i class="fa fa-exclamation" aria-hidden="true"></i> Logs</a></li>
+                <li><a href="{{url_for('signout')}}"><i class="fa fa-power-off" aria-hidden="true"></i> Sign Out</a></li>
+              </ul>
+            </div>
+          </div>
+        </nav>
+ 
+      </div>
+    </div>
+  
+    <div class="br-mainpanel" style="position: relative;height: 100%;">
+    {% block content %}{% endblock %}
+      </div>
+   
+
+<div id="ui-datepicker-div" class="ui-datepicker ui-widget ui-widget-content ui-helper-clearfix ui-corner-all"></div></body>
+<script>
+$(document).ready(function() {
+	var x = location.href;
+	if(location.hash != ""){
+		x = x.replace(location.hash, "");
+		x = x.split("/");
+		x = x.slice(-1);
+	}else{
+		x = x.split("/");
+		x = x.slice(-1);
+	}
+	x = x[0];
+	var y = document.getElementsByClassName("br-menu-link");
+	for(let i=0;i<y.length;i++){
+		if(y[i].classList.contains("active")){
+			y[i].classList.remove("active");		
+		}
+	}
+	document.getElementById(x).classList.add("active");
+	 //$("#event").dialog();
+	 //$("#popup").dialog();
+});
+function replyMessage(id, elm){
+	var x = document.getElementById(id);
+	if(x.value.length > 0){
+		sendReply(id);
+		x.style.display='none';
+		document.getElementById(String(id)+'ms').style.display='block';
+	}else{
+		document.getElementById(String(id)+'ms').style.display='none';
+		x.style.display='block';
+		
+	}
+	elm.style.display='none';
+	
+}
+function deleteMessage(id){
+	$.ajaxSetup({async: false});
+	let x = $.post("/api/v/fn/delete-msg", {email: id, id: id});
+	popup(x.responseText);
+	dashMsgs();
+}
+function closeReply(elm, id){
+	elm.style.display='none';
+	var x = document.getElementById(id);
+	x.style.display = 'none';
+	document.getElementById(String(id)+'ms').style.display='block';
+}
+function sendReply(id){
+	var reply = document.getElementById(id).value;
+	$.ajaxSetup({async: false});
+	let x = $.post("/api/v/fn/reply", {email: "email", reply: reply, id: id})
+	popup(x.responseText);
+}
+function SendReply(txt){
+	var id = document.getElementById("user-email").innerText;
+	var no = document.getElementById("msg-id").value;
+	var msg = document.getElementById('reply-text').value;
+	if(msg.length > 0){
+		let x = $.post("/api/v/fn/reply", {email: id, reply: msg, id: no});
+		popup(x.responseText);
+		document.getElementById('reply-text').value='';
+	}else{
+		popup("enter message");
+	}
+	
+	
+}
+function popup(text){
+	if(text != "read"){
+		var x = document.getElementById("snackbar");
+		x.innerText = text;
+		x.className = "show";
+		setTimeout(function(){ x.className = x.className.replace("show", ""); }, 3000);
+	}
+	
+}
+function genReport(){
+	let p = document.getElementById("visitors-statistics");
+	let container = document.createElement("div");
+	let bottom = document.createElement("div");
+	bottom.classList.add("mg-t-20");
+	let a1 = document.createElement("a");
+	a1.innerText = "Cancel";
+	let a2 = document.createElement("a");
+	a2.innerText = "Print";
+	container.classList.add("gen-report");
+	container.setAttribute("id", "gen-report");
+	bottom.setAttribute("id", "bottom-report");
+	p.after(container);
+	container.innerHTML = '<br><h6 class="tx-13 tx-uppercase tx-inverse tx-semibold tx-spacing-1">Cpu Perfomance</h6><div style="margin-left: 5%;margin-top: 5px;">{% for p in perfomance %}<p>{{ p|safe }}</p>{% endfor %}</div><h6 class="tx-13 tx-uppercase tx-inverse tx-semibold tx-spacing-1">Memory Perfomance</h6><div style="margin-left: 5%;">{% for p in mem_perfomance %}<p>{{ p|safe }}</p>{% endfor %}</div><h6 class="tx-13 tx-uppercase tx-inverse tx-semibold tx-spacing-1">Disk Usage</h6><div style="margin-left: 5%;">{% for p in disk_perfomance %}<p>{{ p|safe }}</p>{% endfor %}</div>';
+	a2.setAttribute("style", "float: right;color: green;font-size: 18px;cursor: pointer;margin-right: 10px;");
+	a1.setAttribute("style", "float: left;color: red;font-size: 18px;margin-left: 10px;");
+	a1.setAttribute("onclick", "document.getElementById('gen-report').remove()");
+	a2.setAttribute("onclick", "printDiv('null')");
+	container.appendChild(bottom);
+	bottom.appendChild(a1);
+	a1.after(a2);
+}
+function printDiv(id){
+	    if(id == 'null'){
+		    var divContents = '<br><h6 class="tx-13 tx-uppercase tx-inverse tx-semibold tx-spacing-1">Cpu Perfomance</h6><div style="margin-left: 5%;margin-top: 5px;">{% for p in perfomance %}<p>{{ p|safe }}</p>{% endfor %}</div><h6 class="tx-13 tx-uppercase tx-inverse tx-semibold tx-spacing-1">Memory Perfomance</h6><div style="margin-left: 5%;">{% for p in mem_perfomance %}<p>{{ p|safe }}</p>{% endfor %}</div><h6 class="tx-13 tx-uppercase tx-inverse tx-semibold tx-spacing-1">Disk Usage</h6><div style="margin-left: 5%;">{% for p in disk_perfomance %}<p>{{ p|safe }}</p>{% endfor %}</div>';
+	    }
+	    else{
+		var divContents = document.getElementById(id).innerHTML;
+	    }
+	    var a = window.open('', '', 'height=700, width=900');
+	    a.document.write('<html>');
+	    a.document.write(divContents);
+	    a.document.write('</body></html>');
+	    a.print();
+	    a.close();
+}
+function readAll(){
+	$.ajaxSetup({async: false});
+	var x = $.post("/api/v/fn/readall", {email: "email"});
+	popup(x.responseText);
+}
+function toggleMode(elm){
+	var x = document.getElementsByClassName("card");
+	var p = document.getElementsByTagName("p");
+	if(elm.classList.contains("fas")){
+		elm.classList.remove("fas");	
+		elm.classList.add("fa");
+		for(let i=0;i<x.length;i++){
+			x[i].style.backgroundColor = "#000000";
+			x[i].style.Color = "white";
+		}
+		for(let i=0;i<p.length;i++){
+			p[i].style.Color = "white";
+		}
+	}else{
+		elm.classList.remove("fa");	
+		elm.classList.add("fas");
+		for(let i=0;i<x.length;i++){
+			x[i].style.backgroundColor = "white";
+			x[i].style.Color = "black";
+		}
+		for(let i=0;i<p.length;i++){
+			p[i].style.Color = "black";
+		}
+	}
+}
+</script>
+
+</html>

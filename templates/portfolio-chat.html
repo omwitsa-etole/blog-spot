@@ -1,0 +1,235 @@
+
+<link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+<style>
+.card{
+	width: 100%;
+	height: 100%;
+	position: relative;
+}
+.action_menu{
+	display: none;
+	position: absolute;
+	z-index: 2;
+	width: 200px;
+	right: 30%;
+	overflow: auto;
+	background: white;
+	box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
+	overflow: hidden;
+}
+.action_menu a{
+	width: 100%;
+	color: black;
+	padding: 12px 16px;
+	text-decoration: none;
+	display: block;
+}
+.action_menu a:hover {background-color: #ddd;}
+.img_cont img{
+	width: 60px;
+	height: 60px;
+	border-radius: 50%; 
+}
+.video_cam{
+	position: absolute;
+	right: 1%;
+	top: 0;
+}
+.video_cam a{
+	margin-right: 15px;
+	cursor: pointer;
+	position: relative;
+}
+.card-body{
+	position: absolute;
+	margin-top: 80px;
+	overflow: auto;
+	height: 75%;
+	width: 99%;
+	margin-left: 1%;
+}
+.card-footer{
+	position: absolute;
+	bottom: 0;
+	left: 0;	
+	width: 100%;
+}
+.msg_container{
+	background: #90EE90;border-radius: 6px;margin-top: 6px;min-width: 80%;position: relative;
+}
+.msg_container_send{
+	background: #87CEEB;border-radius: 6px;margin-top: 6px;position: relative;text-align: right;
+}
+.msg_time{
+	font-size: 10px;
+	position: absolute;
+	color: black;
+	top: 100%;
+	left: 0;
+}
+.msg_time_send{
+	font-size: 10px;
+	position: absolute;
+	top: 100%;
+	right: 0;
+	float: right;
+	color: black;
+}
+.new-connect{
+	width: 99%;
+	margin-left: 1%;
+	margin-top: -4%;
+	height: 100%;
+	background: #4B0082;
+	text-align: center;
+	justify-content: center;
+	border-radius: 10px;
+	color: white;
+}
+.new-connect input{
+	width: 90%;
+	padding: 6px 9px;
+	text-align: center;
+	border-radius: 5px;
+	margin-top: 15px;
+}
+.new-connect button{
+	width: 60%;
+	padding: 7px 10px;
+	border-radius: 7px;
+	cursor: pointer;
+	margin-top: 12%;
+}
+.new-connect p{
+	margin-top: 4%;
+	font-size: 17px;
+	
+}
+.attached-files{
+	display: none;
+	position: absolute;
+	bottom: 100%;
+	width: 100%;
+	max-height: 200px;
+	overflow: auto;
+	overflow-x: auto;
+	background: white;
+	border-radius: 10px;
+	box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}
+.attached-files p{
+	margin-top: 10px;
+	margin-left: 25px;
+	font-size: 17px;
+}
+</style>
+	<div class="card">
+		<div  style="position: absolute;z-index: 3;left: 0;width: 100%;background: #ddd;height: 75px;">
+			<div class="d-flex bd-highlight">
+				<div class="img_cont">
+					<img src="{{url_for('static', filename='profile.jpg')}}">
+					<span>BRADONE OMWITSA</span> | 
+					<span style="position: absolute;bottom: 0;right: 0;color: blue;"><a href="{{url_for('rooms')}}">Rooms</a></span>
+				</div>
+				<div class="user_info">
+					
+				</div>
+				<div class="video_cam">
+						<a><i class="fa fa-video"></i></a>
+						<a><i class="fa fa-phone"></i></a>
+						<a onclick="document.getElementById('action_menu').style.display='block'"><i class="fa fa-ellipsis-h"></i></a>
+						<div class="action_menu" id="action_menu">
+							<a><i class="fas fa-user-circle"></i> View profile</a>
+							{% if name != None %}
+								<a  onclick="chatRoom()"><i class="fas fa-users"></i> Chat in group</a>
+							{%else%}
+								<a onclick="popup('This blogger has not set up a room yet')"><i class="fas fa-users"></i> Chat in group</a>
+							{%endif%}
+							
+							<a><i class="fas fa-plus"></i> Add to friends list</a>
+							<a onclick="blogChat()"><i class="fas fa-ban"></i> Close</a>
+						</div>
+
+				</div>
+			</div>
+			
+		</div>
+	<div class="card-body" id="chat-in-user-box">
+		<p>Loading your Chat session <i>...</i></p>
+	</div>
+		<div class="card-footer">
+			<div class="input-group">
+				<div class="input-group-append" style="positon: relative;">
+				<form id="attach-form" class="attach-form" enctype='multipart/form-data'><input type="file" name="file_attach" id="file-attach" style="display: none;"></form>
+					<span class="input-group-text attach_btn" onclick="document.getElementById('file-attach').click();"><i class="fas fa-paperclip"></i></span>
+				<div class="attached-files" id="attached-files"></div>
+				</div>
+				<textarea id="your-message" class="form-control type_msg" placeholder="Type your message..." style="resize: none;z-index: 202;"></textarea>
+				<div class="input-group-append">
+					<span class="input-group-text send_btn" onclick="sendChat()"><i class="fas fa-location-arrow"></i></span>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>    
+<script>
+
+function fileAttach(){
+$.ajax({
+    
+    url: '/api/fx/request/upload',
+    type: 'POST',
+
+    data: new FormData($('.attach-form')[0]),
+
+    cache: false,
+    contentType: false,
+    processData: false,
+
+    xhr: function () {
+      var myXhr = $.ajaxSettings.xhr();
+      if (myXhr.upload) {
+        myXhr.upload.addEventListener('progress', function (e) {
+          if (e.lengthComputable) {
+            $('progress').attr({
+              value: e.loaded,
+              max: e.total,
+            });
+          }
+        }, false);
+      }
+      return myXhr;
+    }
+  });
+	
+}
+$('#file-attach').on('change', function () {
+	var file = this.files[0];
+
+	if (file != "undefined"){
+		uploads.push(file);
+		var x = document.getElementById('attached-files');
+		x.style.display = 'block';
+		let pr = document.createElement("progress");
+		let p = document.createElement("p");
+		let a = document.createElement("a");
+		a.innerText = "X";
+		a.setAttribute("style", "float: right;margin-right: 5%;cursor: pointer;color: red;");
+		pr.setAttribute("style", "margin-left: 15px;margin-top: 5px;");
+		a.setAttribute("onclick", "fileRemove(this.parentElement)");
+		p.innerText = file.name;
+		//i.innerText = "( "+file.size/1024+" mBs)";
+		x.append(p);
+		p.append(pr);
+		p.append(a);
+	}
+	fileAttach()
+  // Also see .name, .type
+});
+function fileRemove(el){
+	el.remove()
+}
+</script>

@@ -1,0 +1,85 @@
+{% extends "home.html" %}
+{% block title %}New Message{% endblock %}
+{% block head %}
+<style type="text/css">
+
+.visitors{
+	visibility: visible;
+	max-width: 400px;
+	width: 400px;
+	height: 460px;
+	position: absolute; 
+  z-index: 110; 
+  left: 50%; 
+  top: 10%; 
+  -webkit-animation: fadeinto 1s;
+  	animation: fadeinto 1s;
+}
+@-webkit-keyframes fadeinto {
+  from {top: 0; opacity: 0;}
+  to {top: 30px; opacity: 1;}
+}
+
+@keyframes fadeinto {
+  from {top: 0; opacity: 0;}
+  to {top: 30px; opacity: 1;}
+}
+
+</style>
+{% endblock %}
+{% block content %}
+<style>
+#read:hover{
+	background: green;
+}
+
+@media only screen and (max-width: 800px) {
+	.visitors-statistics{
+		display: none;	
+	}
+	.created{display:none}
+}
+</style>
+<div class="visitors"  style="margin-bottom: 15px;width: 900px;margin-left: 20px;overflow: auto;">
+            <div class="card bd-0 shadow-base pd-30">
+              <h6 class="tx-13 tx-uppercase tx-inverse tx-semibold tx-spacing-1">Site Visits<a onclick="printDiv('notification-table')"style="float: right;margin-right: 15px;cursor: pointer;">Print</a></h6>
+	
+     	<div style="width: 100%;height: 500px;" id="notification-table">
+	 <table class="table table-valign-middle mg-b-0" style="text-align: justify;justify-content: left;">
+                <tbody>
+		  <tr>
+			<th style="min-width: 30px;">Id</th>
+			<th><span class="tx-12">Notification</span></th>
+			<th>Date</th>
+			<th>Action</th>
+		  </tr>
+		{% for visitor in all_notifications %}
+		  {% if visitor[3] != 1 %}
+		          <tr>
+		            <td style="min-width: 30px;">
+		              {{ visitor[0] }}
+		            </td>
+		            <td>
+		              <span class="">{{ visitor[1] }}</span>
+		            </td>
+		            <td>{{ visitor[2] }}</td>
+			    <td><a onclick="markRead('{{ visitor[0] }}')" class="btn btn-outline-info tx-15 tx-uppercase tx-mont tx-medium tx-spacing-1 pd-x-30" id="read">Read</a></td>
+			  </tr>
+		  {% else %}
+			<tr>
+		            <td style="min-width: 30px;">
+		              {{ visitor[0] }}
+		            </td>
+		            <td>
+		              <span class="">{{ visitor[1] }}</span>
+		            </td>
+		            <td>{{ visitor[2] }}</td>
+			    <td><a href="javascript:void(0)" onclick="popup('notification read')" class="btn btn-outline-info tx-15 tx-uppercase tx-mont tx-medium tx-spacing-1 pd-x-30" style="">Read</a></td>
+			  </tr>
+		  {% endif%}
+		{%endfor%}
+		</tbody>
+	</table>
+	</div>
+</div>
+{%endblock%}

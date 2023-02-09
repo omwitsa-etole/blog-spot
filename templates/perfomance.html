@@ -1,0 +1,73 @@
+{% extends "home.html" %}
+{% block title %}New Message{% endblock %}
+{% block head %}
+<style type="text/css">
+.perfomance{
+	visibility: visible;
+	max-width: 400px;
+	width: 400px;
+	height: 460px;
+	position: absolute; 
+  z-index: 10; 
+  left: 50%; 
+  top: 10%; 
+  -webkit-animation: fadeinto 1s;
+  	animation: fadeinto 1s;
+}
+@-webkit-keyframes fadeinto {
+  from {top: 0; opacity: 0;}
+  to {top: 30px; opacity: 1;}
+}
+
+@keyframes fadeinto {
+  from {top: 0; opacity: 0;}
+  to {top: 30px; opacity: 1;}
+}
+</style>
+{% endblock %}
+{% block content %}
+<div class="perfomance" id="perfomance" style="margin-bottom: 15px;">
+            <div class="card bd-0 shadow-base pd-30">
+              <h6 class="tx-13 tx-uppercase tx-inverse tx-semibold tx-spacing-1">Cpu Perfomance</h6>
+	
+     	<div style="margin-left: 5%;">{% for p in perfomance %}<p>{{ p|safe }}</p>{% endfor %}</div>
+</div>
+<div class="perfomance" id="perfomance" style="margin-bottom: 15px;">
+            <div class="card bd-0 shadow-base pd-30">
+              <h6 class="tx-13 tx-uppercase tx-inverse tx-semibold tx-spacing-1">Memory Perfomance</h6>
+	
+     	<div style="margin-left: 5%;">{% for p in mem_perfomance %}<p>{{ p|safe }}</p>{% endfor %}</div>
+</div>
+<div class="perfomance" id="perfomance" style="margin-bottom: 15px;">
+            <div class="card bd-0 shadow-base pd-30">
+              <h6 class="tx-13 tx-uppercase tx-inverse tx-semibold tx-spacing-1">Disk Usage</h6>
+	
+     	<div style="margin-left: 5%;">{% for p in disk_perfomance %}<p>{{ p|safe }}</p>{% endfor %}</div>
+</div>
+<script>
+$(document).ready(function() {
+	let stat = document.getElementById("visitors-statistics");
+	stat.style.display = 'inline-block';
+	setInterval(checkwidth, 1000);
+});
+google.charts.load('current', {'packages':['corechart']});
+google.charts.setOnLoadCallback(drawChart);
+
+function drawChart() {
+  var data_two = google.visualization.arrayToDataTable({{data_two|safe}});
+  // Optional; add a title and set the width and height of the chart
+ var options_two = {'title':'Disk Perfomance', 'width':400, 'height':300};
+  var chart = new google.visualization.PieChart(document.getElementById('piechart'));
+  chart.draw(data_two, options_two);
+}
+function checkwidth(){
+	if(window.innerWidth < 800){
+		document.getElementById("visitors-statistics").style.display='none';
+		//document.getElementById("loaded").style.display='none';
+	}else{
+		document.getElementById("visitors-statistics").style.display='inline-block';
+		//document.getElementById("loaded").style.display='inline-block';
+	}
+}
+</script>
+{%endblock%}

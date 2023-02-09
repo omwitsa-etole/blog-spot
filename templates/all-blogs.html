@@ -1,0 +1,399 @@
+<head>
+<title>Home</title>
+ <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <meta name="description" content="">
+    <meta name="author" content="BlogSpot">
+
+    <title>BlogSpot</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<style id="" media="">/* devanagari */
+#sidebar{position: absolute;top: 0;left: -10%;z-index: 1;min-width:250px;max-width:250px;background:#866ec7;color:#fff;-webkit-transition:all .3s;-o-transition:all .3s;transition:all .3s;}#sidebar .h6{color:#fff}
+</style>
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="{{url_for('static', filename='css/style.css')}}">
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css')}}">
+<meta name="robots" content="noindex, follow">
+<link rel="stylesheet" href="{{url_for('static', filename='style.min.css')}}">
+<script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+<script src="https://kit.fontawesome.com/c63faa1f51.js" crossorigin="anonymous"></script>
+<style>
+body{
+	width: 100%;
+	overflow-x: hidden;
+	position: relative;
+	overflow-y: auto;
+}
+li a{
+	font-size: 19px;
+}
+#send-news{
+	position: absolute;
+	z-index: 1;
+	right: 4%;
+	margin-top: 2.5%;
+}
+.top-nav{
+	position: fixed;
+	left: 0;
+	top: 0;
+	box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px, rgba(27, 31, 35, 0.15) 0px 0px 0px 1px;	
+	width: 100%;
+	height: 65px;
+	border-radius: 0 0 6px 6px;
+
+	z-index: 3;
+	text-align: center;
+	margin: auto;
+}
+.top-nav input{
+	width: 40%;
+	float: left;
+	margin-left: 20%;
+	margin-top: 5px;
+	position: relative;
+}
+.top-opts{
+	float: right;
+	margin-right: 20px;
+	margin-top: 20px;
+	text-align: right;
+}
+.top-opts button{
+	display: inline;
+	margin-left: 20px;
+	width: 120px;
+	padding: 8px 10px;
+	cursor: pointer;
+	border-radius: 8px;
+	background: #ddd;
+}
+.top-opts a{
+	text-decoration: none;
+	font-size: 18px;
+	color: black;
+	
+}
+.t-btn{
+	position absolute;
+	z-index: 2;
+	left: 0;
+	padding: 8px 10px;
+	border-radius: 9px;
+	width: 70px;
+}
+.main-body{
+	margin-left: 200px;
+	width: 80%;
+	height: 100%;
+	position: relative;
+	
+}
+
+.post{
+	position: absolute;
+	width: 30%;
+	display: inline-block;
+	position: relative;
+	border-radius: 8px;
+	box-shadow: rgba(0, 0, 0, 0.05) 0px 0px 0px 1px;
+	height: 300px;
+	margin-left: 20px;
+	background: white;
+	margin-top: 10px;
+}
+
+.post:hover{
+	box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
+
+.left-opts{
+	float: right;
+	margin-right: 1%;
+	position: relative;
+	margin-top: 20px;
+}
+.left-opts div{
+	display: inline-block;
+	margin-left: 20px;
+}
+#search-more{
+	display: none;
+	position: absolute;	
+	top: 100%;
+	right: 50%;
+	z-index: 2;
+	min-width: 250px; 
+	background-color: #333; 
+	color: #fff; 
+	text-align: center; 
+	border-radius: 2px; 
+	padding: 16px;
+	cursor: pointer;
+}
+.left-nav{
+	width: 200px;
+	height: 100%;
+	box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px, rgba(27, 31, 35, 0.15) 0px 0px 0px 1px;
+	background: white;
+	position: fixed;
+	top: 70px;
+	left: 0;
+}
+.full{
+	width: 45px;
+	text-align: center;
+	justify-content: center;
+	overflow: hidden;
+}
+@media only screen and (max-width: 900px) {
+	#menu-btn{
+		position: fixed;
+		left: 1%;
+	}
+	.top-nav input{
+		width: 20%;
+		margin-left: 25%;
+	}
+	.post{
+		width: 80%;
+		
+	}
+	.main-body{
+		margin-left: 30%;
+	}
+	
+}
+.filter-options{
+	width: 100%;
+	font-size: 14px;
+}
+.filter-options ul li{
+	font-size: 14px;
+}
+.filter-options a i{
+	float: right;
+}
+.dropdown-menu {
+  display: none;
+  position: absolute;
+  background-color: #f1f1f1;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+  top: 5%;
+  right: 5%;
+}
+.dropdown-menu a{
+	color: black;
+	  padding: 12px 16px;
+	  text-decoration: none;
+	  display: block;
+}
+.dropdown-menu a:hover {background-color: #ddd;}
+</style>
+</head>
+<body>
+<nav id="sidebar" class="active" style="position: fixed;top: 0;left: 0.1%;z-index: 5;">
+<div class="custom-menu">
+<button type="button"  class="btn btn-primary" id="menu-btn" style="margin-top: -10px;" onclick="showLeftnav()">
+<i class="fa fa-bars"></i>
+<span class="sr-only">Toggle Menu</span>
+</button>
+</div>
+</nav>
+<div class="top-nav">
+<div style="position: ;">
+<input type="text" placeholder="search BlogSpot" id="search-q" onkeyup="filterPosts()">
+<span id="search-more" onclick="searchMore()">Show more results<a style="float: right;cursor: alias;" onclick="this.parentElement.style.display='none'"><i class="fa fa-window-close"></i></a></span>
+</div>
+<h2 style="margin-left: 7%;position: absolute;left: 0;top: 10%;" onclick="location.href='{{url_for('blogHome')}}'">BlogSpot</h2>
+
+{%if session.get("loggedin") == None %}
+<span class="top-opts">
+<a href="{{url_for('signup')}}"><button>Sign UP</button></a>
+<a href="{{url_for('signin')}}?callback_url=/nx/blogs"><button>Log In</button></a>
+</span>
+{%else%}
+
+<div class="dropdown">
+<img src="{{url_for('static', filename='avatar.jpg')}}">
+<div class="dropdown-content">
+<a href="{{url_for('profile', mode='home')}}" target="_blank">Profile</a>
+<a href="{{url_for('dashboard', mode='dashboard')}}">Dashboard</a>
+<a href="{{url_for('signout')}}?callback_url={{url_for('rooms')}}">Sign out</a>
+</div>
+</div>
+<div class="left-opts">
+<div class="dropdown">
+<a href="{{url_for('rooms')}}"><i class="fa fa-message fa-2x"></i></a>
+</div>
+<div class="dropdown">
+<a onclick="showNotifications()"><i class="fa fa-bell-o fa-2x"></i></a>
+<div class="dropdown-content" style="display: none;width: 250px;max-height: 350px;overflow: hidden;" id="show-notification">
+<div class="d-flex align-items-center justify-content-between pd-y-10 pd-x-20 bd-b bd-gray-200">
+<label class="tx-12 tx-info tx-uppercase tx-semibold tx-spacing-2 mg-b-0">Notifications</label>
+<a href="javascript:void(0)" onclick="readAll()" class="tx-11">Mark All as Read</a>
+</div>
+<div id="load-notification" style="width: 100%;height: 100%;text-align: left;justify-content: left;">
+
+</div>
+<div style="position: absolute;bottom: 0;width: 100%;left: 0;height: 30px;background: #ddd;text-align: center;z-index: 1;">
+  <a href="" class="tx-12"><i class="fa fa-angle-down mg-r-5"></i> Show All Notifications</a>
+</div>
+</div>
+</div>
+</div>
+{%endif%}
+
+</div>
+
+<div style="position: absolute;left: 0;top: 70px;width: 100%;height: 100%;overflow: auto;">
+<div class="left-nav" id="left-nav">
+<h6>Filters</h6><hr/>
+<div class="filter-options">
+<ul class="list-unstyled">
+<li class="active">
+<a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Home<i class="fa-sharp fa-solid fa-caret-down"></i></a>
+<ul class="collapse list-unstyled" id="homeSubmenu">
+<li>
+<a href="{{url_for('get_templates')}}">Templates</a>
+</li>
+<li>
+<a href="{{url_for('dashboard', mode='dashboard')}}" target="_blank">Dashboard</a>
+</li>
+<li>
+<a href="{{url_for('rooms')}}">Rooms</a>
+</li>
+</ul>
+</div>
+
+</div>
+<div class="main-body" id="main-body" style=""> 
+<div id="blogs-page" style="margin-left: 5%;">
+
+<div class="post" oncontextmenu="showMenu(event, '1');">
+<p>ab</p>
+<div class="dropdown-menu" id="1">
+<a>Read</a>
+<a>Print</a>
+<a>Download</a>
+</div>
+</div>
+<div class="post" name="2" oncontextmenu="showMenu(event, '2');">
+<p>bc</p>
+<div class="dropdown-menu" id="2">
+<a>Read</a>
+<a>Print</a>
+<a>Download</a>
+</div>
+</div>
+<div class="post" name="3" oncontextmenu="showMenu(event, '3');">
+<p>ef</p>
+<div class="dropdown-menu" id="3">
+<a>Read</a>
+<a>Print</a>
+<a>Download</a>
+</div>
+</div>
+<div class="post" name="4" oncontextmenu="showMenu(event, '4');">
+<p>ad</p>
+<div class="dropdown-menu" id="4">
+<a>Read</a>
+<a>Print</a>
+<a>Download</a>
+</div>
+</div>
+
+
+</div>
+
+</div>
+
+</body>
+<script>
+
+function showNotifications(){
+	var x = document.getElementById("show-notification");
+	if(x.style.display=='none'){
+		x.style.display = "block";
+		$("#load-notification").load("{{url_for('api_request', mode='shownotifications')}}");
+	}else{
+		x.style.display = "none";
+	}
+}
+window.onclick = function(event) {
+	if (!event.target.matches('.fa')) {
+		var y = document.getElementsByClassName('dropdown-content');
+		var x = document.getElementsByClassName('dropdown-menu');
+		for(let i=0;i<y.length;i++){
+			if(y[i].style.display == "block"){
+				y[i].style.display="none";
+			}
+		}
+		for(let i=0;i<x.length;i++){
+			if(x[i].style.display == "block"){
+				x[i].style.display="none";
+			}
+		}
+	}
+}
+function filterPosts() {
+  var input, filter, table, tr, td, i, txtValue;
+  input = document.getElementById("search-q");
+  filter = input.value.toUpperCase();
+  table = document.getElementById("blogs-page");
+  tr = table.getElementsByTagName("div");
+  let x = tr.length;
+  for (i = 0; i < tr.length; i++) {
+    td = tr[i].getElementsByTagName("p")[0];
+    if (td) {
+      txtValue = td.textContent || td.innerText;
+      if (txtValue.toUpperCase().indexOf(filter) > -1) {
+        tr[i].style.display = "";
+      } else {
+        tr[i].style.display = "none";
+	x = x -1;	
+      }
+    }
+  }
+ 
+ if(input.value.length > 0){
+	document.getElementById("search-more").style.display = 'block';
+ }else{
+ 	document.getElementById("search-more").style.display = 'none';
+  }
+}
+function searchMore(){
+	var x = document.getElementById("search-q");
+	if(x.value.length > 0){
+		location.search = "filter_post="+x.value+"&&source=typed_query";
+	}else{
+		document.getElementById("search-more").style.display = 'block';
+	}
+}
+function showLeftnav(){
+	var x= document.getElementById("left-nav");
+	var y= document.getElementById("main-body");
+	if(!x.classList.contains("full")){
+		x.classList.add("full");
+		y.setAttribute("style", "margin-left: 0px;width: 95%;");
+	}else{
+		x.classList.remove("full")
+		y.removeAttribute("style");
+	}
+}
+function showMenu(event, id){
+	event.preventDefault();
+	document.getElementById(id).style.display = 'block';
+}
+</script>
+<script src="{{url_for('static', filename='js/popper.js')}}"></script>
+<script src="{{url_for('static', filename='js/bootstrap.min.js')}}"></script>
+<script src="{{url_for('static', filename='js/main.js')}}"></script>
+<script defer="" src="https://static.cloudflareinsights.com/beacon.min.js/vaafb692b2aea4879b33c060e79fe94621666317369993" integrity="sha512-0ahDYl866UMhKuYcW078ScMalXqtFJggm7TmlUtp0UlD4eQk0Ixfnm5ykXKvGJNFjLMoortdseTfsRT8oCfgGA==" data-cf-beacon="{&quot;rayId&quot;:&quot;7724fa9328bd0519&quot;,&quot;token&quot;:&quot;cd0b4b3a733644fc843ef0b185f98241&quot;,&quot;version&quot;:&quot;2022.11.3&quot;,&quot;si&quot;:100}" crossorigin="anonymous"></script>
+
+<script>
+</script>

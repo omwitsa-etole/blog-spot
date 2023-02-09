@@ -1,0 +1,9 @@
+{%for event in events %}
+		      <div class="list-group-item" style="width: 300px;">
+		        <div>
+		          <h6 class="tx-white tx-13 mg-b-5 tx-normal" style="color: black;">{{event[1]}}</h6>
+		          <p class="mg-b-0 tx-white tx-12 op-2" style="color: black;">{{event[4]}}</p>
+		        </div>
+		        <a href="javascript:void(0)" class="more" style="color: black;cursor: pointer;"><i class="fa fa-ellipsis-v" aria-hidden="true"></i></a>
+		      </div><!-- list-group-item -->
+		{%endfor%}

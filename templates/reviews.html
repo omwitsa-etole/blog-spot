@@ -1,0 +1,14 @@
+{% if n > 0%}
+	{%for review in reviews%}
+		<div class="box b">
+		<b>{{ review[0] }}</b><br>
+		<p>{{ review[1]}} </p>
+		<span class="time-review">{{review[2]}}</span>
+		</div>
+	{%endfor%}
+{% endif %}
+<div class="box b">
+<b>@admin</b>
+<p>Your positive review will really go a long way</p>
+<span class="time-review">20-11-2022</span>
+</div><br>

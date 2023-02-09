@@ -1,0 +1,806 @@
+<!Doctype html>
+<html>
+<head>
+<meta content="utf-8">
+<meta name = "keywords" content = "HTML, Meta Tags, Metadata" />
+<meta name = "description" content = "Learning about internet programming., web developer portfolio, blog spot" />
+<meta name="author" content="Bradone Etole Omwitsa">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+body{
+	background-color:  #000000;
+	overflow-x: hidden;
+	width: 100%;
+	height: 100%;
+}
+.profile{
+	width: 40%;	
+	height: 70%;
+	border-radius: 50%;
+	position: absolute;
+	right: 5%;	
+	
+	top: 10%;
+	background: white;
+}
+.name-nav{
+	color: white;
+	font-size: 30px;
+	font-family: "Lucida Console", "Courier New", monospace;
+	overflow: hidden;
+	
+}
+.name-nav a{
+	text-decoration: none;
+	color: red;font-size: 40px;
+}
+.greetings{
+	color: red;font-size: 28px;
+}
+.curve{
+	position: absolute;
+	
+	width: 80%;
+	height: 800px;
+	background: red;
+	border-radius: 50%;
+	top: -35%;
+	right: -50%;
+}
+.box{
+	position: relative;
+	display: inline-block;
+	width: 300px;
+	height: 400px;
+	background: white;
+	border-radius: 10px;
+	margin-left: 5%;
+	margin-top: 3%;
+	font-size: 18px;
+	color: black;
+	text-align: center;
+	justify-content: center;
+	box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px, rgba(27, 31, 35, 0.15) 0px 0px 0px 1px;
+}
+
+
+.box img{
+	width:100%;height: 85%;
+	filter: blur(1px);
+  -webkit-filter: blur(1px);
+background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+.box button{
+	position: absolute;
+	bottom: 0;
+	width: 100%;
+	height: 15%;
+	left: 0;
+	cursor: pointer;
+}
+
+.box i{
+	color: red;
+}
+
+.b{
+	height: 250px;
+}
+
+.job-title{
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 30px;
+	color: white;
+}
+.job-title:first-letter{
+	color: red;
+	font-size: 40px;
+}
+.dat{
+	font-size: 18px;
+}
+.dat a{
+	text-decoration: none;
+	font-size: 18px;
+	cursor: pointer;
+}
+.disp-msg{
+	display: none;
+}
+.disp-msg button{
+	width: 200px;
+	height: 40px;
+	
+}
+.active{
+	display: block;
+}
+#nxt{
+	position: absolute;
+	z-index: 5;
+	left: 50%;
+	width: 40px;
+	height: 40px;
+	border-radius: 50%;
+	margin-top: -1%;
+	cursor: pointer;
+	text-align: center;
+}
+#nxt:hover{
+	background: #ddd;
+	color: red;
+}
+.msg{
+	position: fixed;	
+	bottom: 2.5%;
+	right: 1%;
+	color: red;
+	z-index: 99;
+	cursor: pointer;
+}
+
+.msg-btn{
+	position: absolute;
+	bottom: 1%;
+	width: 275px;
+	margin-left: 2.5%;
+	cursor: pointer;
+	left: 0;
+	height: 35px;
+}
+.msg-box{
+	display: none;
+	position: absolute;
+	bottom: 100%;
+	right: 100%;
+	width: 300px;
+	height: 450px;
+	margin-left: 100px;
+	background: white;
+	z-index: 100;
+	box-shadow: rgba(6, 24, 44, 0.4) 0px 0px 0px 2px, rgba(6, 24, 44, 0.65) 0px 4px 6px -1px, rgba(255, 255, 255, 0.08) 0px 1px 0px inset;
+	overflow: hidden;
+	border-radius: 10px;
+
+}
+.msg-box i{
+	color: black;
+}
+.msg-input{
+	width: 275px;
+	margin-left: 2.5%;
+	height: 40px;
+}
+.msg-text{
+	width: 275px;
+	height: 70%;
+	resize: none;
+	margin-left: 2.5%;
+	margin-top: 5%;
+}
+.msg_list{
+	position: absolute;
+	top: 1%;
+	overflow: auto;
+	width: 99%;
+	margin-left: 0.5%;
+	height: 85%
+	background: white;
+	
+}
+.txt{
+	position: absolute;
+	bottom: 1%;
+	width: 80%;
+	left: 2.5%;
+	height: 70px;
+	resize: none;
+}
+.btn{
+	position: absolute;
+	right: 1%;
+	bottom: 2%;
+	width: 50px;
+	height: 60px;
+	border-radius: 50%;
+	text-align: center;
+	z-index: 5;
+	cursor: pointer;
+}
+.centered{
+	position: absolute;
+	top: 1%;
+	z-index: 2;
+}
+.product-container{
+	width: 90%;
+	height: 350px;
+	
+	background: white;
+	color: black;
+	border-radius: 10px;
+	margin: auto;
+	margin-bottom: 5%;
+	box-shadow: rgba(0, 0, 0, 0.05) 0px 1px 2px 0px;
+}
+.container{
+	display: none;
+	position: relative;
+	width: 100%;
+	height: 100%;
+	margin: auto;
+}
+.prev, .next {
+  cursor: pointer;
+  position: absolute;
+  margin-top: 10%;
+  z-index: 99;
+  width: auto;
+  padding: 16px;
+ 
+  font-weight: bold;
+  font-size: 18px;
+  transition: 0.6s ease;
+  border-radius: 0 3px 3px 0;
+  user-select: none;
+}
+
+.next {
+  right: 0;
+  border-radius: 3px 0 0 3px;
+}
+
+.prev:hover, .next:hover {
+  background: #111;
+  color: white;
+}
+.box-outer {
+  height: 300px;
+  width: 100%;
+  position: relative;
+}
+
+.back-top{
+	display: none;
+	position: fixed;	
+	bottom: 2.5%;
+	left: 2%;
+	color: red;
+	z-index: 99;
+	cursor: pointer;
+}
+.donation{
+	display: none;
+	position: fixed;
+	z-index: 101;
+	top: 10%;
+	left: 30%;
+	width: 40%;
+	height: 300px;
+	overflow-y: auto;
+	overflow-x: hidden;
+	background: white;
+	border-radius: 15px;
+	box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px, rgb(51, 51, 51) 0px 0px 0px 3px;
+	font-size: 17px;
+}
+.in{
+	margin-top: 1%;
+	width: 40%;
+	height: 30px;	
+	padding: 10px;
+	border-radius: 4px;
+	margin-left: 15%;
+}
+.donation button{
+	width: 50%;
+	height: 50px;	
+	padding: 10px;
+	border-radius: 4px;
+	margin-left: 25%;
+	margin-top: 2%;
+	
+}
+buttons-container{
+	margin-top: -80px;
+}
+.container img{
+	width: 98%;
+	margin-left: 1%;
+	height: 95%;
+	margin-top: 1%;
+	background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+h2 input{
+	dipslay: inline-block;
+}
+.donation textarea{
+	width: 90%;
+	height: 50%;
+	margin-left: 5%;
+	resize: none;
+}
+#order{
+	height: 400px;
+}
+.msg_list{
+	height: 80%;
+}
+.msgb {
+	min-height: 80px;
+	height: auto;
+	border: 2px solid #dedede;
+	  background-color: #f1f1f1;
+	  border-radius: 5px;
+	  padding: 15px;
+	  margin: 10px 0;
+}
+.darker {
+  border-color: #ccc;
+  background-color: #ddd;
+}
+.msg::after {
+  content: "";
+  clear: both;
+  display: table;
+}
+.msg img{
+	float: left;
+  max-width: 60px;
+  width: 100%;
+  margin-right: 20px;
+  border-radius: 50%;
+}
+.container .right img{
+  float: right;
+  margin-left: 20px;
+  margin-right:0;
+}
+.time-right {
+  float: right;
+  color: #aaa;
+}
+.time-left {
+  float: left;
+  color: #999;
+}
+#snackbar {
+  visibility: hidden;
+  min-width: 250px; 
+  margin-left: -125px; 
+  background-color: #333; 
+  color: #fff; 
+  text-align: center; 
+  border-radius: 2px; 
+  padding: 16px;
+  position: fixed; 
+  z-index: 110; 
+  left: 50%; 
+  bottom: 30px; 
+}
+
+#snackbar.show {
+  visibility: visible; 
+  -webkit-animation: fadein 0.5s, fadeout 0.5s 2.5s;
+  animation: fadein 0.5s, fadeout 0.5s 2.5s;
+}
+
+@-webkit-keyframes fadein {
+  from {bottom: 0; opacity: 0;}
+  to {bottom: 30px; opacity: 1;}
+}
+
+@keyframes fadein {
+  from {bottom: 0; opacity: 0;}
+  to {bottom: 30px; opacity: 1;}
+}
+
+@-webkit-keyframes fadeout {
+  from {bottom: 30px; opacity: 1;}
+  to {bottom: 0; opacity: 0;}
+}
+
+@keyframes fadeout {
+  from {bottom: 30px; opacity: 1;}
+  to {bottom: 0; opacity: 0;}
+}
+.b p{
+	margin-left: 5%;
+	color: black;
+}
+.time-review {
+  position: absolute;
+  right: 1%;
+  bottom: 1%;
+  color: #aaa;
+}
+@media only screen and (max-width: 800px) {
+	.box{
+		width: 95%;
+		margin-left: 2.5%;
+	}
+	.curve{
+		display: none;
+	}
+	.profile{
+		position: relative;
+		margin-left: 20%;
+	}
+	#next{
+		position: absolute;
+		left: 90%;
+	}
+	.product-container{
+		height: 450px;
+	}
+	.prev, .next {
+		margin-top: 25%;
+	}
+	.box-outer{
+		height: auto;	
+	}
+	.arrow{
+		display: none;
+	}
+	.donation{
+		width: 90%;
+		left: 5%;
+		height: 450px;
+	}
+}
+.footer{
+	width: 100%;
+	postion: absolute;
+	left: 0;
+	bottom: 2.5%;
+	margin-top: 5%;
+	z-index: 2;
+	color: red;
+	text-align: center;
+}
+</style>
+<script src="https://use.fontawesome.com/4f05e2c5d5.js"></script>
+<script src="https://code.jquery.com/jquery-3.5.0.js"></script>
+<script src="https://kit.fontawesome.com/c63faa1f51.js" crossorigin="anonymous"></script>
+<title>BRADONE E. OMWITSA - Portfolio</title>
+</head>
+<body>
+<div id="snackbar"></div>
+<div class="curve">
+</div>
+<div class="donation" id="donate">
+<a style="float: right;cursor: pointer;color: red;" onclick="this.parentElement.style.display='none'"><i class="fa fa-window-close" aria-hidden="true"></i></a>
+<center><h2>Make a Donation to Bradone</h2>
+<select onchange="changeMode(this.value)"><option value="phone">phone</option>
+<option value="paypal">paypal</option>
+</select>
+</center><hr/>
+<div id="bypaypal"></div>
+<div id="byphone">
+<label>Amount: </label><input class="in" type="number" id="amt" placeholder="amount"><br>
+<label id="ph">Phone: </label><input class="in" id="num" type="number" placeholder="2547xxxxxxxx" style=""><br>
+<button type="submit" onclick="donate()">Donate</button>
+</div>
+</div>
+<div class="back-top" id="backtop" onclick="document.documentElement.scrollTop=0;document.body.scrollTop = 0;"><i class="fa fa-angle-double-up fa-3x" aria-hidden="true"></i></div>
+<noscript>Allow javascript to view this page</noscript>
+<div class="donation" id="order">
+<a style="float: right;cursor: pointer;color: red;" onclick="this.parentElement.style.display='none'"><i class="fa fa-window-close" aria-hidden="true"></i></a>
+<center><h2 id="order-title"></h2></center>
+<Label>Email: </label><input type="text" id="orderemail" placeholder="Enter your email for contact"><br>
+<label>Description : </label><br><textarea  id="orderdescription" placeholder="A brief description of what you would like"></textarea>
+<button id="btn-order" onclick="makeOrder()">Order</button>
+</div>
+<div style="margin-left: 5%;">
+<div class="name-nav">
+<p><b><a>B</a>RADONE <a>O</a>MWITSA</b></p>
+<img class="profile" src="{{ url_for('static', filename='profile.jpg') }}">
+</img>
+<p class="gretings">Welcome, {{ hostname }}<br> - - - - <i onclick="loaddata()" id="nxt"><i class="fa fa-angle-right" aria-hidden="true"></i></i></p>
+
+
+<div class="disp-msg active" id="data_0">
+<p style="font-family: "Lucida Console", "Courier New", monospace;font-size: 45px;margin-top: 4%;margin-left: 5%;"><b>B.E.OMWITSA</b></p>
+<p class="job-title">Fullstack Developer</p>
+<p class="job-title" style="margin-left: 5%;">Web UX/UI Design</p>
+<p class="job-title" style="margin-left: 15%;">Admin Panel</p><br>
+</div>
+<div class="disp-msg" id="data_1">
+<p class="gretings">Message from Bradone</p>
+<h2 id="title">INTERNET PROGRAMMING</h2>
+<button name="data_1" onclick="readMode(this.name)">Read Full Blog</button>
+<p></p>
+</div>
+<span class="dat"><p><a target="_blank" href="mailto:omwitsabradone@gmail.com"><i class="fa fa-envelope" aria-hidden="true"></i> omwitsabradone@gmail.com</a></p>
+<p><a href="tel:+254717881525" style="color: white;"><i class="fa fa-phone" aria-hidden="true"></i> +254717881525</a></p>
+<p><a style="color: blue;" target="_blank" href="https://twitter.com/_etolee_"><i class="fa fa-twitter" aria-hidden="true"></i> tweet</a></p>
+<p ><a onclick="makeDonation()"><i class="fa fa-usd" aria-hidden="true"></i> Donate</a></p>
+<p><a onclick="review()" style="color: green;"><i class="fa fa-comment" aria-hidden="true"></i> Review</a></p>
+</span><br>
+<p style="font-size: 28px;">Ask for Services in various areas:</p>
+<div style="width: 100;">
+<div class="box">
+<img src="{{ url_for('static', filename='ux.jpg') }}" alt="Code" style="width:100%;height: 85%;">
+<div class="centered">
+<h2>UX/UI Design</h2>
+<p>An effective UI/UX is one that conveys a clear and objective message. I make sure the design is fresh and neat with all of that.</p>
+</div>
+<button onclick="order(this.parentElement)">Place Order</button>
+</div>
+<div class="box" >
+<img src="{{ url_for('static', filename='computercode.jpeg') }}" alt="Code" style="width:100%;height: 85%;">
+<div class="centered" style="color: red;">
+<h2>Web Developement</h2>
+<p>If you're looking for a developer to take over the research and development of your website, I'm a well-established professional to help you with that.</p>
+</div>
+<button onclick="order(this.parentElement)">Place Order</button>
+</div>
+<div class="box">
+<img src="{{ url_for('static', filename='analysis.jpg') }}" alt="Code" style="width:100%;height: 85%;">
+<div class="centered" style="color: ;">
+<h2>Data Analytics</h2>
+<p>If you're looking for someone who can help you make more informed decisions through analytics and predictive modeling, I'm qualified for that.</p>
+</div>
+<button onclick="order(this.parentElement)">Place Order</button>
+</div>
+</div>
+<br><p style="font-size: 28px;">Hard Skills</p>
+<div class="box b">
+<i class="fa fa-html5 fa-4x" aria-hidden="true"></i>
+<h2>HTML5</h2>
+<p>Complete mastery of the semantic tags of the most contemporary markup language on the internet.</p>
+</div>
+<div class="box b">
+<i class="fa fa-css3 fa-4x" aria-hidden="true"></i>
+<h2>CSS</h2>
+<p>Complete mastery of the style language and its bootstrap 5 framework</p>
+</div>
+<div class="box b">
+<i class="fa fa-wordpress fa-4x" aria-hidden="true"></i>
+<h2>WORDPRESS</h2>
+<p>Deep knowledge of development with WordPress CMS and its Elementor PRO builder.</p>
+</div>
+<div class="box b">
+<i class="fa-brands fa-js fa-4x"></i>
+<h2>JAVASCRIPT</h2>
+<p>Complete mastery of basic and object-oriented language. Basics of the React library.</p>
+</div>
+<div class="box b">
+<i class="fa-brands fa-python fa-4x"></i>
+<h2>PYTHON</h2>
+<p>Moderate knowledge of the Python language for web development and analytics</p>
+</div>
+<div class="box b">
+<i class="fa-brands fa-php fa-4x"></i>
+<h2>PHP</h2>
+<p>Moderate knowledge in the PHP language, necessary for code maintenance within WordPress</p>
+</div><br><br>
+<p style="font-size: 28px;">View Completed Pojects</p>
+<a class="prev" onclick="loaddata()">&#10094;</a>
+<a class="next" onclick="loaddata()">&#10095;</a>
+<div class="product-container">
+
+<div class="container fade" id="completed_projects">
+</div>
+
+</div><br>
+<p style="font-size: 28px;">Reviews</p>
+<a class="prev arrow">&#10094;</a>
+<a class="next arrow">&#10095;</a>
+<div class="box-outer">
+<div class="box-inner" id="reviews">
+
+</div>
+</div>
+</div>
+</div>
+</div>
+
+</div>
+<div class="msg">
+<a onclick="shareMessage()"><i class="fa fa-commenting fa-4x" aria-hidden="true"></i></a>
+{% if session.get("user") == None or session.get('user') == "None"%}
+	<div class="msg-box" id="msg-box">
+	<a style="position: absolute;right: 1%;cursor: pointer;color: red;" onclick="this.parentElement.style.display='none'"><i class="fa fa-window-close" aria-hidden="true"></i></a>
+
+	<div id="msgs" style="width: 100%;height: 100%;">
+	<input type="email" id="youremail" class="msg-input" placeholder='Enter your email' autofocus><br>
+	<textarea id="yourmessage" class="msg-text" placeholder="type your message here "></textarea><br>
+	<button type="button" class="msg-btn" onclick="sendChat()">Send</button>
+	</div>
+
+	</div>
+{%else%}
+	<div class="msg-box" id="msg-box">
+	<i style="color: black;">{{session['user']}}</i>
+	<a style="float:right;cursor: pointer;color: red;" onclick="this.parentElement.style.display='none'"><i class="fa fa-window-close" aria-hidden="true"></i></a>
+	<div style="position: relative;width: 100%;height: 100%;overflow: hidden;">
+	<div id="res" class="msg_list">
+	</div>
+	<textarea id="yourmessage" class="txt"></textarea>
+	<input type="text" id="youremail" value="{{ session['user']}}" style="display: none;">
+	<button type="button" class="btn" onclick="sendChat()">Send</button>
+	</div>
+	</div>
+{%endif%}
+</div>
+<div class="footer"><p>Developed by omwitsabradone@gmail.com</p></div>
+</body>
+<script>
+let slideIndex = 1;
+let mybutton = document.getElementById("backtop");
+showSlides(slideIndex);
+function plusSlides(n) {
+  showSlides(slideIndex += n);
+}
+
+function currentSlide(n) {
+  showSlides(slideIndex = n);
+}
+function showSlides(n) {
+  let i;
+  let slides = document.getElementsByClassName("container");
+  if (n > slides.length) {slideIndex = 1}
+  if (n < 1) {slideIndex = slides.length}
+  for (i = 0; i < slides.length; i++) {
+    slides[i].style.display = "none";
+  }
+  slides[slideIndex-1].style.display = "block";
+}
+var page_data = 0
+$(document).ready(function() {
+	setTimeout(loaddata, 3000);
+	let t = "{{session.get('user')}}"
+	if(t != "Null" && t!= "None"){
+		$("#res").load("{{ url_for('messages')}}");
+		setInterval(loadmessages, 1500);
+	}
+	
+});
+function loadmessages(){
+	let t = "{{session.get('user')}}"
+	if(t != "Null" && t!= "None"){
+		$("#res").load("{{ url_for('messages')}}");
+	}
+}
+function loaddata(){
+	page_data++;
+	if (page_data == 2){
+		page_data = 0;
+	}
+	var x = document.getElementsByClassName("disp-msg");
+	for(let i=0;i<x.length;i++){
+		if(x[i].classList.contains("active")){
+			x[i].classList.remove("active");
+		}
+	}
+	var y = document.getElementById("data_"+page_data.toString());
+	y.classList.add("active");
+	$("#reviews").load("/api/v/fn/reviews");
+	$("#completed_projects").load("{{ url_for('projects') }}");
+}
+var box = $(".box-inner"), x;
+$(".arrow").click(function() {
+  if ($(this).hasClass("next")) {
+    x = ((box.width() / 2)) + box.scrollLeft();
+    box.animate({
+      scrollLeft: x,
+    })
+  } else {
+    x = ((box.width() / 2)) - box.scrollLeft();
+    box.animate({
+      scrollLeft: -x,
+    })
+  }
+})
+
+function shareMessage(){
+	var x = document.getElementById("msg-box");
+	if(x.style.display == 'none'){
+		x.style.display = 'block';
+	}else{
+		x.style.display = 'none';
+	}
+	
+}
+function readMode(id){
+	var x = document.getElementById("title").innerHTML;
+	var y = x.toLowerCase();
+	y = y.replace(" ", "_");
+	location.href = "/read/projects/"+y;
+}
+window.onscroll = function() {scrollFunction()};
+
+function scrollFunction() {
+  if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+    mybutton.style.display = "block";
+  } else {
+    mybutton.style.display = "none";
+  }
+}
+function makeDonation(){
+	var x = document.getElementById("donate");
+	x.style.display='block';
+}
+function changeMode(val){
+	var  x= document.getElementById("byphone");
+	var  y= document.getElementById("num");
+	if(val == "paypal"){
+		x.style.display = 'none';
+		document.getElementById("bypaypal").style.display='block';
+		$("#bypaypal").load("{{ url_for('paypal')}}");
+	}else{
+		document.getElementById("bypaypal").style.display='none';
+		x.style.display = 'block';
+	}
+	
+}
+function order(elm){
+	var x = document.getElementById("order");
+	var y = document.getElementById("order-title");
+	x.style.display = 'block';
+	let v = elm.getElementsByTagName("h2");
+	y.innerHTML = v[0].innerHTML;
+	var z = document.getElementById("orderdescription");
+	var w = document.getElementById("btn-order");
+	z.placeholder = "A brief description of what you would like";
+	w.innerText = "review";
+}
+function review(){
+	var x = document.getElementById("order");
+	var y = document.getElementById("order-title");
+	x.style.display = 'block';
+	y.innerHTML = 'Submit Review';
+	var z = document.getElementById("orderdescription");
+	var w = document.getElementById("btn-order");
+	z.placeholder = "Type your review message here";
+	w.innerText = "review";
+}
+function sendChat(){
+	let email =  document.getElementById("youremail").value;
+	let msg = document.getElementById("yourmessage").value;
+	$.ajaxSetup({async: false});
+	if(email == ""){
+		console.log("email field required");
+	}else{
+		let x = $.post("/chat/user", {email: email, message: msg, to: 'admin'});
+		popup(x.responseText)
+	}
+	document.getElementById("yourmessage").value = "";
+	setInterval(loadmessages, 1500);
+}
+function sleep(ms) {
+      return new Promise(resolve => setTimeout(resolve, ms));
+   }
+function makeOrder(){
+	var title = document.getElementById("order-title").innerText;
+	var description = document.getElementById("orderdescription").value;
+	var email = document.getElementById("orderemail").value;
+	if(title = "Submit Review"){
+		$.ajaxSetup({async: false});
+		let x = $.post("/api/v/fn/review", {email: email, review: description});
+		popup(x.responseText);
+		sleep(1500).then(() => {
+			$("#reviews").load("/api/v/reviews");
+		})
+	}else{
+		$.ajaxSetup({async: false});
+		let x = $.post("/api/v/fn/order", {email: email, description: description, title: title});
+		popup(x.responseText);
+	}
+}
+function popup(text){
+	var x = document.getElementById("snackbar");
+	x.innerText = text;
+	x.className = "show";
+	setTimeout(function(){ x.className = x.className.replace("show", ""); }, 3000);
+}
+function donate(){
+	popup("request has been sent");
+}
+</script>
+</html>

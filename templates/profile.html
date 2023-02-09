@@ -1,0 +1,353 @@
+<head>
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.13.1/css/jquery.dataTables.css">
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+<script src="https://code.jquery.com/jquery-3.5.0.js"></script>
+<link href="{{ url_for('static', filename='font-awesome.css')}}" rel="stylesheet">
+<link href="{{ url_for('static', filename='ionicons.css')}}" rel="stylesheet">
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css')}}">
+<link rel="stylesheet" href="{{ url_for('static', filename='bracket.css')}}">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+<!-- Optional theme -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+<style type="text/css">
+body{
+	width: 100%;
+	overflow-x: hidden;
+}
+@media only screen and (max-width: 800px) {
+	#sub-left{
+		display: none;
+	}
+}
+.rows div{
+	display: block;
+	margin-top: 10px;
+}
+
+#profile{
+	text-align: justify;
+	overflow: hidden;
+}
+.chat-profile{
+	display: none;
+	background: white;
+	width: 400px;
+	height: 350px;
+	overflow: hidden;
+	position: absolute; 
+  z-index: 120; 
+  right: 5%; 
+  top: 17%; 
+  -webkit-animation: fadeinto 1s;
+  	animation: fadeinto 1s;
+}
+.top-nav input{
+	width: 240px;
+	margin-top: 15px;
+	margin-left: -10px;
+	height: 40px;
+	padding: 0 9px;
+	margin-bottom: 25px;
+	position: relative;
+}
+.dropdown-content-m{
+	display: none;
+	position: absolute;
+	z-index: 2;	
+	width: 150px;
+	top: 100%;
+	font-size: 14px;
+	text-color: black;
+	right: 30%;
+	background-color: #f1f1f1;
+	box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
+	color: black;
+}
+.dropdown-content-m a{
+	color: black;
+	padding: 10px 9px;
+	  text-decoration: none;
+	  display: block;
+}
+#suggestions{
+	position: absolute;
+	right: 0;
+	width: 35%;
+	height: 300px;	
+}
+.left-opts{
+	float: right;
+	margin-right: 1%;
+	position: relative;
+	margin-top: 20px;
+}
+.left-opts div{
+	display: inline-block;
+	margin-left: 20px;
+}
+</style>
+</head>
+<body style="position: relative;">
+<div id="snackbar"></div>
+<div class="top-nav" style="background: white;z-index: 220;">
+<h2 style="margin-left: 5%;position: absolute;left: 0;" onclick="location.href='{{url_for("blogHome")}}'">BlogSpot<br><a href="{{url_for('profile', mode='home')}}"><i style="font-size: 16px;">(@{{session["user"]}})</i></a>
+</h2>
+<div class="search" style="margin-left: 30%;position: absolute;left: 0;">
+<input type="text" placeholder="search for blogs and  bloggers " id="rooms-query">
+</div>
+<div class="dropdown">
+<img src="{{url_for('static', filename='avatar.jpg')}}">
+<div class="dropdown-content">
+<a href="{{url_for('blogHome')}}">Home</a>
+<a href="{{url_for('profile', mode='home')}}">Profile</a>
+<a href="{{url_for('dashboard', mode='dashboard')}}">Dashboard</a>
+<a href="{{url_for('signout')}}?callback_url={{url_for('rooms')}}">Sign out</a>
+</div>
+</div>
+<div class="left-opts">
+<div class="dropdown">
+<a href="{{url_for('rooms')}}"><i class="fa fa-message fa-2x"></i></a>
+</div>
+<div class="dropdown">
+<a onclick="showNotifications()"><i class="fa fa-bell-o fa-2x"></i></a>
+<div class="dropdown-content" style="display: none;width: 250px;max-height: 350px;overflow: hidden;" id="show-notification">
+<div class="d-flex align-items-center justify-content-between pd-y-10 pd-x-20 bd-b bd-gray-200">
+<label class="tx-12 tx-info tx-uppercase tx-semibold tx-spacing-2 mg-b-0">Notifications</label>
+<a href="javascript:void(0)" onclick="readAll()" class="tx-11">Mark All as Read</a>
+</div>
+<div id="load-notification" style="width: 100%;height: 100%;text-align: left;justify-content: left;">
+
+</div>
+<div style="position: absolute;bottom: 0;width: 100%;left: 0;height: 30px;background: #ddd;text-align: center;z-index: 1;">
+  <a href="" class="tx-12"><i class="fa fa-angle-down mg-r-5"></i> Show All Notifications</a>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="br-profile-page" style="margin-top: 90px;width: 95%;margin-left: 2.5%;">
+      <div class="card shadow-base bd-0 rounded-0 widget-4" id="profile" style="text-align: justify;overflow-x:hidden;">
+        <div class="card-header ht-75">
+          <div class="hidden-xs-down">
+            <a href="" class="mg-r-10"><span class="tx-medium">498</span> Followers</a>
+            <a href=""><span class="tx-medium">498</span> Following</a>
+          </div>
+          <div class="tx-24 hidden-xs-down" style="position: relative;">
+            <a href="{{url_for('profile', mode='mails')}}" class="mg-r-10"><i class="fa fa-envelope" aria-hidden="true"></i></a>
+            <a onclick="showOpts()"><i class="fa fa-ellipsis-h" aria-hidden="true"></i></a>
+		<div class="dropdown-content-m" id="my-options">
+			<a>Templates</a>
+			<a>Cart</a>
+			<a>Account</a>
+			<a>Support</a>
+			<a>Latest</a>
+		</div>
+          </div>
+        </div><!-- card-header -->
+        <div class="card-body">
+          <div class="card-profile-img">
+            <img src="{{url_for('static', filename='profile.jpg')}}" alt="">
+          </div><!-- card-profile-img -->
+          <h4 class="tx-normal tx-roboto tx-white">Bradone E. Omwitsa</h4>
+          <p class="mg-b-25">Web Developer</p>
+
+          <p class="wd-md-500 mg-md-l-auto mg-md-r-auto mg-b-25">Singer, Lawyer, Achiever, Wearer of unrelated hats, Data Visualizer, Mayonaise Tester. I don't know what alt-tab does. Storyteller.</p>
+
+          <p class="mg-b-0 tx-24">
+            <a href="" class="tx-white-8 mg-r-5"><i class="fa fa-facebook-official"></i></a>
+            <a href="https://twitter.com/_etolee_" target="_blank" class="tx-white-8 mg-r-5"><i class="fa fa-twitter"></i></a>
+            <a href="" class="tx-white-8 mg-r-5"><i class="fa fa-pinterest"></i></a>
+            <a href="" class="tx-white-8"><i class="fa fa-instagram"></i></a>
+          </p>
+        </div><!-- card-body -->
+      </div><!-- card -->	
+     
+      <div class="ht-70 bg-gray-100 pd-x-20 d-flex align-items-center justify-content-center shadow-base">
+        <ul class="nav nav-outline active-info align-items-center flex-row" role="tablist">
+          <li class="nav-item"><a class="nav-link active" data-toggle="tab" href="#posts" role="tab">Posts</a></li>
+          <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#photos" role="tab">Photos</a></li>
+          <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#bloggers" role="tab">Bloggers</a></li>
+          <li class="nav-item hidden-xs-down"><a class="nav-link" data-toggle="tab" href="#settings" role="tab">Settings</a></li>
+        </ul>
+      </div>
+     
+
+</div>
+<div style="">
+<div style="position: absolute;width: 30%;right: 2.5%;z-index: 2;">
+<div class="card bd-0 shadow-base pd-30" >
+<h6 class="tx-gray-800 tx-uppercase tx-semibold tx-13 mg-b-30">People You May Know</h6>
+<div class="medialist">
+  <div class="" style="position: relative;width: 100%;">
+    <img src="{{url_for('static', filename='avatar.jpg')}}" class="wd-45 rounded-circle" alt="">
+    <div class="media-body" style="position: absolute;left: 0;margin-left: 20%;top: 0;">
+      <h6 class="mg-b-2 tx-inverse tx-14">Andrew Wiggins</h6>
+      <p class="mg-b-0 tx-12">@awiggins</p>
+    </div>
+    <a href="#" class="btn btn-outline-secondary" style="float: right;width: 70px;">
+      <div><i class="icon ion-android-person-add tx-16"></i></div>
+    </a>
+  </div>
+  <div class="" style="position: relative;width: 100%;margin-top: 20px;">
+    <img src="{{url_for('static', filename='avatar.jpg')}}" class="wd-45 rounded-circle" alt="">
+    <div class="media-body" style="position: absolute;left: 0;margin-left: 20%;top: 0;">
+      <h6 class="mg-b-2 tx-inverse tx-14">Charles Xavier</h6>
+      <p class="mg-b-0 tx-12">@xsavier</p>
+    </div>
+    <a href="#" class="btn btn-outline-secondary" style="float: right;width: 70px;">
+      <div><i class="icon ion-android-person-add tx-16"></i></div>
+    </a>
+  </div>
+</div>
+</div>
+
+<div class="card bd-0 shadow-base pd-30" style="margin-top: 30px;">
+<h6 class="tx-gray-800 tx-uppercase tx-semibold tx-13 mg-b-30">My Blogs</h6>
+<div class="media-list">
+  <div class="media align-items-center pd-y-10">
+    <a>Internet Programming 101</a><br>
+	<i>Learn the basics of internet programming</i>
+  </div>
+ <div class="media align-items-center pd-y-10">
+    <a>Internet Programming 101</a><br>
+	<i>Learn the basics of internet programming</i>
+  </div>
+</div>
+</div>
+<div class="card bd-0 shadow-base pd-30" style="margin-top: 30px;">
+<h6 class="tx-gray-800 tx-uppercase tx-semibold tx-13 mg-b-25">Contact Information</h6>
+
+<label class="tx-10 tx-uppercase tx-mont tx-medium tx-spacing-1 mg-b-2">Phone Number</label>
+<p class="tx-info mg-b-25">+1 234 567 8910</p>
+
+<label class="tx-10 tx-uppercase tx-mont tx-medium tx-spacing-1 mg-b-2">Email Address</label>
+<p class="tx-inverse mg-b-25">katherine.pechon@themepixels.me</p>
+
+<label class="tx-10 tx-uppercase tx-mont tx-medium tx-spacing-1 mg-b-2">Home Address</label>
+<p class="tx-inverse mg-b-25">1352 Science Center Drive Terreton, ID 83450 </p>
+
+<label class="tx-10 tx-uppercase tx-mont tx-medium tx-spacing-1 mg-b-2">Office Address</label>
+<p class="tx-inverse mg-b-50">1352 Science Center Drive Terreton, ID 83450 </p>
+
+<h6 class="tx-gray-800 tx-uppercase tx-semibold tx-13 mg-b-25">Other Information</h6>
+
+<label class="tx-10 tx-uppercase tx-mont tx-medium tx-spacing-1 mg-b-2">Degree</label>
+<p class="tx-inverse mg-b-25">Bachelor of Science in Computer Science</p>
+
+<label class="tx-10 tx-uppercase tx-mont tx-medium tx-spacing-1 mg-b-5">Skills</label>
+<ul class="list-unstyled profile-skills">
+  <li><span>html</span></li>
+  <li><span>css</span></li>
+  <li><span>javascript</span></li>
+  <li><span>php</span></li>
+  <li><span>photoshop</span></li>
+  <li><span>java</span></li>
+  <li><span>angular</span></li>
+  <li><span>wordpress</span></li>
+</ul>
+</div>
+
+</div>
+
+<div class="card" style="position: absolute;">
+
+</div>
+
+<div class="card bd-0 shadow-base pd-30" id="posts" style="position: absolute;width: 30%;left: 2.5%;z-index: 2;width:  62.5%;text-align: justify;justify-content: left: overflow-hidden;">
+        <div class="rows">
+                        <h6 class="mg-b-2 tx-inverse tx-14">Bradone E. Omwitsa</h6>
+                        <span class="tx-12 tx-gray-500">@254717881525</span>
+                      
+                      <span class="tx-12">2 minutes ago</span>
+                   
+                    <p class="mg-b-20">The new common language will be more simple and regular than the existing European languages. It will be as simple as Occidental; in fact, it will be Occidental.</p>
+                    <div class="media-footer">
+                      <div>
+                        <a href="javascript:void(0)"><i class="fa fa-heart"></i></a>
+                        <a href="javascript:void(0)" class="mg-l-10"><i class="fa fa-comment"></i></a>
+                        <a href="javascript:void(0)" class="mg-l-10"><i class="fa fa-retweet"></i></a>
+                        <a href="javascript:void(0)" class="mg-l-10"><i class="fa fa-ellipsis-h"></i></a>
+                      </div>
+                    </div>
+         </div><br><hr/>
+	<div class="rows">
+                   
+                        <h6 class="mg-b-2 tx-inverse tx-14">Bradone E. Omwitsa</h6>
+                        <span class="tx-12 tx-gray-500">@254717881525</span>
+                      
+                      <span class="tx-12">2 minutes ago</span>
+                    <p class="mg-b-20">The new common language will be more simple and regular than the existing European languages. It will be as simple as Occidental; in fact, it will be Occidental.</p>
+                    <div class="media-footer">
+                      <div>
+                        <a href="javascript:void(0)"><i class="fa fa-heart"></i></a>
+                        <a href="javascript:void(0)" class="mg-l-10"><i class="fa fa-comment"></i></a>
+                        <a href="javascript:void(0)" class="mg-l-10"><i class="fa fa-retweet"></i></a>
+                        <a href="javascript:void(0)" class="mg-l-10"><i class="fa fa-ellipsis-h"></i></a>
+                      </div>
+                    </div>
+	</div>
+	<div class="rows">
+		
+	</div>
+	
+<div class="card pd-20 pd-xs-30 shadow-base bd-0">
+	post image
+</div>
+
+
+<div class="bg-white pd-y-12 tx-center mg-t-15 mg-xs-t-30 shadow-base rounded" style="position: absolute;top: 100%;width: 65%;left: 20%;cursor: pointer;">
+<a href="" class="tx-gray-600 hover-info">Load more</a>
+</div>
+
+ </div>	<br>
+
+
+</div>
+
+
+</body>
+<script>
+function showNotifications(){
+	var x = document.getElementById("show-notification");
+	if(x.style.display=='none'){
+		x.style.display = "block";
+		$("#load-notification").load("{{url_for('api_request', mode='shownotifications')}}");
+	}else{
+		x.style.display = "none";
+	}
+}
+window.onclick = function(event) {
+	if (!event.target.matches('.fa')) {
+		var x = document.getElementsByClassName('dropdown-content-m');
+		var y = document.getElementsByClassName('dropdown-content');
+		for(let i=0;i<x.length;i++){
+			if(x[i].style.display == "block"){
+				x[i].style.display="none";
+			}
+		}
+		for(let i=0;i<y.length;i++){
+			if(y[i].style.display == "block"){
+				y[i].style.display="none";
+			}
+		}
+	}
+}
+function showOpts(){
+	var x = document.getElementById("my-options");
+	x.style.display = 'block';
+}
+function chatProfile(){
+	let x = document.getElementById('profile');
+	x.style.width = "60%";
+	let p = document.getElementById('chat-profile');
+	//p.setAttribute("class", "chat-profile");
+	p.style.display='inline-block';
+}
+</script>
+</body>

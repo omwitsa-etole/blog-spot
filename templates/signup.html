@@ -1,0 +1,154 @@
+<html lang="en"><head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Twitter -->
+    <meta name="twitter:site" content="@_etole_">
+    <meta name="twitter:creator" content="@_etole_">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Bracket">
+    <meta name="twitter:description" content="Premium Quality and Responsive UI for Dashboard.">
+    
+    <!-- Facebook -->
+   
+    <meta property="og:title" content="Bracket">
+    <meta property="og:description" content="Premium Quality and Responsive UI for Dashboard.">
+
+    
+    <meta property="og:image:type" content="image/png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="600">
+
+    <!-- Meta -->
+    <meta name="description" content="BlogSpot, Create and manage your blog website.">
+    <meta name="author" content="Blogspot">
+    <title>Signin - BlogSpot</title>
+
+    <!-- vendor css -->
+    <link href="{{url_for('static', filename='font-awesome.css')}}" rel="stylesheet">
+    <link href="{{url_for('static', filename='ionicons.css')}}" rel="stylesheet">
+    <link href="{{url_for('static', filename='select2.min.css')}}" rel="stylesheet">
+
+    <!-- Bracket CSS -->
+    <link rel="stylesheet" href="{{url_for('static', filename='bracket.css')}}">
+   <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+  <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
+<style>
+h4{
+	margin-top: -25px;
+}
+input[type=radio]{
+	
+}
+.form-group{
+	width: 100%;
+}
+.form-group div{
+	display: inline-block;
+}
+.opt{
+	box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+	width: 120px;
+	height: 50px;
+	margin-left: 10px;
+	cursor: pointer;
+	font-size: 17px;
+	overflow: hidden;
+	border-radius: 7px;
+}
+.opt:hover{
+	box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}
+.msg{
+	box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+	position: absolute;
+	top: 5%;
+	left: 25%;
+	text-align: center;
+	width: 50%;
+	min-height: 35px;
+	border-radius: 10px;
+	color: white;
+	font-size: 18px;
+}
+.warn input{
+	color: red;
+}
+.warning {
+  border-color: #f62f5e !important;
+}
+</style>
+  </head>
+
+  <body>
+   {% if msg != None and msg != "success"%}
+         <div class="msg" style="background: #FFCCCB;">{{ msg }}<a style="float: right;margin-right: 5%;color: red;" onclick="this.parentElement.style.display='none'">X</a></div>
+   {% endif %}
+   {% if msg == "success" %}
+         <div class="msg" style="background: #90EE90;">Account Created successfully, login to continue<a style="float: right;margin-right: 5%;color: red;" onclick="this.parentElement.style.display='none'">X</a></div>
+   {% endif %}
+
+    <div class="d-flex align-items-center justify-content-center bg-br-primary ht-100v">
+
+      <div class="login-wrapper wd-300 wd-xs-400 pd-25 pd-xs-40 bg-white rounded shadow-base">
+        <div class="signin-logo tx-center tx-28 tx-bold tx-inverse"><span class="tx-normal"><</span> BlogSpot <span class="tx-normal">></span></div>
+        <div class="tx-center mg-b-40">Signup To BlogSpot</div>
+        <form method='POST' action="{{url_for('signup')}}" onsubmit="return Validate()" class="column-2">
+	
+	<div class="form-group">
+	
+          <center><div class="opt" onclick="this.children[0].click()"><input id="user" type="radio" name="joinus" label="Reader" value="user" style="margin-left: -10px;">Reader</input></div>
+	  <div class="opt" onclick="this.children[0].click()"><input type="radio" id="blogger" name="joinus" label="Blogger" value="blogger" style="margin-left: 20px;">Blogger</input></div></center>
+        </div><!-- form-group -->
+        <div class="form-group">
+          <input type="text" class="form-control" name="username" placeholder="Enter your username">
+        </div><!-- form-group -->
+	<div class="form-group">
+          <input type="email" class="form-control" name="email" placeholder="Enter your email">
+        </div><!-- form-group -->
+        <div class="form-group">
+          <input type="password" class="form-control" name="password" placeholder="Enter your password">
+        </div><!-- form-group -->
+                
+        <div class="form-group tx-12">By clicking the Sign Up button below, you agreed to our privacy policy and terms of use of our website.</div>
+        <button type="submit" class="btn btn-info btn-block">Sign Up</button>
+	</form>
+        <div class="mg-t-40 tx-center">Already a member? <a href="{{url_for('signin')}}" class="tx-info">Login</a></div>
+      </div><!-- login-wrapper -->
+    </div><!-- d-flex -->
+
+   
+    <script>
+function Validate(){
+	var y = document.getElementById("user");
+	var z = document.getElementById("blogger");
+	if(y.checked == false && z.checked==false){
+		var xs = document.getElementsByClassName("opt");
+		for(let i = 0;i<xs.length;i++){
+			xs[i].classList.add("warn");
+		}
+	}
+	
+	var $cardInput = $('.column-2 input');
+	let x = 0
+		  
+	    $cardInput.removeClass('warning');
+
+	    $cardInput.each(function() {
+	       var $this = $(this);
+
+	       if (!$this.val()) {
+		 $this.addClass('warning');
+		 	x = 1;
+	       }
+	    });
+	 if(x == 1){
+		return false;
+	}else{return true;}
+}
+    </script>
+
+  
+
+</body></html>

@@ -1,0 +1,28 @@
+
+{%if n != 0%}
+	<div style="position: relative;width: 100%;height: 100%;">
+		{% for message in messages %}
+			{% set fernet = Fernet(message[6])%}
+			{% set msg = fernet.decrypt(message[3]).decode()%}
+			{% if message[2] == "admin"%}
+				<div class="msgb">
+				<img src="{{ url_for('static', filename="avatar.jpg")}}"></img>
+				<p>{{msg}}</p>
+				<span class="time-right">{{message[4]}}</span>
+				</div>
+			{% endif %}
+			{% if message[2] == "user" %}
+				<div class="msgb darker right">
+				<img class="" src="{{ url_for('static', filename="profile.jpg")}}"></img>
+				<p>{{msg}}</p>
+				<span class="time-left">{{message[4]}}</span>
+				</div>
+			{% endif %}
+		{% endfor %}
+	</div>
+{% else %}
+	<center><p><b>New messages will appear here</b></p></center>
+{%endif%}
+	
+
+

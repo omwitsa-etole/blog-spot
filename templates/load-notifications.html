@@ -1,0 +1,11 @@
+ 
+{% for notification in notifications %}
+<a href="" class="">
+  <div class="media pd-x">
+    <div class="media-body">
+      <p class="tx-13 mg-b-0 tx-gray-700"><strong class="tx-medium tx-gray-800"></strong> {{ notification[1]}}</p>
+      <span class="tx-12">{{ notification[2]}}</span>
+    </div>
+  </div><!-- media -->
+</a>
+{% endfor %}
