@@ -1,3 +1,4 @@
+africastalking
 asttokens
 async-generator
 attrs

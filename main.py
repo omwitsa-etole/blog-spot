@@ -99,7 +99,7 @@ def method_not_allowed(e):
 
 
 def connector():
-	"""
+	#"""
 	db = mysql.connector.connect(host="localhost",    # your host, usually localhost
                      user="root",         # your username
                      passwd="root",  # your password
@@ -115,7 +115,7 @@ def connector():
 		except Exception as e:
 			print(str(e))
 			pass
-	#"""
+	"""
 	if db == None:
 		raise "No connection"
 
@@ -676,7 +676,8 @@ def order(mode):
 				cur.execute('UPDATE bloggers SET verification=%s WHERE email_id=%s or user=%s', (str(verificationcode), session["user"], session["user"], ))
 				msg = "success"
 				x = alert("your login code is "+str(verificationcode))
-			except:
+			except Exception as e:
+				print(str(e))
 				msg = "error during transaction"
 				db.rollback()
 				pass
@@ -735,7 +736,11 @@ def fetchmessages(no):
 @app.route("/api/v/admin", methods=['GET', 'POST'])
 def admin_role():
 	global verification
-	print(session.get("admin-logged"))
+	#print(session.get("admin-logged"))
+	if session.get("loggedin") == None:
+		return redirect("/api/fx/signin?callback_url=/api/v/admin")
+	if session.get("loggedin") == "user":
+		return redirect("/nx/home")
 	if session.get("loggedin") == "blogger":
 		if request.method == 'POST':
 			msg = None
@@ -755,6 +760,7 @@ def admin_role():
 				if exists:
 					msg = "success"
 					session['admin-logged'] = True
+					session["rooms-user"] = exists[1]
 					return msg
 				else:
 					return "Code not valid"
@@ -976,10 +982,11 @@ def signin():
 					else:
 						session["user"] = exists[4]
 					msg = "success"
-					if call_back != None: return redirect(call_back)
+					if call_back != None and call_back != "None": 
+						return redirect(call_back)
 					else:
-						returnurl = "/api/v/admin"
-					return redirect(returnurl)
+						return redirect("/api/v/admin")
+					
 				
 				cur.execute('SELECT * FROM users WHERE email_id=%s or name=%s', (username, username, ))
 				existss = cur.fetchone()
@@ -988,9 +995,10 @@ def signin():
 					session["user"] = existss[2]
 					session["eid"] = existss[1]
 					msg = "success"
-					if call_back != None: return redirect(call_back)
+					if call_back != None: 
+						return redirect(call_back)
 					else:
-						returnurl = "/test"
+						return redirect("/test")
 					return redirect(returnurl)
 				else:
 					msg = "Invalid Username or Password"

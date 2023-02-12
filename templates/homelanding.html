@@ -132,6 +132,7 @@ li a{
 	background: white;
 }
 .post-p{
+	text-align: center;
 	width: 70%;
 	position: relative;
 	border-radius: 8px;
@@ -198,39 +199,87 @@ li a{
   position: absolute;
   background-color: #f1f1f1;
   width: 160px;
+  height: 220px;
   box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
   z-index: 3;
-  top: 5%;
+  top: 0%;
   left: 80%;
+  overflow:hidden;
 }
 .dropdown-menu a{
 	color: black;
 	  padding: 12px 16px;
 	  text-decoration: none;
 	  display: block;
+	cursor:pointer;
 }
 .dropdown-menu a:hover {background-color: #ddd;}
 .footer-links a{
 	width: ;
 	margin-left: 20%;
 }
-
+.posts-page{
+	position: relative;
+}
+.media-footer{
+	position: absolute;
+	
+	bottom: 1%;
+	width: 100%;
+}
+.new_comment{
+	
+}
+.new_comment input{
+	margin-left: 5%;
+	width: 70%;
+	height: 35px;
+	
+}
+.new_comment button{
+	width: 15%;
+	height: 35px;
+}
+.post_data{
+	opacity: 2;
+	position: absolute;
+	top: 10%;
+	left: 20%;
+	width: 60%;
+	border-radius: 10px;
+	height: 80%;
+	background: white;
+	z-index: 2;
+	box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
+.new_post{
+	opacity: 2;
+	position: absolute;
+	top: 10%;
+	left: 15%;
+	width: 70%;
+	border-radius: 10px;
+	height: 65%;
+	background: white;
+	z-index: 2;
+	box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
+#sidebar{height:100%;d}
+.custom-menu{display:block;}
 @media only screen and (max-width: 900px) {
 	.main-body{
 		width: 100%;
 	}
-	.main-body div{
-		display: inline-block;
-		position: relative;
-		
-	}
+	
 	.l{
+		display: none;
 		width: 35%;
 		margin-left: 5%;
 		max-height: 280px;
 		margin-bottom: 20px;
 	}
 	.ll{
+		display: none;
 		position: relative;
 		width: 35%;
 		float: right;
@@ -239,6 +288,7 @@ li a{
 		max-height: 300px;
 	}
 	.r{
+		display: none;
 		position: relative;
 		width: 35%;
 		margin-left: 5%;
@@ -246,6 +296,7 @@ li a{
 		max-height: 280px;
 	}
 	.rr{
+		display: none;
 		position: relative;
 		width: 35%;
 		float: right;
@@ -261,13 +312,46 @@ li a{
 		display: none;
 		position: absolute;
 		bottom: 50%;
-		margin-top: -20%;
+		top: ;
 				
 	}
+	.top-opts{
+		position: absolute;
+		right: 0;
+		top: -30%;
+		overflow:hidden;
+		width: 100px;
+		height: 60px;
+		justify-content:center;
+		text-align: right;
+	}
+	.top-opts button{
+		display: inline;
+		margin-right: 10px;
+		width: 40px;
+		padding: 9px;
+	}
+	#search-q{
+		margin-left: 150px;
+	}
+	.top-nav h2{
+		display: none;
+	}
+	.main-body{display:;}
+	.post_data{
+		width: 90%;
+		left: 5%;
+	}
+	.new_post{
+		width: 99%;
+		left: 0;
+		height: 100%;
+	}
 }
+
 </style>
 </head>
-<body>
+<body id="body">
 
 
 <nav id="sidebar" class="active" style="position: fixed;top: 0;left: 0.1%;z-index: 5;">
@@ -346,8 +430,9 @@ Copyright ©<script>document.write(new Date().getFullYear());</script> All right
 
 {%if session.get("loggedin") == None %}
 <span class="top-opts">
-<a href="{{url_for('signup')}}"><button>Sign UP</button></a>
 <a href="{{url_for('signin')}}?callback_url=/nx/home"><button>Log In</button></a>
+<a href="{{url_for('signup')}}"><button>Sign UP</button></a>
+
 </span>
 {%else%}
 
@@ -394,48 +479,43 @@ Copyright ©<script>document.write(new Date().getFullYear());</script> All right
 </div><br>
 <div class="r">
 <center><h6>Latest Blogs</h6></center>
-<div>
-<a href="#">INTERNET PROGRAMMING</a>
+<div style="text-align:center;">
+<a href="{{url_for('read',title='internet_programming')}}">INTERNET PROGRAMMING</a>
 </div>
 </div>
 <div class="rr">
 </div>
 
 <div class="c">
-<div class="post-p" onclick="location.search='?new_post'">
+<div class="post-p" onclick="newPost()"><h5>Create New Post</h5>
 </div><br>
-<div id="posts-page">
-<div class="post" oncontextmenu="showMenu(event, '1');">
+<div id="posts-page" class="posts-page">
+<div class="post" oncontextmenu="showMenu(event, '1');" >
+<div onclick="postDetail()">
  <h6 class="mg-b-2 tx-inverse tx-14">Bradone E. Omwitsa</h6>
                 <span class="tx-12 tx-gray-500">@254717881525</span>
               
               <span class="tx-12">2 minutes ago</span>
            
-            <p class="mg-b-20">The new common language will be more simple and regular than the existing European languages. It will be as simple as Occidental; in fact, it will be Occidental.</p>
+            <p class="mg-b-20">The new common language will be more simple and regular than the existing European languages. It will be as simple as Occidental; in fact, it will be Occidental.</p><br>
+</div>
             <div class="media-footer" >
               <div class="footer-links" style="width: 100%;">
-                <a href="javascript:void(0)"><i class="fa fa-heart"></i></a>
-                <a href="javascript:void(0)" class="mg-l-10"><i class="fa fa-comment"></i></a>
+                <a href="javascript:void(0)" onclick="newLike(this)"><i class="fa fa-heart"></i></a>
+                <a href="javascript:void(0)" onclick="newComment('1')" class="mg-l-10"><i class="fa fa-comment"></i></a>
                 <a href="javascript:void(0)" class="mg-l-10"><i class="fa fa-retweet"></i></a>
                 <a onclick="showMenu(event, '1')" class="mg-l-10"><i class="fa fa-ellipsis-h"></i></a>
               </div>
             </div>
- </div><br>
 <div class="dropdown-menu" id="1">
-<a>Read</a>
+<a>Repost</a>
 <a>Copy</a>
 <a>Save</a>
+<a>Share</a>
+<a>Report</a>
 </div>
-</div>
-<div class="post">
-<p>bc</p>
-</div>
-<div class="post">
-<p>ef</p>
-</div>
-<div class="post">
-<p>dg</p>
-</div>
+ </div><br>
+
 </div>
 </div>
 
@@ -506,11 +586,49 @@ function showMenu(event, id){
 	event.preventDefault();
 	document.getElementById(id).style.display = 'block';
 }
+function newComment(id){
+	var post = document.getElementById(id);
+	
+	let parent_post = post.parentNode;
+	if(parent_post.getElementsByClassName('new_comment').length == 0){
+		var comment_section = document.createElement("div");
+		comment_section.setAttribute("class","new_comment");
+		comment_section.innerHTML = "<input placeholder='comment'><button>post</button><br><br><br>";
+		parent_post.insertBefore(comment_section,post);
+	}else{
+		xs = parent_post.getElementsByClassName('new_comment');
+		for(const x of xs){
+			x.remove();
+		}
+	}
+	
+}
+function newLike(elm){
+	if(elm.style.color=="red"){
+		elm.style.color = "blue";
+	}else{
+		elm.style.color = "red";
+	}
+}
+function postDetail(){
+	let detail = document.createElement("div");
+	detail.setAttribute("class","post_data");
+	detail.innerHTML =`<a style="float: right;cursor: pointer;" href="javascript:void(0)" onclick="this.parentElement.remove()"><i class="fa fa-window-close"></i></a>
+<center><h3>Post</h3><center>`;
+	document.getElementById('body').append(detail);
+}
+function newPost(){
+	let detail = document.createElement("div");
+	detail.setAttribute("class","new_post");
+	detail.innerHTML =`<a style="float: right;cursor: pointer;" href="javascript:void(0)" onclick="this.parentElement.remove()"><i class="fa fa-window-close"></i></a>
+<center><h3>Create A Post</h3><center>`;
+	document.getElementById('body').append(detail);
+}
 </script>
 <script src="{{url_for('static', filename='js/popper.js')}}"></script>
 <script src="{{url_for('static', filename='js/bootstrap.min.js')}}"></script>
 <script src="{{url_for('static', filename='js/main.js')}}"></script>
-<script defer="" src="https://static.cloudflareinsights.com/beacon.min.js/vaafb692b2aea4879b33c060e79fe94621666317369993" integrity="sha512-0ahDYl866UMhKuYcW078ScMalXqtFJggm7TmlUtp0UlD4eQk0Ixfnm5ykXKvGJNFjLMoortdseTfsRT8oCfgGA==" data-cf-beacon="{&quot;rayId&quot;:&quot;7724fa9328bd0519&quot;,&quot;token&quot;:&quot;cd0b4b3a733644fc843ef0b185f98241&quot;,&quot;version&quot;:&quot;2022.11.3&quot;,&quot;si&quot;:100}" crossorigin="anonymous"></script>
+
 
 <script>
 </script>
