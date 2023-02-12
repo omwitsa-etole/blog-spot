@@ -99,7 +99,7 @@ def method_not_allowed(e):
 
 
 def connector():
-	#"""
+	"""
 	db = mysql.connector.connect(host="localhost",    # your host, usually localhost
                      user="root",         # your username
                      passwd="root",  # your password
@@ -115,7 +115,7 @@ def connector():
 		except Exception as e:
 			print(str(e))
 			pass
-	"""
+	#"""
 	if db == None:
 		raise "No connection"
 
