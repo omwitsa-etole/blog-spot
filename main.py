@@ -1351,7 +1351,7 @@ def api_request(mode):
 				exists = cur.fetchone()
 				if exists:
 					session["loggedin"] = "user"
-					session["rooms-user"] = email
+					session["rooms-user"] = exists[0]
 					session["room-name"] = exists[3]
 					return "success"
 				else:
@@ -1907,5 +1907,8 @@ def getmessages():
 	send_end.update(order)
 	return order
 	#return [messages, responses, notifications]
+@app.route("/t/test")
+def tst():
+	return render_template("test.html")
 if __name__=="__main__":
 	app.run("0.0.0.0")

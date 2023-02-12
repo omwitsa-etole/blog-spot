@@ -1,15 +1,8 @@
 <html>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<meta charset="utf-8">
-    <meta name="description" content="">
-    <meta name="author" content="BlogSpot">
-
-    <title>Portfolio</title>
 <style>
 body{
-	width: 100%;
-	
+	width: 80%;
+	margin-left: 10%;
 	height: 100%;
 	overflow-x: hidden;
 }
@@ -55,7 +48,7 @@ body{
 }
 .topnav{
 	position: absolute;
-	top: 2%;
+	top: 4%;
 	width: 100%;
 	height: 50px;
 	font-weight: bold;
@@ -66,7 +59,12 @@ body{
 	text-decoration: none;
 	color: black;
 }
-
+.content{
+	position: relative;
+	margin-top: 80px;
+	width: 100%;
+	height: 800px;
+}
 h2{
 	font-size: 30px;
 	font-weight: bold;
@@ -334,9 +332,9 @@ background-position: center;
 	width: 250px;
 	height: 250px;
 	border-radius: 50%;
-	
+	align-items: center;
+	justify-content: center;
 	margin: auto;
-	oveflow:hidden;
 	cursor: pointer;
 }
 .call a{
@@ -412,46 +410,19 @@ background-position: center;
 .t-top{
 	margin-top: -45px;
 }
-.project_box{
-	position: relative;
-	display: none;
-	width: 300px;
-	height: 300px;
-	cursor:pointer;
-	background: #ddd;
-	border-radius: 10px;
-	margin-left: 25%;
-	margin-top: 3%;
-	font-size: 18px;
-	color: black;
-	text-align: center;
-	box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px, rgba(27, 31, 35, 0.15) 0px 0px 0px 1px;
-}
-.content{position: relative;width:80%;margin-left: 10%;margin-top: 80px;}
-.project_active{display:block;}
-@media only screen and (max-width: 900px) {
-	body{width:100%;height: 100%;overlow-x:hidden;}
-	.content{
+@media only screen and (max-width: 800px) {
+	body{
+		width: 100%;
+		height: 100%;
+	}
+	.cont{
 		position: absolute;
-		top: 2%;
-		width: 90%;
-		margin-left: 30px;
+		top: 100%;
 	}
 	.t-top{
 		visibility: hidden;
 	}
-	.chat{
-		position: absolute;
-		left: 10%;
-		width: 80%;
-		height: 450px;
-	}
-	.donation{
-		position: absolute;
-		left: 10%;
-		width: 80%;
-		height: 450px;		
-	}
+	
 	.l{
 		position: relative;margin-top: 10px;
 		margin-left: 30px;
@@ -459,12 +430,15 @@ background-position: center;
 	}
 	.r{
 		position: relative;
-		text-align:left;
 		width: 100%;
 		margin-top: 10px;
 		margin-left: 30px;
 	}
-	
+	.content{
+		
+		width: 90%;
+		margin-left: 30px;
+	}
 	.chat-user-box{
 		width: 100%;
 		margin-top: 1%;
@@ -472,7 +446,7 @@ background-position: center;
 		z-index: 101;
 	}
 	.profile{
-		display: none;
+		display: block;
 		z-index: 3;
 		position: absolute;	
 		right: 0%;
@@ -486,12 +460,24 @@ background-position: center;
 		height: 100%;
 		border-radius: 50%;
 	}
-	.project_box{
-		width: 600px;
-		margin-left: 100px;
-	}
 }
-
+.project_box{
+	position: relative;
+	display: none;
+	width: 300px;
+	height: 300px;
+	cursor:pointer;
+	background: white;
+	border-radius: 10px;
+	margin-left: 30%;
+	margin-top: 3%;
+	font-size: 18px;
+	color: black;
+	text-align: center;
+	justify-content: center;
+	box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px, rgba(27, 31, 35, 0.15) 0px 0px 0px 1px;
+}
+.project_active{display:block;}
 </style>
 <script src="https://use.fontawesome.com/4f05e2c5d5.js"></script>
 <script src="https://code.jquery.com/jquery-3.5.0.js"></script>
@@ -499,6 +485,8 @@ background-position: center;
 <body>
 
 <div id="snackbar"></div>
+<div class="content" style="position: relative;width:100%;">
+
 <div class="topnav">
 <a href="#">Contact</a>
 <a href="javascript:void(0)" onclick="makeDonation()">Donate</a>
@@ -511,9 +499,6 @@ background-position: center;
 <a style="color: blue;" target="_blank" href="https://twitter.com/_etolee_"><i class="fa fa-linkedin" aria-hidden="true"></i></a>
 </div>
 </div>
-<div class="content" >
-
-
 	<center><h3 class="t-top" >BRADONE<br>OMWITSA</h3></center><br>
 	<center><h2>Bradone E. Omwitsa<br><b id="title-services">Web UX/UI Design</b></h2></center>
 <div class="c">
@@ -522,7 +507,7 @@ background-position: center;
 	<div class="l">
 		<h4>Biography</h4>
 		<p>Work for money and design for love!</p>
-		<p>I'm Bradone and I can offer services in <b id="services-offer">Web UX/UI Design</b></p><br>
+		<p>I'm Bradone and I can offer <b id="services-offer">Web UX/UI Design</b></p><br>
 		<h4>Contact</h4>
 		<p>Nairobi, Kenya</p>
 		<p>omwitsabradone@gmail.com</p>
@@ -604,34 +589,16 @@ background-position: center;
 	<div class="product-container">
 
 	<div class="container fade" id="completed_projects" style="text-align:center;">
-		<div class="project_box project_active" id="box_1" onclick="location.href='{{url_for("landing")}}'">
-		<div class="centered" >
+		<div class="box project_active" id="box_1" onclick="location.href='{{url_for("landing")}}'">
+		<div class="centered" style="color:red;">
 		<h2>BlogSpot</h2>
-		<p>A Blog Spot for Web and Software developers. Create and manage your Blogs and portfolio with an admin panel</p>
+		<p>A Blog Spot for Web and Software developers.</p>
 		</div>
 		</div>
 		<div class="project_box" id="box_2" onclick="location.href='http://room-s.herokuapp.com/room'">
-		<div class="centered" >
+		<div class="centered" style="color:red;">
 		<h2>Rooms</h2>
 		<p>Enjoy free encrypted communication by registering using only your email.</p>
-		</div>
-		</div>
-		<div class="project_box" id="box_3" onclick="location.href='http://bet-site.herokuapp.com'">
-		<div class="centered">
-		<h2>SureBets</h2>
-		<p>Enjoy free surebets for football matches that guarantee a win no matter the outcome.</p>
-		</div>
-		</div>
-		<div class="project_box" id="box_4" onclick="location.href='http://askabcrypto.herokuapp.com'">
-		<div class="centered">
-		<h2>AskaboutCrypto</h2>
-		<p>Compare the market cap of different crypto currencies here and get to see the highest and lowest percentage differences.</p>
-		</div>
-		</div>
-		<div class="project_box" id="box_5" onclick="location.href='https://github.com/omwitsa-etole/mobi-bank'">
-		<div class="centered">
-		<h2>Mobi-bank</h2>
-		<p>A cpp object oiented programm for users and agents that allow daily transactions between users, deposits and withdrawals through agents and purchase of float, creation of agents and deleting of data through an admin section.</p>
 		</div>
 		</div>
 	</div>
@@ -652,8 +619,12 @@ background-position: center;
 </div>
 
 <div class="cl">
-	<div class="call" onclick="this.children[0].click()">
-	<a href="http://room-s.herokuapp.com/room?signup&&connect=korg" target="_blank">Chat in Rooms</a>
+	{% if name != None %}
+		<div class="call" onclick="chatRoom()">
+	{%else%}
+		<div class="call" onclick="popup('This blogger has not set up a room yet')">
+	{%endif%}
+	<a>Chat with Bradone<br><i class="fa fa-paper-plane fa-3x"></i></a>
 	</div>
 </div>
 
@@ -725,7 +696,7 @@ function sleep(ms) {
 $(document).ready(function() {
 	loaddata();
 	//setInterval(loadmessages, 5500);
-	//setInterval(loaddata, 10000);
+	setInterval(loaddata, 10000);
 	setInterval(loadd, 5500);
 	{% if session.get("rooms-user") != None%}
 		$("#chat-user-box").load("{{url_for('blogChat')}}");
@@ -736,7 +707,7 @@ $(document).ready(function() {
 let prog = 0
 let uploads = []
 function loadd(){
-	let x = ["Fullstack Developement", "Web UX/UI Design", "Object Oriented Programming","Django Web Framework","Flask Web Framework","Java Programming","Data Structures and Algorithms"];
+	let x = ["Fullstack Developer", "Web UX/UI Design", "Admin Panel"];
 	var a = document.getElementById("title-services");
 	var b = document.getElementById("services-offer");
 	prog = prog + 1;
@@ -765,17 +736,8 @@ function changeMode(val){
 }
 function loaddata(){
 	//$("#reviews").load("/api/v/fn/reviews");
-	let projects = document.getElementsByClassName("project_box");
-	var id = "1";
-	for(const x of projects){
-		if(x.classList.contains("project_active")){
-			id = x.id.replace("box_","");
-			x.classList.remove("project_active");
-		}
-	}
-	id = parseInt(id)+1;
-	if(id > 5){id = 1;}
-	document.getElementById("box_"+String(id)).classList.add("project_active");
+	//$("#completed_projects").load("{{ url_for('projects') }}");
+
 }
 function loadmessages(){
 	{% if session.get("rooms-user") != None%}
@@ -796,13 +758,12 @@ function order(elm){
 }
 
 function chatRoom(){
-	{%if session.get("rooms-user") == None %}
+	{%if session.get("room-user") != None %}
 		document.getElementById('chat').style.display='block';
 	{%else%}
-		//window.open("http://room-s.herokuapp.com/room?signup&&connect={{blogger}}", "_blank");
-		document.getElementById('chat-user-box').style.display='block';
-		$("#chat-user-box").load("{{url_for('blogChat')}}");
+		window.open("http://room-s.herokuapp.com/room?signup&&connect={{blogger}}", "_blank");
 	{%endif%}
+	
 	
 }
 
@@ -837,12 +798,9 @@ function enterRoom(){
 			let x = $.post("/api/fx/request/validate", {email: email, code : code});
 			if(x.responseText == "success"){
 				popup(x.responseText);	
-				`
 				sleep(500).then(() => {
 					window.open("/api/nx/rooms?b={{name}}", "_blank");
 				})
-				`
-				chatRoom();
 			}else{
 				popup(x.responseText);
 			}
