@@ -671,7 +671,7 @@ background-position: center;
 <label>Description : </label><br><textarea  id="orderdescription" placeholder="A brief description of what you would like"></textarea>
 <button id="btn-order" onclick="makeOrder()">Order</button>
 </div>
-<div class="chat" id="chat-">
+<div class="chat" id="chat">
 <a style="float: right;cursor: pointer;color: red;" onclick="this.parentElement.style.display='none'"><i class="fa fa-window-close" aria-hidden="true"></i></a>
 <center><h3>To Participate in Chat Room Enter Your Email</h3><p>An email code will be sent to the input email</p></center><br>
 <input type="email" placeholder="email" id="email">
@@ -786,7 +786,7 @@ function order(elm){
 }
 
 function chatRoom(){
-	{%if session.get("room-user") != None %}
+	{%if session.get("room-user") == None %}
 		document.getElementById('chat').style.display='block';
 	{%else%}
 		//window.open("http://room-s.herokuapp.com/room?signup&&connect={{blogger}}", "_blank");
