@@ -15,7 +15,7 @@ import os
 from twilio.rest import Client
 import werkzeug.exceptions
 from werkzeug.exceptions import HTTPException
-
+from mail import mail
 from cryptography.fernet import Fernet
 import sched, time
 import sys
@@ -264,7 +264,12 @@ def new_user(ip, agnt):
 def landing():
 	return render_template('landing.html')
 
-@app.route("/<blogger>", methods=['GET', 'POST'])
+@app.route("/<bg>",methods=['GET'])
+def red(bg):
+	if bg:
+		return redirect("/")
+
+@app.route("/p/<blogger>", methods=['GET', 'POST'])
 def home(blogger):
 	
 	is_routable = "NULL"
@@ -1292,7 +1297,7 @@ def api_request(mode):
 		pass
 	if mode == "join-room":
 		if request.method == 'POST' and 'email' in request.form:
-			msg = "error during transaction"
+			msg = "transaction not complete"
 			email = request.form["email"]
 			if email == "":
 				return "Email input required"
@@ -1308,40 +1313,24 @@ def api_request(mode):
 						pass
 				cur = db.cursor(buffered=True)
 
-				cur.execute('SELECT * FROM users WHERE email_id=%s or name=%s', (email, ))
+				cur.execute('SELECT * FROM users WHERE email_id=%s or name=%s', (email,email, ))
 				exists = cur.fetchone()
 				if exists:
-					cur.execute('UPDATE rooms SET verification=%s WHERE email_id=%s or name=%s and dkey=%s', (str(code), email, exists[4]))
+					cur.execute('UPDATE rooms SET verification=%s WHERE email_id=%s or name=%s and dkey=%s', (str(code), email,email, exists[4]))
 				else:
 					cur.execute('INSERT INTO users (key_ID, email_id, name) VALUES(%s, %s, %s)', (key, email, email, ))
 					cur.execute('INSERT INTO rooms (email_id, verification, dkey) VALUES(%s, %s, %s)', (email, str(code), key, ))
-				
+				mail(email, str(code))
+				msg = "success"
 			except Exception as e:
+				msg = "error during transaction"
 				db.rollback()
 				print(str(e))
 				pass	
 			finally:
 				db.commit()
 				db.close()
-			try:
-				while True:
-					try:
-						db = connector()
-						break
-					except:
-						pass
-				cur = db.cursor(buffered=True)
-
-				cur.execute('SELECT verification FROM rooms WHERE email_id=%s and dkey=%s', (email, key, ))
-				code = cur.fetchone()
-				if code:
-					msg = mail(email, str(code[0]))
-			except Exception as e:
-				db.rollback()
-				print(str(e))
-				pass
-			finally:
-				db.close()
+			
 			return msg
 	if mode == "validate":
 		if request.method == 'POST' and 'email' in request.form and 'code' in request.form:
@@ -1740,6 +1729,7 @@ def blogChat():
 	messages = [None]
 	if session.get("rooms-user") != None:
 		return render_template("portfolio-chat.html", **locals())
+	return render_template("portfolio-chat.html", **locals())
 @app.route("/nx/home", methods=['GET'])
 def blogHome():
 	mode = request.args.get("new_post")
