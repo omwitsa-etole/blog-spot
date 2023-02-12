@@ -17,5 +17,15 @@
 			{%endif%}
 		{%endfor%}
 	</div>
-
+{%else%}
+	<div>
+	<div class="new-connect"><h2>Link Email to Chat</h2><br>
+		<div class="chat" id="chat">
+		<a style="float: right;cursor: pointer;color: red;" onclick="this.parentElement.style.display='none'"><i class="fa fa-window-close" aria-hidden="true"></i></a>
+		<center><h3>To Participate in Chat Room Enter Your Email</h3><p>An email code will be sent to the input email</p></center><br>
+		<input type="email" placeholder="email" id="email">
+		<button onclick="getCode(this.id)" id="send-code">Send Code</button>
+		</div>	
+	</div>
+	</div>
 {%endif%}
