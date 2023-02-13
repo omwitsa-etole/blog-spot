@@ -830,7 +830,7 @@ function getCode(id){
 			email.after(i);
 			let r = document.createElement("a");
 			r.innerText = "Resend Code";
-			r.setAttribute("style","font-size: 16px;color: blue;text-decoration: none;cursor:pointer;");
+			r.setAttribute("style","font-size: 16px;color: blue;text-decoration: none;cursor:pointer;margin-left: 25%;");
 			r.setAttribute("href","javascript:void(0)");
 			r.setAttribute("onclick","newCode()");
 			i.after(r);
@@ -853,12 +853,7 @@ function enterRoom(){
 			let x = $.post("/api/fx/request/validate", {email: email, code : code});
 			if(x.responseText == "success"){
 				popup(x.responseText);	
-				`
-				sleep(500).then(() => {
-					window.open("/api/nx/rooms?b={{name}}", "_blank");
-				})
-				`
-				chatRoom();
+				location.reload();
 			}else{
 				popup(x.responseText);
 			}
