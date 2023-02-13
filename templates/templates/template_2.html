@@ -230,8 +230,7 @@ background-position: center;
 	margin-top: 50px;
 	width: 100%;
 	text-align: center;
-	overflow-x: auto;
-	overflow-y: hidden;
+	display: block;
 }
 .advantage span{
 	position: relative;
@@ -257,10 +256,11 @@ background-position: center;
   padding: 5px 0;
   border-radius: 6px;
   position: absolute;
-  z-index: 1;
+  z-index: 10;
   right: 35%;
 }
 .tooltip{
+	display: inline-block;
 	visibility: visible;
 }
 .tooltip:hover .tooltiptext {
@@ -557,11 +557,11 @@ background-position: center;
 	<span class="tooltip"><p><i class="fa fa-html5 fa-3x" aria-hidden="true"></i></p><p>80%</p><span class="tooltiptext">HTML5<p>Complete mastery of the semantic tags of the most contemporary markup language on the internet.</p></span></span>
 	<span class="tooltip"><p><i class="fa fa-css3 fa-3x" aria-hidden="true"></i></p><p>70%</p><span class="tooltiptext">CSS<p>Moderate Knowledge of the style language and its bootstrap 5 framework</p></span></span>
 	<span class="tooltip"><p><i class="fa fa-wordpress fa-3x" aria-hidden="true"></i></p><p>80%</p><span class="tooltiptext">WordPress<p>Deep knowledge of development with WordPress CMS and its Elementor PRO builder.</p></span></span>
-	<span class="tooltip"><p><i class="fa-brands fa-js fa-3x"></i></p><p>65%</p><span class="tooltiptext">JavaScript<p>Moderate Knowledge of basic and object-oriented language. Basics of the React library.</p></span></span>
-	<span class="tooltip"><p><i class="fa-brands fa-python fa-3x"></i></p><p>90%</p><span class="tooltiptext">Python<p>Complete of the Python language for web development and analytics</p></span></span>
-	<span class="tooltip"><p><i class="fa-brands fa-php fa-3x"></i></p><p>90%</p><span class="tooltiptext">PHP<p>Complete Mastery in the PHP language, necessary for code maintenance within WordPress</p></span></span>
-	<span class="tooltip"><p><i class="fa-brands fa-java fa-3x"></i></p><p>90%</p><span class="tooltiptext">JAVA<p>Complete Mastery in the Java language, necessary for object oriented programming</p></span></span>
-	<span class="tooltip"><p><i class="fa-brands fa-cpp fa-3x"></i></p><p>90%</p><span class="tooltiptext">CPP<p>Complete Mastery in the C++ language, necessary for object oriented programming</p></span></span>
+	<span class="tooltip"><p><i class="fa-brands fa-js fa-3x" aria-hidden="true"></i></p><p>65%</p><span class="tooltiptext">JavaScript<p>Moderate Knowledge of basic and object-oriented language. Basics of the React library.</p></span></span>
+	<span class="tooltip"><p><i class="fa-brands fa-python fa-3x" aria-hidden="true"></i></p><p>90%</p><span class="tooltiptext">Python<p>Complete of the Python language for web development and analytics</p></span></span>
+	<span class="tooltip"><p><i class="fa-brands fa-php fa-3x" aria-hidden="true"></i></p><p>90%</p><span class="tooltiptext">PHP<p>Complete Mastery in the PHP language, necessary for code maintenance within WordPress</p></span></span>
+	<span class="tooltip"><p><i class="fa-brands fa-java fa-3x" aria-hidden="true"></i></p><p>90%</p><span class="tooltiptext">JAVA<p>Complete Mastery in the Java language, necessary for object oriented programming</p></span></span>
+	<span class="tooltip"><p><i class="fa-brands fa-c fa-3x" aria-hidden="true"></i></p><p>90%</p><span class="tooltiptext">C,CPP<p>Complete Mastery in the C,C++ language, necessary for object oriented programming</p></span></span>
 </div>
 
 <div class="orders"><hr/>
@@ -725,15 +725,11 @@ function sleep(ms) {
       return new Promise(resolve => setTimeout(resolve, ms));
    }
 $(document).ready(function() {
-	loaddata();
+	//loaddata();
 	//setInterval(loadmessages, 5500);
 	//setInterval(loaddata, 10000);
 	setInterval(loadd, 5500);
-	{% if session.get("rooms-user") != None%}
-		$("#chat-user-box").load("{{url_for('blogChat')}}");
-	{% else %}
-		$("#chat-user-box").load("{{url_for('blogChat')}}");
-	{%endif%}
+	
 })
 let prog = 0
 let uploads = []
