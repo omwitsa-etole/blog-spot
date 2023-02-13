@@ -1036,7 +1036,7 @@ def signout():
 def get_templates():
 	if session.get("loggedin") == None:
 		return redirect("/api/fx/signin?callback_url=/api/fx/templates")
-	if session.get("loggedin") == "blogger":
+	if session.get("loggedin") != None:
 		user = session["user"]
 		
 		if request.method == 'GET':
@@ -1067,6 +1067,7 @@ def get_templates():
 			finally:
 				db.close()
 			return render_template("get-portfolio.html", **locals())
+	
 @app.route("/api/fx/templates/<mode>", methods=['GET', 'POST'])
 def templates(mode):
 	if session.get("loggedin") == None:

@@ -64,7 +64,8 @@ body{
 <div class="dropdown">
 <img src="{{url_for('static', filename='avatar.jpg')}}">
 <div class="dropdown-content">
-<a>Profile</a>
+<a href="{{url_for('profile', mode='home')}}" target="_blank">Profile</a>
+<a href="{{url_for('dashboard',mode='dashboard')}}">Dashboard</a>
 <a href="{{url_for('signout')}}">Sign out</a>
 </div>
 </div>
