@@ -82,7 +82,8 @@ body{
 <center><h1>Choose Your Template(s)</h1></center>
 {%for temp in templates%}
 	<div class="box">
-	<img src="{{url_for('static', filename='templates/'+temp[1])}}.png" onclick="window.open(location.href+'?preview={{temp_1}}', '_blank')"></img>
+	
+	<img src="{{url_for('static', filename='templates/'+temp[1])}}.png" onclick="window.open('{{url_for("get_templates")}}?preview={{temp[1]}}', '_blank')"></img>
 	 <div class="middle" style="">
 	    <div class="text">${{temp[2]}}</div>
 	  </div>
@@ -90,7 +91,7 @@ body{
 	<a id="{{temp[1]}}" onclick="toCart(this.id, this.children[0])"><i class="fa fa-plus-square-o fa-2x" aria-hidden="true"></i></a>
 	</div>
 	<div class="box-b">
-	<button onclick="window.open(location.href+'?preview={{temp[1]}}', '_blank')">Preview</button>
+	<button onclick="window.open('{{url_for("get_templates")}}?preview={{temp[1]}}', '_blank')">Preview</button>
 	</div>
 	</div>
 {%endfor%}

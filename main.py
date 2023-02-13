@@ -144,6 +144,7 @@ def notification(description):
 		db.close()
 def alert(description):
 	notification(description)
+	print(description)
 	#client = vonage.Client(key="923c97c5", secret="2sceTYgOJBBD3esG")
 	#sms = vonage.Sms(client)
 	#responseData = sms.send_message(
@@ -154,7 +155,7 @@ def alert(description):
 	    #}
 	#)
 	account_sid = "ACe49b09af512780159044b3221769b9af"#os.environ['TWILIO_ACCOUNT_SID']
-	auth_token = "c28188c06904eb88cd3a7c41fb757113"#os.environ['TWILIO_AUTH_TOKEN']
+	auth_token = "109e6aadc15d8846a17626300d2da24b"#os.environ['TWILIO_AUTH_TOKEN']
 	client = Client(account_sid, auth_token)
 
 	message = client.messages.create(
@@ -694,11 +695,11 @@ def order(mode):
 	if mode == "new-msgs":
 		getmessages()
 		contacts = send_end["messages"][0]
-		return render_template("contact-messages.html", contacts=contacts)
+		return render_template("contact-messages.html",Fernet=Fernet, contacts=contacts)
 	if mode == "dash-msgs":
 		getmessages()
 		messages = send_end["messages"][0]
-		return render_template("dashboard-messages.html", messages = messages)
+		return render_template("dashboard-messages.html", Fernet=Fernet,messages = messages)
 	if mode == "events":
 		try:
 			while True:
@@ -737,7 +738,7 @@ def fetchmessages(no):
 			pass
 		finally:
 			db.close()
-		return render_template("messages.html", messages=messages, n=len(messages))
+		return render_template("messages.html", Fernet=Fernet, messages=messages, n=len(messages))
 @app.route("/api/v/admin", methods=['GET', 'POST'])
 def admin_role():
 	global verification
@@ -777,7 +778,8 @@ def admin_role():
 				db.close()
 			return msg
 		else:	
-			return render_template("admin.html", **locals())
+			#return render_template("admin.html", **locals())
+			return redirect("/api/v/dashboard")
 	else:
 		return redirect("/api/fx/signin")
 def run_parallel(*functions):
@@ -842,7 +844,7 @@ def dashboard(mode):
 		daytoday = tday.ctime()
 		#perfomance = h.heap()
 		path = '/home/korg'
-		stat =[40,70] #shutil.disk_usage(path)
+		stat =[40,70,50] #shutil.disk_usage(path)
 		cpu_count = os.cpu_count()
 		perfomance = []
 		perfomance.append("The Server CPU count is : "+str(cpu_count))
@@ -884,7 +886,7 @@ def dashboard(mode):
 			if mode == "new-message":
 				return render_template("new-message.html", **locals())
 			if mode == "dashboard":
-				return render_template("dashboard.html", **locals())
+				return render_template("dashboard.html", Fernet=Fernet,**locals())
 			if mode == "all-messages":
 				return render_template("all_messages.html", **locals())
 			if mode == "perfomance":
@@ -894,15 +896,16 @@ def dashboard(mode):
 			if mode == "blogs":
 				return render_template("new.html", **locals())
 			if mode == "orders":
-				return render_template("orders.html", **locals())
+				return render_template("mails.html", **locals())
 			if mode == "visits":
 				
 				return render_template("visits.html", **locals())
 			if mode == "notifications":
 				all_notifications = all_messages[3]
 				return render_template("notifications.html", **locals())
-	except IndexError:
-		abort(404)
+	except Exception as e:
+		print(str(e))
+		abort(500)
 		
 
 @app.route("/api/fx/signup", methods=['GET', 'POST'])
@@ -1035,12 +1038,15 @@ def get_templates():
 		return redirect("/api/fx/signin?callback_url=/api/fx/templates")
 	if session.get("loggedin") == "blogger":
 		user = session["user"]
-		print(user)
+		
 		if request.method == 'GET':
 			preview = request.args.get("preview")
 			
 			if preview != None:
-				return redirect("/"+str(session["user"]))
+				try:
+					return render_template("templates/"+str(preview)+".html",**locals())
+				except:
+					abort(404)
 			try:
 				cart = [0]
 				while True:

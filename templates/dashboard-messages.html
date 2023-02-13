@@ -1,4 +1,6 @@
 {% for message in messages%}
+		{% set fernet = Fernet(message[6])%}
+		{% set msg = fernet.decrypt(message[3]).decode()%}
                   <tr>
                     <td class="pd-l-0-force">
                       <img src="{{ url_for('static', filename='avatar.jpg')}}" class="wd-40 rounded-circle" alt="">
@@ -7,7 +9,7 @@
                       <h6 class="tx-inverse tx-14 mg-b-0">{{ message[1] }}</h6>
                       <span class="tx-12"><p>user</p></span>
                     </td>
-                    <td class="msg" id='{{message[0]}}ms' style=""><p>{{ message[3] }}</p></td>
+                    <td class="msg" id='{{message[0]}}ms' style=""><p>{{ msg }}</p></td>
 		   <td><textarea class="reply-text" id="{{message[0]}}" placeholde="respond" placeholder="reply" style="display:none;"></textarea></td>
                     <td>
 			<div >

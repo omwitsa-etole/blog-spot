@@ -50,8 +50,8 @@ body{
       </ul><!-- sidebar-tabs -->
 
       <!-- Tab panes -->
-      <div class="tab-content" id="tab-content" style="height: 450px;overflow: auto;">
-       <div class="tab-pane pos-absolute a-0 mg-t-60 overflow-y-auto ps ps--theme_default" id="contacts" role="tabpanel" data-ps-id="cae31352-cb5c-3787-8101-91686d96f79f">
+      <div class="tab-content" id="tab-content" style="height: 600px;overflow-y: auto;overflow-x:hidden;">
+       <div class="tab-pane pos-absolute a-0 mg-t-60  ps ps--theme_default" id="contacts" role="tabpanel" data-ps-id="cae31352-cb5c-3787-8101-91686d96f79f">
           <label class="sidebar-label pd-x-25 mg-t-25" style="color: black;">Contacts</label>
           <div class="contact-list pd-x-10 box" style="margin-top: -20px;width: 450px;overflow: auto;" id="contact-messages">
             
@@ -180,7 +180,8 @@ body{
 $(document).ready(function() {
 	changePage();
 	setInterval(checkwidth, 1000);
-	setInterval(checkmessage, 2000);
+	checkmessage();
+	//setInterval(checkmessage, 2000);
 	$("#loadevents").load("/api/v/fn/events");
 });
 function checkmessage(){
@@ -232,14 +233,14 @@ function showMessage(message, id, elm, user){
 	}
 	x.innerHTML = message;
 	document.getElementById("popup").style.visibility='visible';
-	$.ajaxSetup({async: false});
+	$.ajaxSetup({async: true});
 	$("#msgs-load").load("/api/v/chat/"+user);
 	document.getElementById("msg-id").value = id;
 	sleep(200).then(() => {
 		document.getElementById("user-email").innerText = user;
 	})
 	$.post("/api/v/fn/read", {email:"email", id:id});
-	setInterval(fetchMsg(user), 2500);
+	fetchMsg(user);
 }
 function fetchMsg(id){
 	$("#msgs-load").load("/api/v/chat/"+id);
