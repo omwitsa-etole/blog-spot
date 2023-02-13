@@ -278,7 +278,8 @@ background-position: center;
 	top: 10%;
 	left: 30%;
 	width: 40%;
-	height: 300px;
+	min-height: 300px;
+	max-height: 600px;
 	overflow-y: auto;
 	overflow-x: hidden;
 	background: white;
@@ -524,29 +525,37 @@ h2 input{
 <p style="font-size: 28px;">Ask for Services in various areas:</p>
 <div style="width: 100;">
 <div class="box">
-<img src="{{ url_for('static', filename='ux.jpg') }}" alt="Code" style="width:100%;height: 85%;">
-<div class="centered">
-<h2>UX/UI Design</h2>
-<p>An effective UI/UX is one that conveys a clear and objective message. I make sure the design is fresh and neat with all of that.</p>
-</div>
-<button onclick="order(this.parentElement)">Place Order</button>
-</div>
-<div class="box" >
-<img src="{{ url_for('static', filename='computercode.jpeg') }}" alt="Code" style="width:100%;height: 85%;">
-<div class="centered" style="color: red;">
-<h2>Web Developement</h2>
-<p>If you're looking for a developer to take over the research and development of your website, I'm a well-established professional to help you with that.</p>
-</div>
-<button onclick="order(this.parentElement)">Place Order</button>
-</div>
-<div class="box">
-<img src="{{ url_for('static', filename='analysis.jpg') }}" alt="Code" style="width:100%;height: 85%;">
-<div class="centered" style="color: ;">
-<h2>Data Analytics</h2>
-<p>If you're looking for someone who can help you make more informed decisions through analytics and predictive modeling, I'm qualified for that.</p>
-</div>
-<button onclick="order(this.parentElement)">Place Order</button>
-</div>
+	<img src="{{ url_for('static', filename='computercode.jpeg') }}" alt="Code" style="width:100%;height: 85%;">
+	<div class="centered" style="color:red;">
+	<h2>Object Oriented Programming</h2>
+	<p>Programms that implement the oop approach to ensure code reusability and effectiveness.</p>
+	</div>
+	<button onclick="order(this.parentElement)">Place Order</button>
+	</div>
+	<div class="box">
+	<img src="{{ url_for('static', filename='ux.jpg') }}" alt="Code" style="width:100%;height: 85%;">
+	<div class="centered">
+	<h2>UX/UI Design</h2>
+	<p>An effective UI/UX is one that conveys a clear and objective message. I make sure the design is fresh and neat with all of that.</p>
+	</div>
+	<button onclick="order(this.parentElement)">Place Order</button>
+	</div>
+	<div class="box" >
+	<img src="{{ url_for('static', filename='computercode.jpeg') }}" alt="Code" style="width:100%;height: 85%;">
+	<div class="centered" style="color: red;">
+	<h2>Web Developement</h2>
+	<p>If you're looking for a developer to take over the research and development of your website, I'm a well-established professional to help you with that.</p>
+	</div>
+	<button onclick="order(this.parentElement)">Place Order</button>
+	</div>
+	<div class="box">
+	<img src="{{ url_for('static', filename='analysis.jpg') }}" alt="Code" style="width:100%;height: 85%;">
+	<div class="centered" style="color: ;">
+	<h2>Data Analytics</h2>
+	<p>If you're looking for someone who can help you make more informed decisions through analytics and predictive modeling, I'm qualified for that.</p>
+	</div>
+	<button onclick="order(this.parentElement)">Place Order</button>
+	</div>
 </div>
 <br><p style="font-size: 28px;">Hard Skills</p>
 <div class="box b">
@@ -578,7 +587,18 @@ h2 input{
 <i class="fa-brands fa-php fa-4x"></i>
 <h2>PHP</h2>
 <p>Moderate knowledge in the PHP language, necessary for code maintenance within WordPress</p>
-</div><br><br>
+</div>
+<div class="box b">
+<i class="fa-brands fa-java fa-4x"></i>
+<h2>JAVA</h2>
+<p>Complete Mastery in the Java language, necessary for object oriented programming</p>
+</div>
+<div class="box b">
+<i class="fa-brands fa-c fa-4x"></i>
+<h2>C/CPP</h2>
+<p>Complete Mastery in the C,C++ language, necessary for object oriented programming</p>
+</div>
+<br><br>
 <p style="font-size: 28px;">View Completed Pojects</p>
 <a class="prev" onclick="loaddata()">&#10094;</a>
 <a class="next" onclick="loaddata()">&#10095;</a>
@@ -653,11 +673,11 @@ function showSlides(n) {
 }
 var page_data = 0
 $(document).ready(function() {
-	setTimeout(loaddata, 3000);
+	setTimeout(loaddata, 5500);
 	let t = "{{session.get('user')}}"
 	if(t != "Null" && t!= "None"){
 		$("#res").load("{{ url_for('messages')}}");
-		setInterval(loadmessages, 1500);
+		setInterval(loadmessages, 10000);
 	}
 	
 });
@@ -705,7 +725,7 @@ function shareMessage(){
 	}else{
 		x.style.display = 'none';
 	}
-	
+	loadmessages();
 }
 function readMode(id){
 	var x = document.getElementById("title").innerHTML;
@@ -771,7 +791,8 @@ function sendChat(){
 		popup(x.responseText)
 	}
 	document.getElementById("yourmessage").value = "";
-	setInterval(loadmessages, 1500);
+	//setInterval(loadmessages, 1500);
+	loadmessages();
 }
 function sleep(ms) {
       return new Promise(resolve => setTimeout(resolve, ms));

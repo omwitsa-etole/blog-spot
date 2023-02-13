@@ -103,6 +103,8 @@ li a{
 	margin-left: 20px;
 	background: white;
 	margin-top: 10px;
+	text-align: center;
+	cursor: pointer;
 }
 
 .post:hover{
@@ -148,21 +150,26 @@ li a{
 	justify-content: center;
 	overflow: hidden;
 }
+.left{
+	position: absolute;left: 0;top: 70px;width: 100%;height: 100%;overflow: auto;
+}
 @media only screen and (max-width: 900px) {
+	.left-nav{display: none;}
 	#menu-btn{
 		position: fixed;
 		left: 1%;
 	}
 	.top-nav input{
-		width: 20%;
-		margin-left: 25%;
+		width: 40%;
+		margin-left: 30%;
 	}
 	.post{
 		width: 80%;
 		
 	}
 	.main-body{
-		margin-left: 30%;
+		margin-left: 0;
+		z-index: 2;
 	}
 	
 }
@@ -183,8 +190,8 @@ li a{
   min-width: 160px;
   box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
   z-index: 1;
-  top: 5%;
-  right: 5%;
+  top: 50%;
+  left: 80%;
 }
 .dropdown-menu a{
 	color: black;
@@ -209,7 +216,7 @@ li a{
 <input type="text" placeholder="search BlogSpot" id="search-q" onkeyup="filterPosts()">
 <span id="search-more" onclick="searchMore()">Show more results<a style="float: right;cursor: alias;" onclick="this.parentElement.style.display='none'"><i class="fa fa-window-close"></i></a></span>
 </div>
-<h2 style="margin-left: 7%;position: absolute;left: 0;top: 10%;" onclick="location.href='{{url_for('blogHome')}}'">BlogSpot</h2>
+<h2 style="margin-left: 9%;position: absolute;left: 0;top: 10%;" onclick="location.href='{{url_for('blogHome')}}'">BlogSpot</h2>
 
 {%if session.get("loggedin") == None %}
 <span class="top-opts">
@@ -250,7 +257,7 @@ li a{
 
 </div>
 
-<div style="position: absolute;left: 0;top: 70px;width: 100%;height: 100%;overflow: auto;">
+<div class="left" style="">
 <div class="left-nav" id="left-nav">
 <h6>Filters</h6><hr/>
 <div class="filter-options">
@@ -274,38 +281,17 @@ li a{
 <div class="main-body" id="main-body" style=""> 
 <div id="blogs-page" style="margin-left: 5%;">
 
-<div class="post" oncontextmenu="showMenu(event, '1');">
-<p>ab</p>
+<div class="post" oncontextmenu="showMenu(event, '1');" onclick="document.getElementById('1').children[0].click()">
+<p ><h3>INTERNET PROGRAMMING</h3></p>
+<p>{DESCRIPTION}</p>
 <div class="dropdown-menu" id="1">
-<a>Read</a>
-<a>Print</a>
-<a>Download</a>
+<a href="{{url_for('read',title='internet_programming')}}">Read</a>
+<a href="#">Print</a>
+<a href="#">Download</a>
+<a href="{{url_for('read',title='internet_programming')}}" target="_blank">Open in new tab</a>
 </div>
 </div>
-<div class="post" name="2" oncontextmenu="showMenu(event, '2');">
-<p>bc</p>
-<div class="dropdown-menu" id="2">
-<a>Read</a>
-<a>Print</a>
-<a>Download</a>
-</div>
-</div>
-<div class="post" name="3" oncontextmenu="showMenu(event, '3');">
-<p>ef</p>
-<div class="dropdown-menu" id="3">
-<a>Read</a>
-<a>Print</a>
-<a>Download</a>
-</div>
-</div>
-<div class="post" name="4" oncontextmenu="showMenu(event, '4');">
-<p>ad</p>
-<div class="dropdown-menu" id="4">
-<a>Read</a>
-<a>Print</a>
-<a>Download</a>
-</div>
-</div>
+
 
 
 </div>

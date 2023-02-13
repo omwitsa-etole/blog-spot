@@ -99,7 +99,7 @@ def method_not_allowed(e):
 
 
 def connector():
-	"""
+	#"""
 	db = mysql.connector.connect(host="localhost",    # your host, usually localhost
                      user="root",         # your username
                      passwd="root",  # your password
@@ -115,7 +115,7 @@ def connector():
 		except Exception as e:
 			print(str(e))
 			pass
-	#"""
+	"""
 	if db == None:
 		raise "No connection"
 
@@ -377,6 +377,8 @@ def messages():
 			finally:
 				db.close()
 			return render_template("messages.html", messages=messages, n=len(messages), Fernet=Fernet)
+		else:
+			return "Invalid Request"
 @app.route("/<mode>")
 def Api(mode):
 	print(mode)
@@ -817,7 +819,7 @@ def dashboard_templates():
 def dashboard(mode):
 	
 	try:
-		if session.get("admin-logged") is None or session.get("admin-logged") == False:
+		if session.get("loggedin") is None or session.get("loggedin") == False:
 				return redirect("/api/v/admin")
 		global send_end	
 		run_parallel(visitors, order, donation, getmessages)
@@ -912,54 +914,50 @@ def dashboard(mode):
 def signup():
 	msg = None
 	if request.method == 'POST':
-		if 'joinus' in request.form:
-			username = request.form["username"]
-			email = request.form["email"]
-			password = request.form["password"]
-			mode = request.form["joinus"]
-			key = Fernet.generate_key()
-			if mode == "user":
-				try:
-					while True:
-						try:
-							db = connector()
-							break
-						except:
-							pass
-					cur = db.cursor(buffered=True)
-					cur.execute("SELECT * FROM users WHERE key_ID=%s", (key, ))
-					keys = cur.fetchone()
-					if keys:
-						msg = "An error occured on our side, try again"
-						return render_template("signup.html", **locals())
-					cur.execute('SELECT * FROM users WHERE email_id=%s ', (email, ))
-					exists = cur.fetchone()
-					if exists:
-						msg = "Username not available"
-						return render_template("signup.html", **locals())
-					cur.execute('SELECT * FROM users WHERE name=%s', (username, ))
-					existss = cur.fetchone()
-					if existss:
-						msg = "Email account already exists"
-						return render_template("signup.html", **locals())
-					cur.execute('INSERT INTO users (key_ID, email_id, name) VALUES(%s, %s, %s)', (key, email, username,))
-					cur.execute('INSERT INTO rooms (email_id, name, dkey) VALUES(%s, %s, %s)', (email, username, key, ))
-					msg = "success"
-				except Exception as e:
-					print(str(e))
+		username = request.form["username"]
+		email = request.form["email"]
+		password = request.form["password"]
+		#mode = request.form["joinus"]
+		key = Fernet.generate_key()
+		if username != "" and email != "":
+			try:
+				while True:
+					try:
+						db = connector()
+						break
+					except:
+						pass
+				cur = db.cursor(buffered=True)
+				cur.execute("SELECT * FROM users WHERE key_ID=%s", (key, ))
+				keys = cur.fetchone()
+				if keys:
 					msg = "An error occured on our side, try again"
-					db.rollback()
-					pass
-				finally:
-					db.commit()
-					db.close()
-			elif mode == "blogger":
+					return render_template("signup.html", **locals())
+				cur.execute('SELECT * FROM users WHERE email_id=%s ', (email, ))
+				exists = cur.fetchone()
+				if exists:
+					msg = "Email account already exists"
+					return render_template("signup.html", **locals())
+				cur.execute('SELECT * FROM users WHERE name=%s', (username, ))
+				existss = cur.fetchone()
+				if existss:
+					msg = "Username not available"
+					return render_template("signup.html", **locals())
+				cur.execute('INSERT INTO users (key_ID, email_id, name) VALUES(%s, %s, %s)', (key, email, username,))
+				cur.execute('INSERT INTO rooms (email_id, name, dkey) VALUES(%s, %s, %s)', (email, username, key, ))
+				msg = "success"
+			except Exception as e:
+				print(str(e))
+				msg = "An error occured on our side, try again"
+				db.rollback()
 				pass
-			else:
-				msg = "An error occured on our side, try again"	
-			return render_template("signup.html", **locals())
+			finally:
+				db.commit()
+				db.close()
+		
 		else:
-			msg = "Fill out all required fileds"
+			msg = "Fill out all fields to proceed"	
+		
 	return render_template("signup.html", **locals())
 @app.route("/api/fx/signin", methods=['GET', 'POST'])
 def signin():
@@ -993,7 +991,7 @@ def signin():
 					if call_back != None and call_back != "None": 
 						return redirect(call_back)
 					else:
-						return redirect("/api/v/admin")
+						return redirect("/api/v/dashboard")
 					
 				
 				cur.execute('SELECT * FROM users WHERE email_id=%s or name=%s', (username, username, ))
@@ -1003,10 +1001,10 @@ def signin():
 					session["user"] = existss[2]
 					session["eid"] = existss[1]
 					msg = "success"
-					if call_back != None: 
+					if call_back != None and call_back != "None": 
 						return redirect(call_back)
 					else:
-						return redirect("/test")
+						return redirect("/nx/home")
 					return redirect(returnurl)
 				else:
 					msg = "Invalid Username or Password"
@@ -1754,7 +1752,7 @@ def profile(mode):
 	if mode == "home" or mode == "my-profile":
 		return render_template("profile.html", **locals())
 	if mode == "mails":
-		return render_template("mails.html", **locals())
+		return redirect("/api/v/orders")
 	
 @app.route("/test", methods=['GET'])
 def test():
