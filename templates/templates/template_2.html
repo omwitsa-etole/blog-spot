@@ -803,7 +803,18 @@ function chatRoom(){
 	{%endif%}
 	
 }
-
+function newCode(){
+	var email = document.getElementById("email");
+	if(email.value.length > 0){
+		$.ajaxSetup({async: false});
+		let x = $.post("/api/fx/request/get-code", {email: email.value});
+		if(x.responseText == "success"){
+			popup("check for code in your email box");
+		}else{popup(x.responseText);}
+	}else{
+		popup("enter email to join room");
+	}
+}
 function getCode(id){
 	var email = document.getElementById("email");
 	var btn = document.getElementById(id);
@@ -817,10 +828,17 @@ function getCode(id){
 			i.setAttribute("id", "email-code");
 			i.setAttribute("placeholder", "enter code sent to email");
 			email.after(i);
+			let r = document.createElement("a");
+			r.innerText = "Resend Code";
+			r.setAttribute("style","font-size: 16px;color: blue;text-decoration: none;cursor:pointer;");
+			r.setAttribute("href","javascript:void(0)");
+			r.setAttribute("onclick","newCode()");
+			i.after(r);
 			btn.removeAttribute("onclick");
+			btn.innerText = "Enter";
 			btn.setAttribute("onclick", "enterRoom()");
 		}else{
-			popup(x.responseText)
+			popup(x.responseText);
 		}
 	}else{
 		popup("enter email to join room");

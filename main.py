@@ -99,7 +99,7 @@ def method_not_allowed(e):
 
 
 def connector():
-	#"""
+	"""
 	db = mysql.connector.connect(host="localhost",    # your host, usually localhost
                      user="root",         # your username
                      passwd="root",  # your password
@@ -115,7 +115,7 @@ def connector():
 		except Exception as e:
 			print(str(e))
 			pass
-	"""
+	#"""
 	if db == None:
 		raise "No connection"
 
@@ -1325,6 +1325,39 @@ def api_request(mode):
 				else:
 					cur.execute('INSERT INTO users (key_ID, email_id, name) VALUES(%s, %s, %s)', (key, email, email, ))
 					cur.execute('INSERT INTO rooms (email_id, verification, dkey) VALUES(%s, %s, %s)', (email, str(code), key, ))
+				mail(email, str(code))
+				msg = "success"
+			except Exception as e:
+				msg = "error during transaction"
+				db.rollback()
+				print(str(e))
+				pass	
+			finally:
+				db.commit()
+				db.close()
+			
+			return msg
+	if mode == "get-code":
+		if request.method == 'POST' and 'email' in request.form:
+			msg = "transaction not complete"
+			email = request.form["email"]
+			if email == "":
+				return "Email input required"
+			verificationcode = random.randint(100000, 999999)
+			code = verificationcode
+			try:
+				while True:
+					try:
+						db = connector()
+						break
+					except:
+						pass
+				cur = db.cursor(buffered=True)
+
+				cur.execute('SELECT * FROM users WHERE email_id=%s or name=%s', (email,email, ))
+				exists = cur.fetchone()
+				if exists:
+					cur.execute('UPDATE rooms SET verification=%s WHERE email_id=%s or name=%s and dkey=%s', (str(code), email,email, exists[4]))
 				mail(email, str(code))
 				msg = "success"
 			except Exception as e:
