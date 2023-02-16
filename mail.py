@@ -34,7 +34,7 @@ def notify(email_to, from_user, msg, host):
 	password = os.environ.get("app_pass")
 	sender = os.environ.get("app_mail")
 	receivers = [email_to]
-
+	print(sender)
 	message = """
 	Subject: You Have a new Message in your BlogSpot Room
 
