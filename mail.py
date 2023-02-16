@@ -1,4 +1,5 @@
 import smtplib, ssl
+import os
 
 def mail(email_to, code):
 	port = 465  # For SSL
@@ -30,7 +31,7 @@ def notify(email_to, from_user, msg, host):
 	print(msg)
 	port = 465  # For SSL
 	smtp_server = "smtp.gmail.com"
-	password = "tuhkspzasphcvflr"
+	password = os.getenv("app_pass")
 	sender = "omwitsabradone@gmail.com"
 	receivers = [email_to]
 
