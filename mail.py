@@ -4,8 +4,8 @@ import os
 def mail(email_to, code):
 	port = 465  # For SSL
 	smtp_server = "smtp.gmail.com"
-	password = "tuhkspzasphcvflr"
-	sender = "omwitsabradone@gmail.com"
+	password = os.environ.get("app_pass")
+	sender = os.environ.get("app_mail")
 	receivers = [email_to]
 
 	message = """
@@ -34,7 +34,7 @@ def notify(email_to, from_user, msg, host):
 	password = os.environ.get("app_pass")
 	sender = os.environ.get("app_mail")
 	receivers = [email_to]
-	print(sender)
+	#print(sender)
 	message = """
 	Subject: You Have a new Message in your BlogSpot Room
 
