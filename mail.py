@@ -31,8 +31,8 @@ def notify(email_to, from_user, msg, host):
 	print(msg)
 	port = 465  # For SSL
 	smtp_server = "smtp.gmail.com"
-	password = os.getenv("app_pass")
-	sender = "omwitsabradone@gmail.com"
+	password = os.environ.get("app_pass")
+	sender = os.environ.get("app_mail")
 	receivers = [email_to]
 
 	message = """
