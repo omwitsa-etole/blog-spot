@@ -242,7 +242,7 @@ def landing():
 @app.route("/<bg>",methods=['GET'])
 def red(bg):
 	if bg:
-		return redirect("/")
+		return redirect("/p/"+str(bg))
 
 @app.route("/p/<blogger>", methods=['GET', 'POST'])
 def home(blogger):
