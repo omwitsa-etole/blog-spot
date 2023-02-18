@@ -1002,7 +1002,7 @@ def signout():
 	call_back = request.args.get("callback_url")
 	if call_back != None:
 		returnurl = call_back
-	return redirect("/api/fx/signin?callback_url="+returnurl)
+	return redirect("/api/fx/signin?callback_url=/nx/home")
 
 @app.route("/api/fx/templates", methods=['GET'])
 def get_templates():
@@ -1042,10 +1042,6 @@ def get_templates():
 	
 @app.route("/api/fx/templates/<mode>", methods=['GET', 'POST'])
 def templates(mode):
-	if session.get("loggedin") == None:
-		return redirect("/api/fx/signin?callback_url=/api/fx/templates/"+mode)
-	mssg = Vars.mssg
-	p1 = Payements("paypal", 0)
 	if mode == "get":
 		templates = request.args.get("template")
 		if templates != None:
@@ -1054,6 +1050,11 @@ def templates(mode):
 			except:
 				abort(404)
 				pass
+	if session.get("loggedin") == None:
+		return redirect("/api/fx/signin?callback_url=/api/fx/templates/"+mode)
+	mssg = Vars.mssg
+	p1 = Payements("paypal", 0)
+	
 	if mode == "add":
 		msg = None
 		if request.method == 'POST' and 'template' in request.form:
