@@ -26,6 +26,23 @@
   0% { transform: rotate(0deg); }
   100% { transform: rotate(360deg); }
 }
+.chat-user{
+	position: fixed;
+	bottom: 2%;
+	right: 2%;
+	cursor: pointer;
+	z-index: 99;
+}
+.chat-user-box{
+	display: none;
+	position:fixed;
+	bottom: 1%;
+	right: 1%;
+	z-index: 101;
+	width: 300px;
+	height: 550px;
+	
+}
 </style>
 <script src="{{url_for('static',filename='jquery.js')}}"></script>
 <script src="https://use.fontawesome.com/4f05e2c5d5.js"></script>
@@ -39,6 +56,11 @@
 </div>
 </center>
 </body>
+<div class="chat-user">
+<a href="javascript:void(0)" onclick="chatRoom()"><i class="fa fa-commenting fa-2x" aria-hidden="true"></i></a>
+
+</div>
+<div class="chat-user-box" id="chat-user-box"></div>
 <script>
 window.onhashchange = function() {
     checkPage();
@@ -47,6 +69,11 @@ $(document).ready(function(){
 	setTimeout(checkPage, 2000);
 	
 })
+function chatRoom(){
+	if(confirm("You will be directed to Rooms to connect with bradone")){
+		location.href= "http://room-s.herokuapp.com/room?connect=korg";
+	}
+}
 function checkPage(){
 	if(location.hash.includes(".html")){
 		let x = location.hash;
