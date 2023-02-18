@@ -1,0 +1,141 @@
+
+<body id="playground">
+<style>
+.s{
+	width: 80px;height: 80px;
+	margin-left: 12px;cursor:pointer;
+}
+</style>
+<!--
+<div class="loading-wrap">
+  <div class="loading">
+    <div class="loader">
+      <span>{</span><span>}</span>
+    </div>
+  </div>
+</div>-->
+
+<nav>
+  <div class="nav-left">
+    <a href="../index.html">
+      
+    </a>
+  </div>
+  <div class="nav-right">
+   <ul>
+      <li ><a href="#index.html">PORTFOLIO</a></li>
+      <li class="active"><a href="#playground.html">PLAYGROUND</a></li>
+      <li ><a href="#about.html">ABOUT</a></li>
+      <li><a href="{{url_for('static',filename='assets/pdf/cv.pdf')}}" target="_blank">RESUME</a></li>
+    </ul>
+  </div>
+</nav>
+<header>
+  <div class="playground-header-inside">
+    <img class="s" src="{{url_for('static',filename='/assets/img/rooms.png')}}" alt="">
+    <img class="s" src="{{url_for('static',filename='/assets/img/blogspot.png')}}" alt="">
+    <img class="s" src="{{url_for('static',filename='/assets/img/betsite.png')}}" alt="">
+    <img class="s" src="{{url_for('static',filename='/assets/img/askabcrypto.png')}}" alt="">
+    <h2 class="playground-h2 glitch" data-text="PLAYGROUND">PLAYGROUND</h2>
+    <h3 class="playground-h3">Experiments / Side Projects / Blog / Course / Ideas</h3>
+    <p class="warning">
+      All the projects on this page are still under construction.
+    </p>
+  </div>
+
+</header>
+
+
+<div class="sec1">
+
+  <div class="content">
+    <!-- project unit -->
+    <div class="project project-col-6" data-cate="focus uiux dev">
+      <a href="http://room-s.herokuapp.com">
+      <div class="project-pic" style="background-image:url('{{url_for('static',filename='/assets/img/rooms.png')}}')">
+      </div>
+       </a>
+       <div class="project-under">
+         <h4 class="playground-h4">ROOMS</h4>
+         <div class="desc">Rooms &amp; Messaging platform</div>
+       </div>
+    </div>
+
+    <div class="project project-col-6" data-cate="focus uiux dev">
+      <a href="http://spot-blog.herokuapp.com/nx/home">
+      <div class="project-pic" style="background-image:url('{{url_for('static',filename='/assets/img/blogspot.png')}}')">
+      </div>
+       </a>
+       <div class="project-under">
+         <h4 class="playground-h4">BlogSpot</h4>
+         <div class="desc">An interactive program allows bloggers to share and manage blog spots and select from various templates</div>
+       </div>
+    </div>
+
+    <div class="project project-col-6" data-cate="focus uiux dev">
+      <a href="http://bet-site.herokuapp.com/?login">
+      <div class="project-pic" style="background-image:url('{{url_for('static',filename='/assets/img/betsite.png')}}')">
+      </div>
+       </a>
+       <div class="project-under">
+         <h4 class="playground-h4">SureBets</h4>
+         <div class="desc">Enjoy sure odds from multiple bookmakers that guarantee a certain profit no matter the outcome</div>
+       </div>
+    </div>
+
+    <div class="project project-col-6" data-cate="focus uiux dev">
+      <a href="www.askabcrypto.online">
+      <div class="project-pic" style="background-image:url('{{url_for('static',filename='/assets/img/askabcrypto.png')}}')">
+      </div>
+       </a>
+       <div class="project-under">
+         <h4 class="playground-h4">AskabCrypto</h4>
+         <div class="desc">Compare the market price for all cryptocurrencies and also filter currencies within a certain cap</div>
+       </div>
+    </div>
+    
+    
+    <br><br>
+    <div class="project project-col-6" data-cate="focus uiux dev" style="margin-left: 30%;margin-top: 15px;">
+      <a href="https://github.com/omwitsa-etole" target="_blank">
+      <div class="project-pic" style="background-image:url('{{url_for('static',filename='/assets/img/icons/github-sign.png')}}')">
+      </div>
+       </a>
+       <div class="project-under">
+         <h4 class="playground-h4">Github</h4>
+         <div class="desc">More Projects available in my github repository</div>
+       </div>
+    </div>
+    
+    
+    
+  </div>
+</div>
+<footer>
+  <div class="copyright">Copyright © 2018 Yu-Hsuan Lin</div>
+  <div class="social-media">
+    <a href="https://dribbble.com/omwitsa-etole"><img src="{{url_for('static',filename='/assets/img/icons/dribbble.png')}}" alt=""></a>
+    <a href="https://github.com/omwitsa-etole"><img src="{{url_for('static',filename='/assets/img/icons/github-sign.png')}}" alt=""></a>
+    <a href="mailto:omwitsabradone@gmail.com"><img src="{{url_for('static',filename='/assets/img/icons/envelope.png')}}" alt=""></a>
+    <a href="https://www.linkedin.com/in/bradone-etole-891227222/"><img src="{{url_for('static',filename='/assets/img/icons/linkedin.png')}}" alt=""></a>
+  </div>
+</footer>
+
+
+<script async="" src="https://www.google-analytics.com/analytics.js"></script><script src="/assets/js/jquery-2.1.4.min.js"></script>
+<script src="/assets/js/p5.min.js"></script>
+<script src="https://rawgit.com/layervault/jquery.typer.js/master/src/jquery.typer.js"></script>
+<script src="/assets/js/index.js"></script>
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-90248764-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+
+</body>

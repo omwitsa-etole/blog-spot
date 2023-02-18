@@ -1,0 +1,83 @@
+<html>
+
+<head>
+<title>Portfolio</title>
+<meta charset="UTF-8">
+  <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <title></title>
+  
+  <link rel="stylesheet" href="{{url_for('static',filename='assets/css/normalize.css')}}">
+ 
+  <link rel="stylesheet" href="{{url_for('static',filename='assets/css/index.css')}}">
+  <link rel="stylesheet" href="{{url_for('static',filename='assets/css/page.css')}}">
+<style>
+.loader {
+  margin: 10% auto;
+  border: 16px solid #f3f3f3; /* Light grey */
+  border-top: 16px solid #3498db; /* Blue */
+  border-radius: 50%;
+  width: 120px;
+  height: 120px;
+  animation: spin 2s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+</style>
+<script src="{{url_for('static',filename='jquery.js')}}"></script>
+<script src="https://use.fontawesome.com/4f05e2c5d5.js"></script>
+<script src="https://code.jquery.com/jquery-3.5.0.js"></script>
+<script src="https://kit.fontawesome.com/c63faa1f51.js" crossorigin="anonymous"></script>
+</head>
+
+<body id="main-body">
+<center>
+<div class="loader">
+</div>
+</center>
+</body>
+<script>
+window.onhashchange = function() {
+    checkPage();
+}
+$(document).ready(function(){
+	setTimeout(checkPage, 2000);
+	
+})
+function checkPage(){
+	if(location.hash.includes(".html")){
+		let x = location.hash;
+		x = x.replace("#","");
+		x = "temp3_"+x;
+		console.log(x);
+		getPage('/api/fx/templates/get?template='+x);
+	}else{
+		getPage('/api/fx/templates/get?template=temp3_index.html');
+	}
+}
+function getPage(file){
+	fetch(file)
+	    .then(function(response) {
+		return response.text()
+		
+	    })
+	    .then(function(html) {    
+		setPage(html);
+		
+	    })
+	    .catch(function(err) {  
+		console.log(err);
+		  
+	    });
+
+}
+function setPage(text){
+	let x = document.getElementById("main-body");
+	//x.remove();
+	x.innerHTML = text;
+}
+</script>
+</html>

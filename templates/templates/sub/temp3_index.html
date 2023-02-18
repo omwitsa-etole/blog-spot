@@ -1,0 +1,144 @@
+
+<body id="playground">
+<style>
+.box{
+	position: relative;
+	display: inline-block;
+	width: 300px;
+	height: 250px;
+	background: white;
+	border-radius: 10px;
+	margin-left: 5%;
+	margin-top: 3%;
+	font-size: 18px;
+	color: black;
+	text-align: center;
+	justify-content: center;
+	box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px, rgba(27, 31, 35, 0.15) 0px 0px 0px 1px;
+}
+.b{
+	height: 250px;
+}
+</style>
+<!--
+<div class="loading-wrap">
+  <div class="loading">
+    <div class="loader">
+      <span>{</span><span>}</span>
+    </div>
+  </div>
+</div>-->
+
+<nav>
+  <div class="nav-left">
+    <a href="#">
+      
+    </a>
+  </div>
+  <div class="nav-right">
+    <ul>
+      <li class="active"><a href="#">PORTFOLIO</a></li>
+      <li><a href="#playground.html">PLAYGROUND</a></li>
+      <li ><a href="#about.html">ABOUT</a></li>
+      <li><a href="{{url_for('static',filename='assets/pdf/cv.pdf')}}">RESUME</a></li>
+    </ul>
+  </div>
+</nav>
+<header>
+<div class="header-container">
+    <div class="header-words">
+      <div class="header-title">Hi, I'm B.E OMWITSA. <br><b id="title-services"> A product designer</b>.</div>
+      <div class="header-description">
+        <span>Currently working on next-gen </span><span> products at&nbsp;</span> <a href="{{url_for('blogHome')}}">BlogSpot</a><span>.</span><span> Previously worked at&nbsp;</span><a href="https://upwork.com/">Upwork</a> and <span> ,&nbsp;</span> <a href="https://freelancer.com">Freelancer</a> <span>.</span> 
+      </div>
+      
+   
+    </div>
+    <div class="header-selfie">
+      <div class="selfie-background" style='background-image:url("{{url_for('static',filename='profile.jpg')}}");border-radius: 50%;'>
+        
+    </div>
+  </div> 
+
+<div>
+<h3>Skills</h3>
+<div class="box b">
+<i class="fa fa-html5 fa-4x" aria-hidden="true"></i>
+<h2>HTML5</h2>
+<p>Complete mastery of the semantic tags of the most contemporary markup language on the internet.</p>
+</div>
+<div class="box b">
+<i class="fa fa-css3 fa-4x" aria-hidden="true"></i>
+<h2>CSS</h2>
+<p>Complete mastery of the style language and its bootstrap 5 framework</p>
+</div>
+<div class="box b">
+<i class="fa fa-wordpress fa-4x" aria-hidden="true"></i>
+<h2>WORDPRESS</h2>
+<p>Deep knowledge of development with WordPress CMS and its Elementor PRO builder.</p>
+</div>
+<div class="box b">
+<i class="fa-brands fa-js fa-4x"></i>
+<h2>JAVASCRIPT</h2>
+<p>Complete mastery of basic and object-oriented language. Basics of the React library.</p>
+</div>
+<div class="box b">
+<i class="fa-brands fa-python fa-4x"></i>
+<h2>PYTHON</h2>
+<p>Moderate knowledge of the Python language for web development and analytics</p>
+</div>
+<div class="box b">
+<i class="fa-brands fa-php fa-4x"></i>
+<h2>PHP</h2>
+<p>Moderate knowledge in the PHP language, necessary for code maintenance within WordPress</p>
+</div>
+<div class="box b">
+<i class="fa-brands fa-java fa-4x"></i>
+<h2>JAVA</h2>
+<p>Complete Mastery in the Java language, necessary for object oriented programming</p>
+</div>
+<div class="box b">
+<i class="fa-brands fa-c fa-4x"></i>
+<h2>C/CPP</h2>
+<p>Complete Mastery in the C,C++ language, necessary for object oriented programming</p>
+</div>
+</div>
+
+
+</div>
+</header>
+
+<footer>
+  <div class="copyright">Copyright © 2023</div>
+  <div class="social-media">
+    <a href="https://dribbble.com/omwitsa-etole"><img src="{{url_for('static',filename='/assets/img/icons/dribbble.png')}}" alt=""></a>
+    <a href="https://github.com/omwitsa-etole"><img src="{{url_for('static',filename='/assets/img/icons/github-sign.png')}}" alt=""></a>
+    <a href="mailto:omwitsabradone@gmail.com"><img src="{{url_for('static',filename='/assets/img/icons/envelope.png')}}" alt=""></a>
+    <a href="https://www.linkedin.com/in/bradone-etole-891227222/"><img src="{{url_for('static',filename='/assets/img/icons/linkedin.png')}}" alt=""></a>
+  </div>
+</footer>
+
+
+<script async="" src="https://www.google-analytics.com/analytics.js"></script><script src="jquery.js"></script>
+<script src="index.js"></script>
+
+<script>
+$(document).ready(function(){
+	setInterval(loadd, 2500);
+})
+  
+
+function loadd(){
+	let x = ["Fullstack Developement", "Web UX/UI Design", "Object Oriented Programming","Django Web Framework","Flask Web Framework","Java Programming","Data Structures and Algorithms"];
+	var a = document.getElementById("title-services");
+	
+	prog = prog + 1;
+	if(prog >= x.length){
+		prog = 0
+	}
+	a.innerText = x[prog];
+}
+
+</script>
+
+</body>

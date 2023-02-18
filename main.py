@@ -17,6 +17,7 @@ import werkzeug.exceptions
 from werkzeug.exceptions import HTTPException
 from mail import mail
 from cryptography.fernet import Fernet
+from connection import connector
 import sched, time
 import sys
 app = Flask(__name__)
@@ -94,33 +95,6 @@ def method_not_allowed(e):
         return jsonify(message="Method Not Allowed"), 405
     else:
         return render_template("405.html"), 405
-
-
-
-
-def connector():
-	"""
-	db = mysql.connector.connect(host="localhost",    # your host, usually localhost
-                     user="root",         # your username
-                     passwd="root",  # your password
-                     db="dbo")
-	"""
-	for i in range(0,8):
-		try:
-			db = mysql.connector.connect(host="192.185.81.65",    # your host, usually localhost
-		             user=os.environ.get("db_user"),         # your username
-		             passwd=os.environ.get("db_pass"),  # your password
-		             db=os.environ.get("db_name"))
-			break
-		except Exception as e:
-			print(str(e))
-			pass
-	#"""
-	if db == None:
-		raise "No connection"
-
-	return db
-
 
 def pay(phone, amount):
 	pass
@@ -285,7 +259,7 @@ def home(blogger):
 	hostname = is_routable
 	imgs = ['analysis.jpg', 'computercode.jpeg', 'ux.jpg']
 	imgs=random.choice(imgs)
-	return render_template("templates/template_2.html", **locals())
+	return render_template("templates/template_3.html", **locals())
 
 
 @app.route("/read/projects/<title>", methods=['POST', 'GET'])
@@ -1072,6 +1046,14 @@ def templates(mode):
 		return redirect("/api/fx/signin?callback_url=/api/fx/templates/"+mode)
 	mssg = Vars.mssg
 	p1 = Payements("paypal", 0)
+	if mode == "get":
+		templates = request.args.get("template")
+		if templates != None:
+			try:
+				return render_template("/templates/sub/"+str(templates))
+			except:
+				abort(404)
+				pass
 	if mode == "add":
 		msg = None
 		if request.method == 'POST' and 'template' in request.form:

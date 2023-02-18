@@ -1,0 +1,76 @@
+
+<body id="playground">
+<!--
+<div class="loading-wrap">
+  <div class="loading">
+    <div class="loader">
+      <span>{</span><span>}</span>
+    </div>
+  </div>
+</div>-->
+
+<nav>
+  <div class="nav-left">
+    <a href="../index.html">
+      
+    </a>
+  </div>
+  <div class="nav-right">
+   <ul>
+      <li ><a href="#index.html">PORTFOLIO</a></li>
+      <li ><a href="#playground.html">PLAYGROUND</a></li>
+      <li class="active"><a href="#about.html">ABOUT</a></li>
+      <li><a href="{{url_for('static',filename='assets/pdf/cv.pdf')}}">RESUME</a></li>
+    </ul>
+  </div>
+</nav>
+
+<section class="about-content">
+  <div class="other-sm flex">
+    <div class="col-40 text-left padding-per" style="padding-top: 50px; padding-right: 50px;">
+      <img src="{{url_for('static',filename='profile.jpg')}}" alt="" style="border-radius: 50%;">
+    </div>
+    <div class="col-60 text-left" style="padding-left: 10px;">
+      <div class="about-title">Hi, I am Bradone Omwitsa.</div>
+      <div class="about-subtitle"><strong>A Web Developer / UX/UI Designer / Fullstack Developer</strong></div>
+      
+      <div class="about-description">
+      I am a UX designer with background in computer science. I am passionate about solving problems and also crafting the next generation of impactful venture. I <a href="javascript:void(0)">love to programm</a> at any time. <br><div class="space"></div>
+      Currently, I am pursing my <strong>Degree in Computer Science at University of Eldoret</strong>, concentrating on Cyber Security and Software Developement. Will graduate in August 2024. <br><div class="space"></div>
+    <!-------In summer 2018, I interned at <strong>Google</strong>, working with Google Assistant team. Recently, I worked at <strong>NYU IT</strong> as a Design Lead, leading design process of several projects. Before I pursued my Master degree, I worked as a product designer at <strong>Backer-Founder</strong>. <br><div class="space"></div>------>
+Feel free to reach out to me on <a href="http://room-s.herokuapp.com">Rooms(ongoing project)</a> / <a href="mailto:omwitsaetole@gmail.com">Email</a> / <a href="https://dribbble.com/">Dribbble</a>.
+    <br><br><div class="space"></div>
+    </div>
+    <a class="about-button" href="{{url_for('static',filename='assets/pdf/cv.pdf')}}">View My Resume</a>
+    </div>
+    
+  </div>
+</section>
+
+
+<footer>
+  <div class="copyright">Copyright © 2023 </div>
+  <div class="social-media">
+    <a href="https://dribbble.com/omwitsa-etole"><img src="{{url_for('static',filename='/assets/img/icons/dribbble.png')}}" alt=""></a>
+    <a href="https://github.com/omwitsa-etole"><img src="{{url_for('static',filename='/assets/img/icons/github-sign.png')}}" alt=""></a>
+    <a href="mailto:omwitsabradone@gmail.com"><img src="{{url_for('static',filename='/assets/img/icons/envelope.png')}}" alt=""></a>
+    <a href="https://www.linkedin.com/in/bradone-etole-891227222/"><img src="{{url_for('static',filename='/assets/img/icons/linkedin.png')}}" alt=""></a>
+  </div>
+</footer>
+
+
+<script async="" src="https://www.google-analytics.com/analytics.js"></script><script src="jquery.js"></script>
+<script src="index.js"></script>
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-90248764-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+
+</body>
