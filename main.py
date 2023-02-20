@@ -239,8 +239,8 @@ def new_user(ip, agnt):
 def landing():
 	return render_template('landing.html')
 
-@app.route("/p/<bg>")
-@app.route("/<bg>",methods=['GET'])
+@app.route("/p/<blogger>")
+@app.route("/<blogger>",methods=['GET'])
 def home(blogger):
 	if blogger:
 		return render_template("templates/template_3.html", **locals())
