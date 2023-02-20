@@ -239,13 +239,14 @@ def new_user(ip, agnt):
 def landing():
 	return render_template('landing.html')
 
+@app.route("/p/<bg>")
 @app.route("/<bg>",methods=['GET'])
-def red(bg):
-	if bg:
-		return redirect("/p/"+str(bg))
-
-@app.route("/p/<blogger>", methods=['GET', 'POST'])
 def home(blogger):
+	if blogger:
+		return render_template("templates/template_3.html", **locals())
+
+@app.route("/home/<blogger>", methods=['GET', 'POST'])
+def blogSpot(blogger):
 	
 	is_routable = "NULL"
 	if request.environ.get('HTTP_X_FORWARDED_FOR') is None:
