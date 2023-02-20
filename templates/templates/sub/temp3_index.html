@@ -1,25 +1,7 @@
 
 <body id="playground">
-<style>
-.box{
-	position: relative;
-	display: inline-block;
-	width: 300px;
-	height: 250px;
-	background: white;
-	border-radius: 10px;
-	margin-left: 5%;
-	margin-top: 3%;
-	font-size: 18px;
-	color: black;
-	text-align: center;
-	justify-content: center;
-	box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px, rgba(27, 31, 35, 0.15) 0px 0px 0px 1px;
-}
-.b{
-	height: 250px;
-}
-</style>
+
+
 <!--
 <div class="loading-wrap">
   <div class="loading">
@@ -62,42 +44,42 @@
 
 <div>
 <h3>Skills</h3>
-<div class="box b">
+<div class="boxb">
 <i class="fa fa-html5 fa-4x" aria-hidden="true"></i>
 <h2>HTML5</h2>
 <p>Complete mastery of the semantic tags of the most contemporary markup language on the internet.</p>
 </div>
-<div class="box b">
+<div class="boxb">
 <i class="fa fa-css3 fa-4x" aria-hidden="true"></i>
 <h2>CSS</h2>
 <p>Complete mastery of the style language and its bootstrap 5 framework</p>
 </div>
-<div class="box b">
+<div class="boxb">
 <i class="fa fa-wordpress fa-4x" aria-hidden="true"></i>
 <h2>WORDPRESS</h2>
 <p>Deep knowledge of development with WordPress CMS and its Elementor PRO builder.</p>
 </div>
-<div class="box b">
+<div class="boxb">
 <i class="fa-brands fa-js fa-4x"></i>
 <h2>JAVASCRIPT</h2>
 <p>Complete mastery of basic and object-oriented language. Basics of the React library.</p>
 </div>
-<div class="box b">
+<div class="boxb">
 <i class="fa-brands fa-python fa-4x"></i>
 <h2>PYTHON</h2>
 <p>Moderate knowledge of the Python language for web development and analytics</p>
 </div>
-<div class="box b">
+<div class="boxb">
 <i class="fa-brands fa-php fa-4x"></i>
 <h2>PHP</h2>
 <p>Moderate knowledge in the PHP language, necessary for code maintenance within WordPress</p>
 </div>
-<div class="box b">
+<div class="boxb">
 <i class="fa-brands fa-java fa-4x"></i>
 <h2>JAVA</h2>
 <p>Complete Mastery in the Java language, necessary for object oriented programming</p>
 </div>
-<div class="box b">
+<div class="boxb">
 <i class="fa-brands fa-c fa-4x"></i>
 <h2>C/CPP</h2>
 <p>Complete Mastery in the C,C++ language, necessary for object oriented programming</p>
@@ -106,12 +88,43 @@
 
 
 </div>
+<div style="text-align: center;width: 100%;">
+<center></h3>Reviews</h3></center><br>
+
+<div id="load-reviews"></div>
+
+<center>
+<button class="review" onclick="document.getElementById('review-box').style.display='block'">
+    Submit Review
+    <div class="arrow-wrapper">
+        <div class="arrow"></div>
+
+    </div>
+</button>
+</center>
+</div>
+
 </header>
 <div class="chat-user">
 <a href="javascript:void(0)" onclick="chatRoom()"><i class="fa fa-commenting fa-2x" aria-hidden="true"></i></a>
 
 </div>
 <div class="chat-user-box" id="chat-user-box"></div>
+<div style="position: fixed;top: 0;left: 0;width: 100%;height: 100%;text-align:center;display:none;"  id="review-box">
+  <div class="subscribe">
+    <p>REVIEW</p>
+     <input type="text" name="name" class="subscribe-input" placeholder="Your name(optional)" id="your-name"><br>
+    <textarea placeholder="Your Review" id="your-review"></textarea>
+   
+    <input type="email" name="email" class="subscribe-input" placeholder="Your e-mail" id="your-email" required>
+    <br>
+    <div class="cancel-btn" onclick="document.getElementById('review-box').style.display='none'">CANCEL</div>
+    <div class="submit-btn" onclick="Review()">SUBMIT</div>
+   
+  </div>
+
+</div>
+
 <footer >
   <div class="copyright">Copyright © 2023</div>
   <div class="social-media">
@@ -121,16 +134,15 @@
     <a href="https://www.linkedin.com/in/bradone-etole-891227222/"><img src="{{url_for('static',filename='/assets/img/icons/linkedin.png')}}" alt=""></a>
   </div>
 </footer>
-
+<div id="snackbar"></div>
 
 <script async="" src="https://www.google-analytics.com/analytics.js"></script><script src="jquery.js"></script>
 <script src="index.js"></script>
 
 <script>
-$(document).ready(function(){
-	setInterval(loadd, 2500);
-})
-  
+
+setInterval(loadd, 2500);
+loadreviews();
 
 function loadd(){
 	let x = ["Fullstack Developement", "Web UX/UI Design", "Object Oriented Programming","Django Web Framework","Flask Web Framework","Java Programming","Data Structures and Algorithms"];
@@ -142,6 +154,7 @@ function loadd(){
 	}
 	a.innerText = x[prog];
 }
+
 
 </script>
 

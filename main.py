@@ -542,7 +542,11 @@ def order(mode):
 			return msg
 		if mode == "review":
 			user = request.form["email"]
+			name = request.form["name"]
 			des = request.form["review"]
+			nm = name.lower()
+			if nm == "" or nm == "null" or nm == "none" or nm == "n/a" or nm == "undefined":
+				name = "AnonyMous"
 			msg = None
 			s = str(datetime.datetime.now())
 			s = s.split(" ")
@@ -555,10 +559,11 @@ def order(mode):
 					except:
 						pass
 				cur = db.cursor(buffered=True)
-				cur.execute('INSERT INTO reviews (user, review, time) VALUES(%s, %s, %s)', (user, des, date, ))
+				cur.execute('INSERT INTO reviews (email_id,name, review) VALUES(%s, %s, %s)', (user, name, des, ))
 				msg = "Review submitted"
 				notification(user+" submitted a review")
-			except:
+			except Exception as e:
+				print(str(e))
 				msg = "error during transaction"
 				db.rollback()
 				pass
@@ -635,7 +640,7 @@ def order(mode):
 						pass
 				cur = db.cursor(buffered=True)
 				cur.execute('SELECT * FROM reviews ORDER BY time DESC')
-				reviews = cur.fetchall()
+				reviews = cur.fetchall()[0:5]
 				msg = "Review submitted"
 			except:
 				msg = "error during transaction"
@@ -1341,11 +1346,12 @@ def api_request(mode):
 				cur.execute('SELECT * FROM users WHERE email_id=%s or name=%s', (email,email, ))
 				exists = cur.fetchone()
 				if exists:
-					cur.execute('UPDATE rooms SET verification=%s WHERE email_id=%s or name=%s and dkey=%s', (str(code), email,email, exists[4]))
+					cur.execute('UPDATE rooms SET verification=%s WHERE email_id=%s or name=%s and dkey=%s', (str(code), email,email, exists[4],))
 				mail(email, str(code))
 				msg = "success"
 			except Exception as e:
 				msg = "error during transaction"
+				
 				db.rollback()
 				print(str(e))
 				pass	

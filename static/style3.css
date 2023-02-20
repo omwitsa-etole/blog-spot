@@ -1,0 +1,102 @@
+#snackbar {
+  visibility: hidden;
+  min-width: 250px; 
+  margin-left: -125px; 
+  background-color: #333; 
+  color: #fff; 
+  text-align: center; 
+  border-radius: 2px; 
+  padding: 16px;
+  position: fixed; 
+  z-index: 110; 
+  left: 50%; 
+  bottom: 30px; 
+}
+
+#snackbar.show {
+  visibility: visible; 
+  -webkit-animation: fadein 0.5s, fadeout 0.5s 2.5s;
+  animation: fadein 0.5s, fadeout 0.5s 2.5s;
+}
+
+@-webkit-keyframes fadein {
+  from {bottom: 0; opacity: 0;}
+  to {bottom: 30px; opacity: 1;}
+}
+
+@keyframes fadein {
+  from {bottom: 0; opacity: 0;}
+  to {bottom: 30px; opacity: 1;}
+}
+
+@-webkit-keyframes fadeout {
+  from {bottom: 30px; opacity: 1;}
+  to {bottom: 0; opacity: 0;}
+}
+
+@keyframes fadeout {
+  from {bottom: 30px; opacity: 1;}
+  to {bottom: 0; opacity: 0;}
+}
+.connect-card {
+  position:fixed;
+  top: 20%;
+  left: 35%;
+  width: 350px;
+  height: 324px;
+  padding: 0 15px;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 12px;
+  background: #fff;
+  border-radius: 20px;
+}
+
+.connect-card > * {
+  margin: 0;
+}
+
+.connect-card__title {
+  font-size: 23px;
+  font-weight: 900;
+  color: #333;
+}
+
+.connect-card__content {
+  font-size: 13px;
+  line-height: 18px;
+  color: #333;
+}
+
+.connect-card__form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.connect-card__form input {
+  margin-top: 10px;
+  outline: 0;
+  background: rgb(255, 255, 255);
+  box-shadow: transparent 0px 0px 0px 1px inset;
+  padding: 0.6em;
+  border-radius: 14px;
+  border: 1px solid #333;
+  color: black;
+}
+
+.connect-card__form button {
+  border: 0;
+  background: #111;
+  color: #fff;
+  padding: 0.68em;
+  border-radius: 14px;
+  font-weight: bold;
+}
+
+.sign-up:hover {
+  opacity: 0.8;
+} 
