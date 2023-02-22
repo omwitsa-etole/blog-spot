@@ -235,6 +235,9 @@ def new_user(ip, agnt):
 	finally:
 		db.commit()
 		db.close()
+@app.route("/fonts/<md>")
+def red(md):
+	return ""
 @app.route("/", methods=['GET'])
 def landing():
 	return render_template('landing.html')
@@ -1266,7 +1269,20 @@ def setOnline(newCookies):
 			finally:
 				db.commit()
 				db.close()
-
+@app.route("/api/nx/home/request/<q>",methods=['GET'])
+def apiCall(q):
+	
+	if q == "blogs":
+		return render_template("api/blog.html",**locals())
+	elif q == "home":
+		return render_template("api/home.html",**locals())
+	elif q == "notifications":
+		return render_template("api/notification.html",**locals())
+	elif q == "settings":
+		return render_template("api/setting.html",**locals())
+	else:
+		return render_template("404.html",**locals())
+	
 @app.route("/api/fx/request/<mode>", methods=['POST', 'GET'])
 def api_request(mode):
 	newCookies = CK()
