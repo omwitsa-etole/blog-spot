@@ -214,12 +214,7 @@ def donate(mode):
 	print(msg)
 def new_user(ip, agnt):
 	try:
-		while True:
-			try:
-				db = connector()
-				break
-			except:
-				pass
+		db = connector()
 		cur = db.cursor(buffered=True)
 		cur.execute('SELECT * FROM visitors WHERE ip_addr =%s', (ip, ))
 		res = cur.fetchall()
